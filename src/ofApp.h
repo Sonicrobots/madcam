@@ -19,8 +19,20 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 
+    void setup_cams();
+    void update_cams();
+    void draw_cams();
+
+    int calculate_width();
+
     ofVideoGrabber vidGrabber;
     vector<ofVideoGrabber> grabbers;
+
     int camWidth;
     int camHeight;
+    int winWidth;
+    int winHeight;
+    int scaledWidth;
+
+    int selected; 
 };
