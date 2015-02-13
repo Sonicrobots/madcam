@@ -24,6 +24,7 @@ class ofApp : public ofBaseApp{
     void draw_cams();
 
     int calculate_width();
+    int calculate_xoffset();
 
     ofVideoGrabber vidGrabber;
     vector<ofVideoGrabber> grabbers;
@@ -33,6 +34,7 @@ class ofApp : public ofBaseApp{
     int winWidth;
     int winHeight;
     int scaledWidth;
+    int xoffset;
 
     int selected; 
 };

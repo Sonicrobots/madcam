@@ -11,6 +11,7 @@ void ofApp::setup(){
   camHeight = 480;
 
   scaledWidth = calculate_width();
+  xoffset = calculate_xoffset();
   
   setup_cams();
 }
@@ -112,9 +113,13 @@ void ofApp::update_cams()
 void ofApp::draw_cams()
 {
   ofSetHexColor(0xffffff);
-  grabbers.at(selected).draw(0, 0, scaledWidth, winHeight);
+  grabbers.at(selected).draw(xoffset , 0, scaledWidth, winHeight);
 }
 
+int ofApp::calculate_xoffset()
+{
+  return (winWidth - scaledWidth) / 2;
+}
 
 int ofApp::calculate_width()
 {
