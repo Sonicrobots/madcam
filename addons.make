@@ -1,4 +1,2 @@
-ofxThreadedImageLoader
-ofxOpenCv
-ofxNetwork
 ofxOsc
+ofxMidi

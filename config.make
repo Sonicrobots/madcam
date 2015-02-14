@@ -76,7 +76,7 @@ PROJECT_ROOT = .
 # add a runtime path to search for those shared libraries, since they aren't 
 # incorporated directly into the final executable application binary.
 ################################################################################
-# PROJECT_LDFLAGS=-Wl,-rpath=./libs
+PROJECT_LDFLAGS=-Wl,-rpath=./libs -pg
 
 ################################################################################
 # PROJECT DEFINES
@@ -104,7 +104,7 @@ PROJECT_ROOT = .
 #
 #   Note: Leave a leading space when adding list items with the += operator
 ################################################################################
-# PROJECT_CFLAGS = 
+PROJECT_CFLAGS = -pg -g
 
 ################################################################################
 # PROJECT OPTIMIZATION CFLAGS

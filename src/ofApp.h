@@ -1,13 +1,15 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxMidi.h"
 
-class ofApp : public ofBaseApp{
+class ofApp : public ofBaseApp, public ofxMidiListener {
 
 	public:
 		void setup();
 		void update();
 		void draw();
+    void exit();
 
 		void keyPressed(int key);
 		void keyReleased(int key);
@@ -19,12 +21,13 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 
-    void setup_cams();
-    void update_cams();
-    void draw_cams();
+    void setupCams();
+    void updateCams();
+    void drawCams();
 
-    int calculate_width();
-    int calculate_xoffset();
+    void prepareDimensions();
+    int calculateWidth();
+    int calculateXOffset();
 
     ofVideoGrabber vidGrabber;
     vector<ofVideoGrabber> grabbers;
@@ -34,7 +37,13 @@ class ofApp : public ofBaseApp{
     int winWidth;
     int winHeight;
     int scaledWidth;
-    int xoffset;
+    int xOffset;
 
     int selected; 
+
+    // MIDI
+    void newMidiMessage(ofxMidiMessage& newMsg);
+    void setupMidi();
+
+    ofxMidiIn      midiIn;
 };
