@@ -7,7 +7,7 @@ void ofApp::prepareDimensions()
 
   camWidth    = 640; // try to grab at this size.
   camHeight   = 480;
- 
+
   scaledWidth = calculateWidth();
   xOffset     = calculateXOffset();
 }
@@ -15,6 +15,7 @@ void ofApp::prepareDimensions()
 //--------------------------------------------------------------
 void ofApp::setup(){
   selected  = 0;
+  tiles     = 2;
   ofSetVerticalSync(true);
   prepareDimensions();
   setupCams();
@@ -30,17 +31,27 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+  int wsize   = winWidth / tiles;
+  int hsize   = (wsize / (camWidth * 0.01)) * (0.01 * camHeight);
+  int numrows = winHeight / hsize;
+  int yoff    = 0;
   drawCams();
+  //for(int i = 0; i < numrows; i++) {
+  //  for(int b = 0; b < tiles; b++) {
+  //    grabbers.at(i % grabbers.size()).draw(b*wsize,yoff,wsize,hsize);
+  //  }
+  //  yoff += hsize;
+  //}
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
   cout << key << endl;
-  // if(key < 58 && key > 48) {
-  //   selected = key - 49;
-  // } else {
-  //   selected = 0;
-  // }
+  if(key < 58 && key > 48) {
+    selected = key - 49;
+  } else {
+    selected = 0;
+  }
 }
 
 //--------------------------------------------------------------
@@ -81,16 +92,15 @@ void ofApp::gotMessage(ofMessage msg){
 }
 
 //--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo){ 
+void ofApp::dragEvent(ofDragInfo dragInfo){
 
 }
 
 //--------------------------------------------------------------
 void ofApp::exit() {
-	
-	// clean up
-	midiIn.closePort();
-	midiIn.removeListener(this);
+  // clean up
+  midiIn.closePort();
+  midiIn.removeListener(this);
 }
 
 
@@ -100,26 +110,21 @@ void ofApp::setupCams()
   vector<ofVideoDevice> devices = vidGrabber.listDevices();
 
   for(int i = 0; i < devices.size(); i++){
-    cout << devices[i].id << ": " << devices[i].deviceName;
-    
     ofVideoGrabber grabber;
     grabber.setDeviceID(devices[i].id);
     grabber.setDesiredFrameRate(30);
     grabber.setup(camWidth,camHeight);
-
     grabbers.push_back(grabber);
-    
-    if( devices[i].bAvailable ){
-      cout << endl;
-    }else{
-      cout << " - unavailable " << endl;
-    }
   }
 }
 
 void ofApp::updateCams()
-{ 
-  grabbers.at(selected).update();
+{
+  //if()
+  //grabbers.at(selected).update();
+  for(int i = 0; i < grabbers.size(); i++){
+    grabbers.at(i).update();
+  }
 }
 
 
@@ -144,31 +149,31 @@ int ofApp::calculateWidth()
 // MIDI
 void ofApp::setupMidi()
 {
-  // print input ports to console
-	midiIn.listPorts(); // via instance
-	//ofxMidiIn::listPorts(); // via static as well
-	
-	// open port by number (you may need to change this)
-	//midiIn.openPort(1);
-	//midiIn.openPort("IAC Pure Data In");	// by name
+  midiIn.listPorts(); // via instance
+
+  //midiIn.openPort(1);
+  //midiIn.openVirtualPort("ofxMidiIn Input"); // open a virtual port
   midiIn.openPort("FastTrack Pro 40:0");
 
-	//midiIn.openVirtualPort("ofxMidiIn Input"); // open a virtual port
-	
-	// don't ignore sysex, timing, & active sense messages,
-	// these are ignored by default
-	midiIn.ignoreTypes(false, false, false);
-	
-	// add ofApp as a listener
-	midiIn.addListener(this);
-	midiIn.setVerbose(true);
+  // don't ignore sysex, timing, & active sense messages,
+  // these are ignored by default
+  //midiIn.ignoreTypes(false, false, false);
+
+  // add ofApp as a listener
+  midiIn.addListener(this);
+  midiIn.setVerbose(true);
 }
 
 void ofApp::newMidiMessage(ofxMidiMessage& msg)
 {
   switch(msg.status) {
     case MIDI_NOTE_ON:
-      selected = msg.pitch % grabbers.size();
+      if(msg.pitch < grabbers.size())
+        selected = msg.pitch;
+      return;
+    case MIDI_CONTROL_CHANGE:
+      if(msg.control == 20 && msg.value > 1)
+        tiles = msg.value;
       return;
     default:
       return;
