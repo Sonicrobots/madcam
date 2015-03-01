@@ -1,7 +1,10 @@
-#pragma once
+#ifndef MADCAM_MAIN_H
+#define MADCAM_MAIN_H
 
 #include "ofMain.h"
 #include "ofxMidi.h"
+
+#include "Cameras.h"
 
 class MadCam : public ofBaseApp, public ofxMidiListener {
 
@@ -21,30 +24,12 @@ public:
   void dragEvent(ofDragInfo dragInfo);
   void gotMessage(ofMessage msg);
 
-  void setupCams();
-  void updateCams();
-  void drawCams();
-
-  void prepareDimensions();
-  int calculateWidth();
-  int calculateXOffset();
-
-  ofVideoGrabber vidGrabber;
-  vector<ofVideoGrabber> grabbers;
-
-  int camWidth;
-  int camHeight;
-  int winWidth;
-  int winHeight;
-  int scaledWidth;
-  int xOffset;
-
-  int selected;
-  int tiles;
-
   // MIDI
   void newMidiMessage(ofxMidiMessage& newMsg);
   void setupMidi();
 
-  ofxMidiIn      midiIn;
+  Cameras cams;
+  ofxMidiIn midiIn;
 };
+
+#endif
