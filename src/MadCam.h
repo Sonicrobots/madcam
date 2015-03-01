@@ -3,7 +3,7 @@
 #include "ofMain.h"
 #include "ofxMidi.h"
 
-class ofApp : public ofBaseApp, public ofxMidiListener {
+class MadCam : public ofBaseApp, public ofxMidiListener {
 
 public:
   void setup();

@@ -1,6 +1,6 @@
-#include "ofApp.h"
+#include "MadCam.h"
 
-void ofApp::prepareDimensions()
+void MadCam::prepareDimensions()
 {
   winWidth    = ofGetWidth();
   winHeight   = ofGetHeight();
@@ -13,7 +13,7 @@ void ofApp::prepareDimensions()
 }
 
 //--------------------------------------------------------------
-void ofApp::setup(){
+void MadCam::setup(){
   selected  = 0;
   tiles     = 2;
   ofSetVerticalSync(true);
@@ -23,14 +23,13 @@ void ofApp::setup(){
 }
 
 //--------------------------------------------------------------
-void ofApp::update(){
+void MadCam::update(){
   ofBackground(0,0,0);
   updateCams();
 }
 
-
 //--------------------------------------------------------------
-void ofApp::draw(){
+void MadCam::draw(){
   int wsize   = winWidth / tiles;
   int hsize   = (wsize / (camWidth * 0.01)) * (0.01 * camHeight);
   int numrows = winHeight / hsize;
@@ -45,7 +44,7 @@ void ofApp::draw(){
 }
 
 //--------------------------------------------------------------
-void ofApp::keyPressed(int key){
+void MadCam::keyPressed(int key){
   cout << key << endl;
   if(key < 58 && key > 48) {
     selected = key - 49;
@@ -55,56 +54,56 @@ void ofApp::keyPressed(int key){
 }
 
 //--------------------------------------------------------------
-void ofApp::keyReleased(int key){
+void MadCam::keyReleased(int key){
 
 }
 
 //--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y ){
+void MadCam::mouseMoved(int x, int y ){
 
 }
 
 //--------------------------------------------------------------
-void ofApp::mouseDragged(int x, int y, int button){
+void MadCam::mouseDragged(int x, int y, int button){
 
 }
 
 //--------------------------------------------------------------
-void ofApp::mousePressed(int x, int y, int button){
+void MadCam::mousePressed(int x, int y, int button){
 
 }
 
 //--------------------------------------------------------------
-void ofApp::mouseReleased(int x, int y, int button){
+void MadCam::mouseReleased(int x, int y, int button){
 
 }
 
 //--------------------------------------------------------------
-void ofApp::windowResized(int w, int h){
+void MadCam::windowResized(int w, int h){
   winWidth  = w;
   winHeight = h;
   scaledWidth = calculateWidth();
 }
 
 //--------------------------------------------------------------
-void ofApp::gotMessage(ofMessage msg){
+void MadCam::gotMessage(ofMessage msg){
 
 }
 
 //--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo){
+void MadCam::dragEvent(ofDragInfo dragInfo){
 
 }
 
 //--------------------------------------------------------------
-void ofApp::exit() {
+void MadCam::exit() {
   // clean up
   midiIn.closePort();
   midiIn.removeListener(this);
 }
 
 
-void ofApp::setupCams()
+void MadCam::setupCams()
 {
   //we can now get back a list of devices.
   vector<ofVideoDevice> devices = vidGrabber.listDevices();
@@ -118,7 +117,7 @@ void ofApp::setupCams()
   }
 }
 
-void ofApp::updateCams()
+void MadCam::updateCams()
 {
   //if()
   //grabbers.at(selected).update();
@@ -128,18 +127,18 @@ void ofApp::updateCams()
 }
 
 
-void ofApp::drawCams()
+void MadCam::drawCams()
 {
   ofSetHexColor(0xffffff);
   grabbers.at(selected).draw(xOffset , 0, scaledWidth, winHeight);
 }
 
-int ofApp::calculateXOffset()
+int MadCam::calculateXOffset()
 {
   return (winWidth - scaledWidth) / 2;
 }
 
-int ofApp::calculateWidth()
+int MadCam::calculateWidth()
 {
   float scale = winHeight / (camHeight * 0.01f);
   return int((camWidth * 0.01f) * scale);
@@ -147,7 +146,7 @@ int ofApp::calculateWidth()
 
 
 // MIDI
-void ofApp::setupMidi()
+void MadCam::setupMidi()
 {
   midiIn.listPorts(); // via instance
 
@@ -159,12 +158,12 @@ void ofApp::setupMidi()
   // these are ignored by default
   //midiIn.ignoreTypes(false, false, false);
 
-  // add ofApp as a listener
+  // add MadCam as a listener
   midiIn.addListener(this);
   midiIn.setVerbose(true);
 }
 
-void ofApp::newMidiMessage(ofxMidiMessage& msg)
+void MadCam::newMidiMessage(ofxMidiMessage& msg)
 {
   switch(msg.status) {
     case MIDI_NOTE_ON:
