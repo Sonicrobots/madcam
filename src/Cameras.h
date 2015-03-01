@@ -10,6 +10,7 @@ public:
   void draw();
   void setCamera(int num);
   void setCamera(int slice, int num);
+  int getNumCameras();
 
   void setDimensions(int width, int height);
 

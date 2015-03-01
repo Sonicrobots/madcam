@@ -66,6 +66,12 @@ Cameras::setCamera(int slice, int num)
   selected = num;
 }
 
+int
+Cameras::getNumCameras()
+{
+  return grabbers.size();
+}
+
 
 int
 Cameras::calculateXOffset()

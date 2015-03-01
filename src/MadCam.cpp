@@ -20,11 +20,11 @@ void MadCam::draw(){
 
 //--------------------------------------------------------------
 void MadCam::keyPressed(int key){
+  int baseKey = 49;
+
   cout << "key pressed: " << key << endl;
-  if(key < 58 && key > 48) {
-    cams.setCamera(key);
-  } else {
-    //selected = 0;
+  if(key >= baseKey && key < (baseKey + cams.getNumCameras())) {
+    cams.setCamera((key % baseKey) % cams.getNumCameras());
   }
 }
 
