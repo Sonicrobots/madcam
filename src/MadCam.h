@@ -4,6 +4,7 @@
 #include "ofMain.h"
 #include "ofxMidi.h"
 
+#include "Utils.h"
 #include "Cameras.h"
 
 class MadCam : public ofBaseApp, public ofxMidiListener {

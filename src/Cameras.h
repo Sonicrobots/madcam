@@ -2,6 +2,7 @@
 #define MADCAM_CAMERAS_H
 
 #include "ofMain.h"
+#include "Utils.h"
 
 class Cameras {
 public:
@@ -10,6 +11,10 @@ public:
   void draw();
   void setCamera(int num);
   void setCamera(int slice, int num);
+
+  void setViewMode(ViewMode mode);
+  void setArrangement(Arrangement arr);
+
   int getNumCameras();
 
   void setDimensions(int width, int height);
@@ -17,13 +22,22 @@ public:
 protected:
 
 private:
+  Arrangement arrangement;
+  ViewMode viewMode;
+
   int numTiles;
   int selected;
+
   int camWidth;
   int camHeight;
+
   int winWidth;
   int winHeight;
+
+  int scaledHeight;
   int scaledWidth;
+
+  int yOffset;
   int xOffset;
 
   ofVideoGrabber initGrabber;
@@ -31,7 +45,14 @@ private:
 
   void prepareDimensions();
   int calculateWidth();
+  int calculateHeight();
   int calculateXOffset();
+  int calculateYOffset();
+
+  void drawSingle();
+  void drawTiled();
+  void drawDual();
+  void drawTriple();
 };
 
 #endif

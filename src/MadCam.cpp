@@ -16,15 +16,37 @@ void MadCam::update(){
 //--------------------------------------------------------------
 void MadCam::draw(){
   cams.draw();
+  ofDrawBitmapString(ofGetFrameRate(),20,20);
 }
 
 //--------------------------------------------------------------
 void MadCam::keyPressed(int key){
   int baseKey = 49;
-
   cout << "key pressed: " << key << endl;
   if(key >= baseKey && key < (baseKey + cams.getNumCameras())) {
     cams.setCamera((key % baseKey) % cams.getNumCameras());
+    return;
+  }
+
+  switch(key) {
+    case 113:
+      cams.setArrangement(SINGLE);
+      break;
+    case 119:
+      cams.setArrangement(DUAL_HORIZ);
+      break;
+    case 101:
+      cams.setArrangement(TRIPLE_HORIZ);
+      break;
+    case 114:
+      cams.setArrangement(TILED);
+      break;
+    case 99:
+      cams.setViewMode((CROP));
+      break;
+    case 115:
+      cams.setViewMode((SCALE));
+      break;
   }
 }
 
@@ -54,15 +76,16 @@ void MadCam::mouseReleased(int x, int y, int button){
 }
 
 //--------------------------------------------------------------
-void MadCam::windowResized(int w, int h){
-  // winWidth  = w;
-  // winHeight = h;
-  // scaledWidth = calculateWidth();
+void
+MadCam::windowResized(int w, int h)
+{
+  cams.setDimensions(w, h);
 }
 
 //--------------------------------------------------------------
-void MadCam::gotMessage(ofMessage msg){
-
+void
+MadCam::gotMessage(ofMessage msg)
+{
 }
 
 //--------------------------------------------------------------
