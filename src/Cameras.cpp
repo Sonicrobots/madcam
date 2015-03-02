@@ -8,13 +8,15 @@ Cameras::setup()
 
   selected = 0;
 
-  camWidth = 640;
+  winWidth  = ofGetWidth();
+  winHeight = ofGetHeight();
+
+  camWidth  = 640;
   camHeight = 480;
 
-  scaledWidth = calculateWidth();
-  xOffset     = calculateXOffset();
+  recalculate();
 
-  //we can now get back a list of devices.
+  ofVideoGrabber initGrabber;
   vector<ofVideoDevice> devices = initGrabber.listDevices();
 
   for(uint i = 0; i < devices.size(); i++){
@@ -29,7 +31,6 @@ Cameras::setup()
 void
 Cameras::update()
 {
-  //if()
   //grabbers.at(selected).update();
   for(uint i = 0; i < grabbers.size(); i++){
     grabbers.at(i).update();
@@ -44,29 +45,31 @@ Cameras::draw()
   switch(arrangement) {
     case SINGLE:
       drawSingle();
+      ofDrawBitmapString("Single",20,40);
       break;
     case DUAL_HORIZ:
       drawDual();
+      ofDrawBitmapString("Dual",20,40);
       break;
     case TRIPLE_HORIZ:
       drawTriple();
+      ofDrawBitmapString("Triple",20,40);
       break;
     case TILED:
       drawTiled();
+      ofDrawBitmapString("Tiled",20,40);
       break;
   }
 
-  // int wsize   = winWidth / tiles;
-  // int hsize   = (wsize / (camWidth * 0.01)) * (0.01 * camHeight);
-  // int numrows = winHeight / hsize;
-  // int yoff    = 0;
-  // drawCams();
-  //for(int i = 0; i < numrows; i++) {
-  //  for(int b = 0; b < tiles; b++) {
-  //    grabbers.at(i % grabbers.size()).draw(b*wsize,yoff,wsize,hsize);
-  //  }
-  //  yoff += hsize;
-  //}
+  switch(viewMode) {
+    case SCALE:
+      ofDrawBitmapString("Scaled",20,60);
+      break;
+    case CROP:
+      ofDrawBitmapString("Crop",20,60);
+      break;
+  }
+
 }
 
 
@@ -101,21 +104,6 @@ void
 Cameras::setArrangement(Arrangement a)
 {
   arrangement = a;
-
-  switch(a) {
-    case SINGLE:
-      cout << "Arrangement is now single;" << endl;
-      break;
-    case DUAL_HORIZ:
-      cout << "View mode is now dual (horiz)" << endl;
-      break;
-    case TRIPLE_HORIZ:
-      cout << "View mode is now triple (horiz)" << endl;
-      break;
-    case TILED:
-      cout << "View mode is now tiled" << endl;
-      break;
-  }
 }
 
 
@@ -124,7 +112,7 @@ Cameras::setDimensions(int width, int height)
 {
   winWidth  = width;
   winHeight = height;
-  // scaledWidth = calculateWidth();
+  recalculate();
 }
 
 int
@@ -133,6 +121,16 @@ Cameras::getNumCameras()
   return grabbers.size();
 }
 
+void
+Cameras::recalculate()
+{
+  scaledHeight = calculateHeight();
+  scaledWidth  = calculateWidth();
+  xOffset = calculateXOffset();
+  yOffset = calculateYOffset();
+
+  //grabbers.at(selected).draw(xOffset , yOffset, scaledWidth, scaledHeight);
+}
 
 int
 Cameras::calculateXOffset()
@@ -174,11 +172,12 @@ Cameras::calculateHeight()
   return out;
 }
 
+
 void
 Cameras::drawSingle()
 {
   //grabbers.at(selected).draw(xOffset , 0, scaledWidth, winHeight);
-  grabbers.at(selected).draw(0 , 0, camWidth, camHeight);
+  grabbers.at(selected).draw(xOffset , yOffset, scaledWidth, scaledHeight);
 }
 
 void
@@ -194,4 +193,14 @@ Cameras::drawTriple()
 void
 Cameras::drawTiled()
 {
+  int wsize   = winWidth / numTiles;
+  int hsize   = (wsize / (camWidth * 0.01)) * (0.01 * camHeight);
+  int numrows = winHeight / hsize;
+  int yoff    = 0;
+  for(int i = 0; i < numrows; i++) {
+    for(int b = 0; b < numTiles; b++) {
+      grabbers.at(i % grabbers.size()).draw(b*wsize,yoff,wsize,hsize);
+    }
+    yoff += hsize;
+  }
 }

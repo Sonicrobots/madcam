@@ -40,10 +40,9 @@ private:
   int yOffset;
   int xOffset;
 
-  ofVideoGrabber initGrabber;
   vector<ofVideoGrabber> grabbers;
 
-  void prepareDimensions();
+  void recalculate();
   int calculateWidth();
   int calculateHeight();
   int calculateXOffset();
