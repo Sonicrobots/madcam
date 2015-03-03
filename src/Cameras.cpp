@@ -6,7 +6,9 @@ Cameras::setup()
   arrangement = SINGLE;
   viewMode = SCALE;
 
-  selected = 0;
+  selected0 = 0;
+  selected1 = 0;
+  selected2 = 0;
 
   winWidth  = ofGetWidth();
   winHeight = ofGetHeight();
@@ -55,6 +57,9 @@ Cameras::draw()
     case TILED:
       drawTiled();
       break;
+    case MONOCLE:
+      drawMonocle();
+      break;
   }
 
   drawDebug();
@@ -76,6 +81,9 @@ Cameras::drawDebug()
     case TILED:
       ofDrawBitmapString("Tiled",20,40);
       break;
+    case MONOCLE:
+      ofDrawBitmapString("Monocle",20,40);
+      break;
   }
 
   switch(viewMode) {
@@ -92,13 +100,22 @@ Cameras::drawDebug()
 void
 Cameras::setCamera(int num)
 {
-  selected = num;
+  selected0 = num;
 }
 
 void
 Cameras::setCamera(int slice, int num)
 {
-  selected = num;
+  switch(slice%3) {
+    case 2:
+      selected2 = num;
+      break;
+    case 1:
+      selected1 = num;
+      break;
+    default:
+      selected0 = num;
+  }
 }
 
 void
@@ -185,8 +202,7 @@ Cameras::calculateHeight()
 void
 Cameras::drawSingle()
 {
-  //grabbers.at(selected).draw(xOffset , 0, scaledWidth, winHeight);
-  grabbers.at(selected).draw(xOffset , yOffset, scaledWidth, scaledHeight);
+  grabbers.at(selected0).draw(xOffset , yOffset, scaledWidth, scaledHeight);
 }
 
 void
@@ -202,14 +218,21 @@ Cameras::drawTriple()
 void
 Cameras::drawTiled()
 {
-  int wsize   = winWidth / numTiles;
-  int hsize   = (wsize / (camWidth * 0.01)) * (0.01 * camHeight);
-  int numrows = winHeight / hsize;
-  int yoff    = 0;
-  for(int i = 0; i < numrows; i++) {
-    for(int b = 0; b < numTiles; b++) {
-      grabbers.at(i % grabbers.size()).draw(b*wsize,yoff,wsize,hsize);
-    }
-    yoff += hsize;
-  }
+  //int wsize   = winWidth / numTiles;
+  //int hsize   = (wsize / (camWidth * 0.01)) * (0.01 * camHeight);
+  //int numrows = winHeight / hsize;
+  //int yoff    = 0;
+  //for(int i = 0; i < numrows; i++) {
+  //  for(int b = 0; b < numTiles; b++) {
+  //    grabbers.at(i % grabbers.size()).draw(b*wsize,yoff,wsize,hsize);
+  //  }
+  //  yoff += hsize;
+  //}
+}
+
+
+void
+Cameras::drawMonocle()
+{
+
 }

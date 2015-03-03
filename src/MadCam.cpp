@@ -41,6 +41,9 @@ void MadCam::keyPressed(int key){
     case 114:
       cams.setArrangement(TILED);
       break;
+    case 116:
+      cams.setArrangement(MONOCLE);
+      break;
     case 99:
       cams.setViewMode((CROP));
       break;

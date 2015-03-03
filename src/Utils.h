@@ -5,7 +5,8 @@ enum Arrangement {
   SINGLE,
   DUAL_HORIZ,
   TRIPLE_HORIZ,
-  TILED
+  TILED,
+  MONOCLE
 };
 
 enum ViewMode {

@@ -26,7 +26,10 @@ private:
   ViewMode viewMode;
 
   int numTiles;
-  int selected;
+
+  int selected0;
+  int selected1;
+  int selected2;
 
   int camWidth;
   int camHeight;
@@ -52,6 +55,7 @@ private:
   void drawTiled();
   void drawDual();
   void drawTriple();
+  void drawMonocle();
 
   void drawDebug();
 };
