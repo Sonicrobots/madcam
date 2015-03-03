@@ -6,9 +6,12 @@ Cameras::setup()
   arrangement = SINGLE;
   viewMode = SCALE;
 
+  onethird = int(1/3);
+  twothirds = int(2/3);
+
   selected0 = 0;
-  selected1 = 0;
-  selected2 = 0;
+  selected1 = 1;
+  selected2 = 2;
 
   winWidth  = ofGetWidth();
   winHeight = ofGetHeight();
@@ -208,11 +211,25 @@ Cameras::drawSingle()
 void
 Cameras::drawDual()
 {
+  int sliceWidth = int(winWidth * 0.5);
+  int offset0 = (scaledWidth - sliceWidth) * 0.5;
+
+  grabbers.at(selected0).draw(-offset0, 0, scaledWidth, winHeight);
+  grabbers.at(selected1)
+      .getTextureReference()
+      .drawSubsection(sliceWidth, 0, 0, scaledWidth, scaledHeight, 80, 0, 640, 480);
 }
 
 void
 Cameras::drawTriple()
 {
+  int sliceWidth = int(winWidth * 0.3333333f);
+  int offset0 = (scaledWidth - sliceWidth) * 0.5;
+
+  //FIXME: offsets don't work out yet
+  grabbers.at(selected0).draw(0, 0, scaledWidth, winHeight);
+  grabbers.at(selected1).draw(sliceWidth, 0, scaledWidth, winHeight);
+  grabbers.at(selected2).draw(sliceWidth * 2, 0, scaledWidth, winHeight);
 }
 
 void
@@ -234,5 +251,4 @@ Cameras::drawTiled()
 void
 Cameras::drawMonocle()
 {
-
 }

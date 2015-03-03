@@ -27,6 +27,9 @@ private:
 
   int numTiles;
 
+  int onethird;
+  int twothirds;
+
   int selected0;
   int selected1;
   int selected2;
