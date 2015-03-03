@@ -45,18 +45,35 @@ Cameras::draw()
   switch(arrangement) {
     case SINGLE:
       drawSingle();
-      ofDrawBitmapString("Single",20,40);
       break;
     case DUAL_HORIZ:
       drawDual();
-      ofDrawBitmapString("Dual",20,40);
       break;
     case TRIPLE_HORIZ:
       drawTriple();
-      ofDrawBitmapString("Triple",20,40);
       break;
     case TILED:
       drawTiled();
+      break;
+  }
+
+  drawDebug();
+}
+
+void
+Cameras::drawDebug()
+{
+  switch(arrangement) {
+    case SINGLE:
+      ofDrawBitmapString("Single",20,40);
+      break;
+    case DUAL_HORIZ:
+      ofDrawBitmapString("Dual",20,40);
+      break;
+    case TRIPLE_HORIZ:
+      ofDrawBitmapString("Triple",20,40);
+      break;
+    case TILED:
       ofDrawBitmapString("Tiled",20,40);
       break;
   }
@@ -69,7 +86,6 @@ Cameras::draw()
       ofDrawBitmapString("Crop",20,60);
       break;
   }
-
 }
 
 
@@ -89,21 +105,14 @@ void
 Cameras::setViewMode(ViewMode mode)
 {
   viewMode = mode;
-
-  switch(mode) {
-    case CROP:
-      cout << "View mode is now cropped;" << endl;
-      break;
-    case SCALE:
-      cout << "View mode is now scaled" << endl;
-      break;
-  }
+  recalculate();
 }
 
 void
 Cameras::setArrangement(Arrangement a)
 {
   arrangement = a;
+  recalculate();
 }
 
 
@@ -147,7 +156,7 @@ Cameras::calculateYOffset()
 {
   int out = 0;
   if(viewMode == CROP) {
-    out = -((winHeight - scaledHeight) * 0.5);
+    out = (winHeight - scaledHeight) * 0.5;
   }
   return out;
 }
@@ -167,7 +176,7 @@ Cameras::calculateHeight()
 {
   int out = winHeight;
   if(viewMode == CROP) {
-    out = 0; // FIXME
+    out = int((camHeight * 0.01f) * (winWidth / (camWidth * 0.01f)));
   }
   return out;
 }

@@ -52,6 +52,8 @@ private:
   void drawTiled();
   void drawDual();
   void drawTriple();
+
+  void drawDebug();
 };
 
 #endif
