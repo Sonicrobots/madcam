@@ -240,16 +240,15 @@ Cameras::drawTriple()
 void
 Cameras::drawTiled()
 {
-  //int wsize   = winWidth / numTiles;
-  //int hsize   = (wsize / (camWidth * 0.01)) * (0.01 * camHeight);
-  //int numrows = winHeight / hsize;
-  //int yoff    = 0;
-  //for(int i = 0; i < numrows; i++) {
-  //  for(int b = 0; b < numTiles; b++) {
-  //    grabbers.at(i % grabbers.size()).draw(b*wsize,yoff,wsize,hsize);
-  //  }
-  //  yoff += hsize;
-  //}
+  int tileheight = winHeight / 3;
+  int tilewidth = (tileheight / (camHeight * 0.01f)) * (camWidth * 0.01f);
+  int yoff = 0;
+  int xoff = (winWidth - (tilewidth * 3)) * 0.5;
+
+  for(int i = 0; i < grabbers.size(); i++) {
+    grabbers.at(i).draw(xoff + tilewidth * (i % 3), yoff, tilewidth, tileheight);
+    if(i % 3 == 2) yoff += tileheight;
+  }
 }
 
 
