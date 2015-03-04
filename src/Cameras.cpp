@@ -6,9 +6,6 @@ Cameras::setup()
   arrangement = SINGLE;
   viewMode = SCALE;
 
-  onethird = int(1/3);
-  twothirds = int(2/3);
-
   selected0 = 0;
   selected1 = 1;
   selected2 = 2;
@@ -225,11 +222,19 @@ Cameras::drawTriple()
 {
   int sliceWidth = int(winWidth * 0.3333333f);
   int offset0 = (scaledWidth - sliceWidth) * 0.5;
+  int origoff0 = (offset0 / (scaledWidth * 0.01f)) * (camWidth * 0.01f);
 
   //FIXME: offsets don't work out yet
-  grabbers.at(selected0).draw(0, 0, scaledWidth, winHeight);
-  grabbers.at(selected1).draw(sliceWidth, 0, scaledWidth, winHeight);
-  grabbers.at(selected2).draw(sliceWidth * 2, 0, scaledWidth, winHeight);
+  grabbers.at(selected0)
+      .draw(-offset0, 0, scaledWidth, winHeight);
+
+  grabbers.at(selected1)
+      .getTextureReference()
+      .drawSubsection(sliceWidth, 0, 0, scaledWidth, scaledHeight, origoff0, 0, 640, 480);
+
+  grabbers.at(selected2)
+      .getTextureReference()
+      .drawSubsection(sliceWidth * 2, 0, 0, scaledWidth, scaledHeight, origoff0, 0, 640, 480);
 }
 
 void
