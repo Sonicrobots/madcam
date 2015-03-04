@@ -9,6 +9,9 @@ Cameras::setup()
   selected0 = 0;
   selected1 = 1;
   selected2 = 2;
+  selected3 = 3;
+  selected4 = 4;
+  selected5 = 5;
 
   winWidth  = ofGetWidth();
   winHeight = ofGetHeight();
@@ -106,7 +109,16 @@ Cameras::setCamera(int num)
 void
 Cameras::setCamera(int slice, int num)
 {
-  switch(slice%3) {
+  switch(slice%6) {
+    case 5:
+      selected5 = num;
+      break;
+    case 4:
+      selected4 = num;
+      break;
+    case 3:
+      selected3 = num;
+      break;
     case 2:
       selected2 = num;
       break;
@@ -255,4 +267,15 @@ Cameras::drawTiled()
 void
 Cameras::drawMonocle()
 {
+  int tileheight = winHeight / 3;
+  int tilewidth = (tileheight / (camHeight * 0.01f)) * (camWidth * 0.01f);
+  int xoff = (winWidth - (tilewidth * 3)) * 0.5;
+
+  grabbers.at(selected0).draw(xoff,                 0, tilewidth,     tileheight);
+  grabbers.at(selected1).draw(xoff + tilewidth,     0, tilewidth,     tileheight);
+  grabbers.at(selected2).draw(xoff + tilewidth * 2, 0, tilewidth,     tileheight);
+  grabbers.at(selected3).draw(xoff,        tileheight, tilewidth * 2, tileheight * 2);
+
+  //grabbers.at(selected4).draw(xoff+tilewidth*2, tileheight,   tilewidth, tileheight);
+  //grabbers.at(selected5).draw(xoff+tilewidth*2, tileheight*2, tilewidth, tileheight);
 }

@@ -30,6 +30,9 @@ private:
   int selected0;
   int selected1;
   int selected2;
+  int selected3;
+  int selected4;
+  int selected5;
 
   int camWidth;
   int camHeight;
