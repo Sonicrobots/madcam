@@ -5,18 +5,29 @@ void MadCam::setup(){
   ofSetVerticalSync(true);
   setupMidi();
   cams.setup();
+
+  if(ofIsGLProgrammableRenderer())
+    cout << "IS A PRGRAMMABLE REMDNER" << endl;
+  else
+    cout << "NO NO NO IS A PRGRAMMABLE REMDNER" << endl;
+
+  shader.load("shaders/passThru_vert.glsl", "shaders/mrt_frag.glsl");
+  shader.linkProgram();
 }
 
 //--------------------------------------------------------------
 void MadCam::update(){
   ofBackground(0,0,0);
   cams.update();
+  
 }
 
 //--------------------------------------------------------------
 void MadCam::draw(){
+  //shader.begin();
   cams.draw();
   ofDrawBitmapString(ofGetFrameRate(),20,20);
+  //shader.end();
 }
 
 //--------------------------------------------------------------

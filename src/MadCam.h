@@ -30,6 +30,9 @@ public:
   void setupMidi();
 
   Cameras cams;
+
+  ofShader shader;
+
   ofxMidiIn midiIn;
 };
 

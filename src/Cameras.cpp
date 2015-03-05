@@ -214,7 +214,9 @@ Cameras::calculateHeight()
 void
 Cameras::drawSingle()
 {
-  grabbers.at(selected0).draw(xOffset , yOffset, scaledWidth, scaledHeight);
+  grabbers.at(selected0)
+      .getTextureReference()
+      .drawSubsection(xOffset, yOffset, 0, scaledWidth, scaledHeight, 0, 0, camWidth, camHeight);
 }
 
 void
@@ -223,10 +225,12 @@ Cameras::drawDual()
   int sliceWidth = int(winWidth * 0.5);
   int offset0 = (scaledWidth - sliceWidth) * 0.5;
 
-  grabbers.at(selected0).draw(-offset0, 0, scaledWidth, winHeight);
+  grabbers.at(selected0)
+      .getTextureReference()
+      .drawSubsection(-offset0, 0, 0, scaledWidth, scaledHeight, 0, 0, camWidth, camHeight);
   grabbers.at(selected1)
       .getTextureReference()
-      .drawSubsection(sliceWidth, 0, 0, scaledWidth, scaledHeight, 80, 0, 640, 480);
+      .drawSubsection(sliceWidth, 0, 0, scaledWidth, scaledHeight, 80, 0, camWidth, camHeight);
 }
 
 void
@@ -238,7 +242,8 @@ Cameras::drawTriple()
 
   //FIXME: offsets don't work out yet
   grabbers.at(selected0)
-      .draw(-offset0, 0, scaledWidth, winHeight);
+      .getTextureReference()
+      .drawSubsection(-offset0, 0, 0, scaledWidth, scaledHeight, 0, 0, camWidth, camHeight);
 
   grabbers.at(selected1)
       .getTextureReference()
@@ -274,8 +279,8 @@ Cameras::drawMonocle()
   grabbers.at(selected0).draw(xoff,                 0, tilewidth,     tileheight);
   grabbers.at(selected1).draw(xoff + tilewidth,     0, tilewidth,     tileheight);
   grabbers.at(selected2).draw(xoff + tilewidth * 2, 0, tilewidth,     tileheight);
-  grabbers.at(selected3).draw(xoff,        tileheight, tilewidth * 2, tileheight * 2);
 
-  //grabbers.at(selected4).draw(xoff+tilewidth*2, tileheight,   tilewidth, tileheight);
-  //grabbers.at(selected5).draw(xoff+tilewidth*2, tileheight*2, tilewidth, tileheight);
+  grabbers.at(selected3)
+      .getTextureReference()
+      .drawSubsection(xoff, tileheight, 0, tilewidth * 2, tileheight * 2, 0, 0, camWidth, camHeight);
 }
