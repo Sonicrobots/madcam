@@ -16,6 +16,8 @@ protected:
 private:
   static const int BUF_LEN = 512;
 
+  int device;
+  int fps;
   int decay;
   int position;
 

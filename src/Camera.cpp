@@ -6,13 +6,15 @@ Camera::setup()
   int camWidth  = 640;
   int camHeight = 480;
 
+  device = 0;
+  fps = 30;
   decay = 8;
   position = BUF_LEN - 1;
 
   initBuffer();
 
-  grabber.setDeviceID(0);
-  grabber.setDesiredFrameRate(30);
+  grabber.setDeviceID(device);
+  grabber.setDesiredFrameRate(fps);
   grabber.setup(camWidth, camHeight, OF_PIXELS_BGRA);
 
   tex.allocate(grabber.getWidth(), grabber.getHeight(), GL_RGB);
@@ -47,11 +49,9 @@ Camera::draw()
 {
   ofSetHexColor(0xffffff);
 
-  tex.draw(0, 0, tex.getWidth() / 4, tex.getHeight() / 4);
+  tex.draw(0, 0, 1280, 960);
 
-  if(position < BUF_LEN -1) {
-    position += decay;
-  }
+  if(position < BUF_LEN -1) position += decay;
 }
 
 void

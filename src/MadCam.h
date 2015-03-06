@@ -5,6 +5,7 @@
 #include "ofxMidi.h"
 
 #include "Utils.h"
+#include "Camera.h"
 #include "Cameras.h"
 
 class MadCam : public ofBaseApp, public ofxMidiListener {
@@ -25,11 +26,13 @@ public:
   void dragEvent(ofDragInfo dragInfo);
   void gotMessage(ofMessage msg);
 
+  void loadShader();
+
   // MIDI
   void newMidiMessage(ofxMidiMessage& newMsg);
   void setupMidi();
 
-  Cameras cams;
+  Camera cam;
 
   ofShader shader;
 
