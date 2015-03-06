@@ -25,20 +25,20 @@ Cameras::setup()
   vector<ofVideoDevice> devices = initGrabber.listDevices();
 
   for(uint i = 0; i < devices.size(); i++){
-    ofVideoGrabber grabber;
+    Camera grabber;
     grabber.setDeviceID(devices[i].id);
-    grabber.setDesiredFrameRate(30);
+    grabber.setFPS(30);
     grabber.setup(camWidth,camHeight);
-    grabbers.push_back(grabber);
+    cameras.push_back(grabber);
   }
 }
 
 void
 Cameras::update()
 {
-  //grabbers.at(selected).update();
-  for(uint i = 0; i < grabbers.size(); i++){
-    grabbers.at(i).update();
+  //cameras.at(selected).update();
+  for(uint i = 0; i < cameras.size(); i++){
+    cameras.at(i).update();
   }
 }
 
@@ -156,7 +156,7 @@ Cameras::setDimensions(int width, int height)
 int
 Cameras::getNumCameras()
 {
-  return grabbers.size();
+  return cameras.size();
 }
 
 void
@@ -166,8 +166,6 @@ Cameras::recalculate()
   scaledWidth  = calculateWidth();
   xOffset = calculateXOffset();
   yOffset = calculateYOffset();
-
-  //grabbers.at(selected).draw(xOffset , yOffset, scaledWidth, scaledHeight);
 }
 
 int
@@ -214,9 +212,8 @@ Cameras::calculateHeight()
 void
 Cameras::drawSingle()
 {
-  grabbers.at(selected0)
-      .getTextureReference()
-      .drawSubsection(xOffset, yOffset, 0, scaledWidth, scaledHeight, 0, 0, camWidth, camHeight);
+  cameras.at(selected0)
+      .draw(xOffset, yOffset, 0, scaledWidth, scaledHeight, 0, 0, camWidth, camHeight);
 }
 
 void
@@ -225,12 +222,10 @@ Cameras::drawDual()
   int sliceWidth = int(winWidth * 0.5);
   int offset0 = (scaledWidth - sliceWidth) * 0.5;
 
-  grabbers.at(selected0)
-      .getTextureReference()
-      .drawSubsection(-offset0, 0, 0, scaledWidth, scaledHeight, 0, 0, camWidth, camHeight);
-  grabbers.at(selected1)
-      .getTextureReference()
-      .drawSubsection(sliceWidth, 0, 0, scaledWidth, scaledHeight, 80, 0, camWidth, camHeight);
+  cameras.at(selected0)
+      .draw(-offset0, 0, 0, scaledWidth, scaledHeight, 0, 0, camWidth, camHeight);
+  cameras.at(selected1)
+      .draw(sliceWidth, 0, 0, scaledWidth, scaledHeight, 80, 0, camWidth, camHeight);
 }
 
 void
@@ -241,17 +236,14 @@ Cameras::drawTriple()
   int origoff0 = (offset0 / (scaledWidth * 0.01f)) * (camWidth * 0.01f);
 
   //FIXME: offsets don't work out yet
-  grabbers.at(selected0)
-      .getTextureReference()
-      .drawSubsection(-offset0, 0, 0, scaledWidth, scaledHeight, 0, 0, camWidth, camHeight);
+  cameras.at(selected0)
+      .draw(-offset0, 0, 0, scaledWidth, scaledHeight, 0, 0, camWidth, camHeight);
 
-  grabbers.at(selected1)
-      .getTextureReference()
-      .drawSubsection(sliceWidth, 0, 0, scaledWidth, scaledHeight, origoff0, 0, 640, 480);
+  cameras.at(selected1)
+      .draw(sliceWidth, 0, 0, scaledWidth, scaledHeight, origoff0, 0, 640, 480);
 
-  grabbers.at(selected2)
-      .getTextureReference()
-      .drawSubsection(sliceWidth * 2, 0, 0, scaledWidth, scaledHeight, origoff0, 0, 640, 480);
+  cameras.at(selected2)
+      .draw(sliceWidth * 2, 0, 0, scaledWidth, scaledHeight, origoff0, 0, 640, 480);
 }
 
 void
@@ -262,8 +254,8 @@ Cameras::drawTiled()
   int yoff = 0;
   int xoff = (winWidth - (tilewidth * 3)) * 0.5;
 
-  for(int i = 0; i < grabbers.size(); i++) {
-    grabbers.at(i).draw(xoff + tilewidth * (i % 3), yoff, tilewidth, tileheight);
+  for(int i = 0; i < cameras.size(); i++) {
+    cameras.at(i).draw(xoff + tilewidth * (i % 3), yoff, 0, tilewidth, tileheight, 0, 0, camWidth, camHeight);
     if(i % 3 == 2) yoff += tileheight;
   }
 }
@@ -276,11 +268,15 @@ Cameras::drawMonocle()
   int tilewidth = (tileheight / (camHeight * 0.01f)) * (camWidth * 0.01f);
   int xoff = (winWidth - (tilewidth * 3)) * 0.5;
 
-  grabbers.at(selected0).draw(xoff,                 0, tilewidth,     tileheight);
-  grabbers.at(selected1).draw(xoff + tilewidth,     0, tilewidth,     tileheight);
-  grabbers.at(selected2).draw(xoff + tilewidth * 2, 0, tilewidth,     tileheight);
+  cameras.at(selected0).draw(xoff,                 0, 0, tilewidth, tileheight, 0, 0, camWidth, camHeight);
+  cameras.at(selected1).draw(xoff + tilewidth,     0, 0, tilewidth, tileheight, 0, 0, camWidth, camHeight);
+  cameras.at(selected2).draw(xoff + tilewidth * 2, 0, 0, tilewidth, tileheight, 0, 0, camWidth, camHeight);
+  cameras.at(selected3).draw(xoff, tileheight, 0, tilewidth * 2, tileheight * 2, 0, 0, camWidth, camHeight);
+}
 
-  grabbers.at(selected3)
-      .getTextureReference()
-      .drawSubsection(xoff, tileheight, 0, tilewidth * 2, tileheight * 2, 0, 0, camWidth, camHeight);
+void
+Cameras::trigger()
+{
+  for(int i=0; i < cameras.size(); i++)
+    cameras.at(i).trigger();
 }

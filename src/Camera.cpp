@@ -1,13 +1,20 @@
 #include "Camera.h"
 
 void
-Camera::setup()
+Camera::setDeviceID(int id)
 {
-  int camWidth  = 640;
-  int camHeight = 480;
+  device = id;
+}
 
-  device = 0;
-  fps = 30;
+void
+Camera::setFPS(int desiredFps)
+{
+  fps = desiredFps;
+}
+
+void
+Camera::setup(int camWidth, int camHeight)
+{
   decay = 8;
   position = BUF_LEN - 1;
 
@@ -45,12 +52,11 @@ Camera::update()
 }
 
 void
-Camera::draw()
+Camera::draw(float x, float y, float z, float w, float h, float sx, float sy, float sw, float sh)
 {
   ofSetHexColor(0xffffff);
-
-  tex.draw(0, 0, 1280, 960);
-
+  //tex.draw(0, 0, 1280, 960);
+  tex.drawSubsection(x, y, z, w, h, sx, sy, sw, sh);
   if(position < BUF_LEN -1) position += decay;
 }
 

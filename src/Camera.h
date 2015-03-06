@@ -7,10 +7,13 @@
 
 class Camera {
 public:
-  void setup();
   void update();
-  void draw();
+  void setup(int camWidth, int camHeight);
+  void draw(float x, float y, float z, float w, float h, float sx, float sy, float sw, float sh);
   void trigger();
+
+  void setDeviceID(int id);
+  void setFPS(int fps);
 protected:
 
 private:

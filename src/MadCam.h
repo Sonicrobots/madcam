@@ -32,7 +32,7 @@ public:
   void newMidiMessage(ofxMidiMessage& newMsg);
   void setupMidi();
 
-  Camera cam;
+  Cameras cams;
 
   ofShader shader;
 

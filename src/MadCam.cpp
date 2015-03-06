@@ -36,7 +36,7 @@ void MadCam::keyPressed(int key){
   int baseKey = 49;
 
   if(key == 121)
-    loadShader();
+    cams.trigger();
 
   if(key >= baseKey && key < (baseKey + cams.getNumCameras())) {
     cams.setCamera((key % baseKey) % cams.getNumCameras());
