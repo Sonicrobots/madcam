@@ -5,35 +5,39 @@ void MadCam::setup(){
   ofSetVerticalSync(true);
   setupMidi();
   cams.setup();
+}
 
-  if(ofIsGLProgrammableRenderer())
-    cout << "IS A PRGRAMMABLE REMDNER" << endl;
-  else
-    cout << "NO NO NO IS A PRGRAMMABLE REMDNER" << endl;
-
-  shader.load("shaders/passThru_vert.glsl", "shaders/mrt_frag.glsl");
-  shader.linkProgram();
+void MadCam::loadShader()
+{
+  shader.load("", "krgn.frag");
+  //shader.linkProgram();
 }
 
 //--------------------------------------------------------------
 void MadCam::update(){
   ofBackground(0,0,0);
   cams.update();
-  
 }
 
 //--------------------------------------------------------------
 void MadCam::draw(){
-  //shader.begin();
+  if(shader.isLoaded())
+    shader.begin();
+
   cams.draw();
   ofDrawBitmapString(ofGetFrameRate(),20,20);
-  //shader.end();
+
+  if(shader.isLoaded())
+    shader.end();
 }
 
 //--------------------------------------------------------------
 void MadCam::keyPressed(int key){
   int baseKey = 49;
-  cout << "key pressed: " << key << endl;
+
+  if(key == 121)
+    loadShader();
+
   if(key >= baseKey && key < (baseKey + cams.getNumCameras())) {
     cams.setCamera((key % baseKey) % cams.getNumCameras());
     return;
