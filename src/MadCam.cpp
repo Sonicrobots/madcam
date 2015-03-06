@@ -35,6 +35,11 @@ void MadCam::draw(){
 void MadCam::keyPressed(int key){
   int baseKey = 49;
 
+  cout << "key: " << key << endl;
+
+  if(key == 117)
+    cams.toggleTrigger();
+
   if(key == 121)
     cams.trigger();
 

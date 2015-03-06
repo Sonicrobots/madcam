@@ -6,6 +6,8 @@ Cameras::setup()
   arrangement = SINGLE;
   viewMode = SCALE;
 
+  triggerMode = false;
+
   selected0 = 0;
   selected1 = 1;
   selected2 = 2;
@@ -279,4 +281,25 @@ Cameras::trigger()
 {
   for(int i=0; i < cameras.size(); i++)
     cameras.at(i).trigger();
+}
+
+void
+Cameras::trigger(int idx)
+{
+  cameras.at(idx).trigger();
+}
+
+void
+Cameras::setTriggerMode(bool mode)
+{
+  for(int i=0; i < cameras.size(); i++)
+    cameras.at(i).setTriggerMode(mode);
+}
+
+void
+Cameras::toggleTrigger()
+{
+  triggerMode = !triggerMode;
+  for(int i=0; i < cameras.size(); i++)
+    cameras.at(i).setTriggerMode(triggerMode);
 }

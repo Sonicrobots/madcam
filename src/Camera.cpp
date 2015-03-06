@@ -80,3 +80,9 @@ Camera::initBuffer()
     curve[i] = ((i / 512.0f) * -1.0f) + 1.0f;
   }
 }
+
+void
+Camera::setTriggerMode(bool mode)
+{
+  useTrigger = mode;
+}

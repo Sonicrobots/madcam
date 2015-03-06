@@ -19,6 +19,9 @@ public:
   int getNumCameras();
 
   void trigger();
+  void trigger(int idx);
+  void toggleTrigger();
+  void setTriggerMode(bool mode);
 
   void setDimensions(int width, int height);
 
@@ -28,6 +31,7 @@ private:
   Arrangement arrangement;
   ViewMode viewMode;
 
+  bool triggerMode;
   int numTiles;
 
   int selected0;
