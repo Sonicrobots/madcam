@@ -16,6 +16,7 @@ void
 Camera::setup(int camWidth, int camHeight)
 {
   decay = 8;
+  useTrigger = false;
   position = BUF_LEN - 1;
 
   initBuffer();
@@ -36,7 +37,7 @@ Camera::update()
 
   grabber.update();
 
-  if(grabber.isFrameNew()) {
+  if(grabber.isFrameNew() && useTrigger) {
     ofPixels & pixels = grabber.getPixels();
     unsigned char * src = pixels.getData();
     int totalPix = grabber.getWidth() * grabber.getHeight() * 3;
@@ -55,8 +56,13 @@ void
 Camera::draw(float x, float y, float z, float w, float h, float sx, float sy, float sw, float sh)
 {
   ofSetHexColor(0xffffff);
-  //tex.draw(0, 0, 1280, 960);
-  tex.drawSubsection(x, y, z, w, h, sx, sy, sw, sh);
+
+  if(useTrigger) {
+    tex.drawSubsection(x, y, z, w, h, sx, sy, sw, sh);
+  } else {
+    grabber.getTextureReference().drawSubsection(x, y, z, w, h, sx, sy, sw, sh);
+  }
+
   if(position < BUF_LEN -1) position += decay;
 }
 

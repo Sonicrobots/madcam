@@ -12,6 +12,7 @@ public:
   void draw(float x, float y, float z, float w, float h, float sx, float sy, float sw, float sh);
   void trigger();
 
+  void setTriggerMode(bool on);
   void setDeviceID(int id);
   void setFPS(int fps);
 protected:
@@ -19,6 +20,7 @@ protected:
 private:
   static const int BUF_LEN = 512;
 
+  bool useTrigger;
   int device;
   int fps;
   int decay;
