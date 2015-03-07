@@ -20,6 +20,10 @@ public:
 
   void trigger();
   void trigger(int idx);
+
+  void reset();
+  void reset(int idx);
+
   void toggleTrigger();
   void setTriggerMode(bool mode);
 

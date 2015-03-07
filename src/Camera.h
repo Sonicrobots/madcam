@@ -11,7 +11,7 @@ public:
   void setup(int camWidth, int camHeight);
   void draw(float x, float y, float z, float w, float h, float sx, float sy, float sw, float sh);
   void trigger();
-
+  void reset();
   void setTriggerMode(bool on);
   void setDeviceID(int id);
   void setFPS(int fps);

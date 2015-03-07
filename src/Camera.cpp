@@ -60,6 +60,12 @@ Camera::trigger()
   position = 0;
 }
 
+void
+Camera::reset()
+{
+  position = BUF_LEN - 1;
+}
+
 
 void
 Camera::initBuffer()

@@ -142,6 +142,7 @@ Cameras::setViewMode(ViewMode mode)
 void
 Cameras::setArrangement(Arrangement a)
 {
+  reset();
   arrangement = a;
   recalculate();
 }
@@ -293,10 +294,24 @@ Cameras::trigger()
 }
 
 void
+Cameras::reset()
+{
+  for(int i=0; i < cameras.size(); i++)
+    cameras.at(i).reset();
+}
+
+void
 Cameras::trigger(int idx)
 {
   cameras.at(idx).trigger();
 }
+
+void
+Cameras::reset(int idx)
+{
+  cameras.at(idx).reset();
+}
+
 
 void
 Cameras::setTriggerMode(bool mode)
