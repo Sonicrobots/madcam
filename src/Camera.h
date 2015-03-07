@@ -33,7 +33,7 @@ private:
 
   unsigned char * pix;
 
-  std::array<float, BUF_LEN> curve;
+  std::array<int, BUF_LEN> curve;
 };
 
 #endif

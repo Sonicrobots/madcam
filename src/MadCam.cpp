@@ -40,8 +40,17 @@ void MadCam::keyPressed(int key){
   if(key == 117)
     cams.toggleTrigger();
 
-  if(key == 121)
-    cams.trigger();
+  if(key == 257)
+    cams.trigger(0);
+
+  if(key == 258)
+    cams.trigger(1);
+
+  if(key == 259)
+    cams.trigger(2);
+
+  if(key == 260)
+    cams.trigger(3);
 
   if(key >= baseKey && key < (baseKey + cams.getNumCameras())) {
     cams.setCamera((key % baseKey) % cams.getNumCameras());
