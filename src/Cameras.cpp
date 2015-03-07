@@ -226,6 +226,8 @@ Cameras::drawDual()
 
   cameras.at(selected0)
       .draw(-offset0, 0, 0, scaledWidth, scaledHeight, 0, 0, camWidth, camHeight);
+  ofSetColor(0,0, 0);
+  ofRect(sliceWidth, 0, 0, sliceWidth, winHeight);
   cameras.at(selected1)
       .draw(sliceWidth, 0, 0, scaledWidth, scaledHeight, 80, 0, camWidth, camHeight);
 }
@@ -238,11 +240,18 @@ Cameras::drawTriple()
   int origoff0 = (offset0 / (scaledWidth * 0.01f)) * (camWidth * 0.01f);
 
   //FIXME: offsets don't work out yet
+
   cameras.at(selected0)
       .draw(-offset0, 0, 0, scaledWidth, scaledHeight, 0, 0, camWidth, camHeight);
 
+  ofSetColor(0,0, 0);
+  ofRect(sliceWidth, 0, 0, sliceWidth, winHeight);
+
   cameras.at(selected1)
       .draw(sliceWidth, 0, 0, scaledWidth, scaledHeight, origoff0, 0, 640, 480);
+
+  ofSetColor(0,0, 0);
+  ofRect(sliceWidth * 2, 0, 0, sliceWidth, winHeight);
 
   cameras.at(selected2)
       .draw(sliceWidth * 2, 0, 0, scaledWidth, scaledHeight, origoff0, 0, 640, 480);
