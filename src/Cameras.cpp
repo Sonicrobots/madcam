@@ -6,6 +6,7 @@ Cameras::setup()
   arrangement = SINGLE;
   viewMode = SCALE;
 
+  fxMode = false;
   triggerMode = false;
 
   selected0 = 0;
@@ -240,8 +241,6 @@ Cameras::drawTriple()
   int offset0 = (scaledWidth - sliceWidth) * 0.5;
   int origoff0 = (offset0 / (scaledWidth * 0.01f)) * (camWidth * 0.01f);
 
-  //FIXME: offsets don't work out yet
-
   cameras.at(selected0)
       .draw(-offset0, 0, 0, scaledWidth, scaledHeight, 0, 0, camWidth, camHeight);
 
@@ -266,7 +265,7 @@ Cameras::drawTiled()
   int yoff = 0;
   int xoff = (winWidth - (tilewidth * 3)) * 0.5;
 
-  for(int i = 0; i < cameras.size(); i++) {
+  for(uint i = 0; i < cameras.size(); i++) {
     cameras.at(i).draw(xoff + tilewidth * (i % 3), yoff, 0, tilewidth, tileheight, 0, 0, camWidth, camHeight);
     if(i % 3 == 2) yoff += tileheight;
   }
@@ -289,14 +288,14 @@ Cameras::drawMonocle()
 void
 Cameras::trigger()
 {
-  for(int i=0; i < cameras.size(); i++)
+  for(uint i=0; i < cameras.size(); i++)
     cameras.at(i).trigger();
 }
 
 void
 Cameras::reset()
 {
-  for(int i=0; i < cameras.size(); i++)
+  for(uint i=0; i < cameras.size(); i++)
     cameras.at(i).reset();
 }
 
@@ -312,11 +311,10 @@ Cameras::reset(int idx)
   cameras.at(idx).reset();
 }
 
-
 void
 Cameras::setTriggerMode(bool mode)
 {
-  for(int i=0; i < cameras.size(); i++)
+  for(uint i=0; i < cameras.size(); i++)
     cameras.at(i).setTriggerMode(mode);
 }
 
@@ -324,6 +322,21 @@ void
 Cameras::toggleTrigger()
 {
   triggerMode = !triggerMode;
-  for(int i=0; i < cameras.size(); i++)
+  for(uint i=0; i < cameras.size(); i++)
     cameras.at(i).setTriggerMode(triggerMode);
+}
+
+void
+Cameras::toggleFX()
+{
+  fxMode = !fxMode;
+  for(uint i=0; i < cameras.size(); i++)
+    cameras.at(i).setFXMode(fxMode);
+}
+
+void
+Cameras::setFXMode(bool mode)
+{
+  for(uint i=0; i < cameras.size(); i++)
+    cameras.at(i).setFXMode(mode);
 }

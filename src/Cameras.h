@@ -27,6 +27,9 @@ public:
   void toggleTrigger();
   void setTriggerMode(bool mode);
 
+  void toggleFX();
+  void setFXMode(bool mode);
+
   void setDimensions(int width, int height);
 
 protected:
@@ -35,7 +38,9 @@ private:
   Arrangement arrangement;
   ViewMode viewMode;
 
+  bool fxMode;
   bool triggerMode;
+
   int numTiles;
 
   int selected0;

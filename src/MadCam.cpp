@@ -7,12 +7,6 @@ void MadCam::setup(){
   cams.setup();
 }
 
-void MadCam::loadShader()
-{
-  shader.load("", "krgn.frag");
-  //shader.linkProgram();
-}
-
 //--------------------------------------------------------------
 void MadCam::update(){
   ofBackground(0,0,0);
@@ -21,14 +15,8 @@ void MadCam::update(){
 
 //--------------------------------------------------------------
 void MadCam::draw(){
-  if(shader.isLoaded())
-    shader.begin();
-
   cams.draw();
   ofDrawBitmapString(ofGetFrameRate(),20,20);
-
-  if(shader.isLoaded())
-    shader.end();
 }
 
 //--------------------------------------------------------------
@@ -36,6 +24,9 @@ void MadCam::keyPressed(int key){
   int baseKey = 49;
 
   cout << "key: " << key << endl;
+
+  if(key == 265)
+    cams.toggleFX();
 
   if(key == 117)
     cams.toggleTrigger();
@@ -89,7 +80,6 @@ void MadCam::keyReleased(int key){
 
 //--------------------------------------------------------------
 void MadCam::mouseMoved(int x, int y ){
-
 }
 
 //--------------------------------------------------------------
