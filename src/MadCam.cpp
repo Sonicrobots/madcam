@@ -25,9 +25,6 @@ void MadCam::keyPressed(int key){
 
   cout << "key: " << key << endl;
 
-  if(key == 265)
-    cams.toggleFX();
-
   if(key == 117)
     cams.toggleTrigger();
 
@@ -43,10 +40,10 @@ void MadCam::keyPressed(int key){
   if(key == 260)
     cams.trigger(3);
 
-  if(key >= baseKey && key < (baseKey + cams.getNumCameras())) {
-    cams.setCamera((key % baseKey) % cams.getNumCameras());
-    return;
-  }
+  // if(key >= baseKey && key < (baseKey + cams.getNumCameras())) {
+  //   cams.setSlot((key % baseKey) % cams.getNumCameras());
+  //   return;
+  // }
 
   switch(key) {
     case 113:
@@ -71,22 +68,22 @@ void MadCam::keyPressed(int key){
       cams.setViewMode((SCALE));
       break;
     case 54:
-      cams.setSwapMode(0);
+      cams.setColorMode(0);
       break;
     case 55:
-      cams.setSwapMode(1);
+      cams.setColorMode(1);
       break;
     case 56:
-      cams.setSwapMode(2);
+      cams.setColorMode(2);
       break;
     case 57:
-      cams.setSwapMode(3);
+      cams.setColorMode(3);
       break;
     case 48:
-      cams.setSwapMode(4);
+      cams.setColorMode(4);
       break;
     case 45:
-      cams.setSwapMode(5);
+      cams.setColorMode(5);
       break;
   }
 }
@@ -171,13 +168,81 @@ void MadCam::newMidiMessage(ofxMidiMessage& msg)
       //if(msg.pitch < grabbers.size())
         //selected = msg.pitch;
       cout << "pitch: " << msg.pitch << endl;
-      return;
+
+      switch(msg.pitch) {
+        // LAYOUT
+        case 0:
+          cams.setArrangement(SINGLE);
+          break;
+        case 1:
+          cams.setArrangement(DUAL_HORIZ);
+          break;
+        case 2:
+          cams.setArrangement(TRIPLE_HORIZ);
+          break;
+        case 3:
+          cams.setArrangement(TILED);
+          break;
+        case 4:
+          cams.setArrangement(MONOCLE);
+          break;
+
+        // TRIGGER MODE
+        case 5:
+          cams.setTriggerMode(true);
+          break;
+        case 6:
+          cams.setTriggerMode(false);
+          break;
+
+        // TrIGGER
+        case 49:
+          cams.trigger(0);
+          break;
+        case 50:
+          cams.trigger(1);
+          break;
+        case 51:
+          cams.trigger(2);
+          break;
+        case 52:
+          cams.trigger(3);
+          break;
+        case 53:
+          cams.trigger(4);
+          break;
+        case 54:
+          cams.trigger(5);
+          break;
+        case 55:
+          cams.trigger(6);
+          break;
+        case 56:
+          cams.trigger(7);
+          break;
+        case 57:
+          cams.trigger(8);
+          break;
+      }
+
+      break;
     case MIDI_CONTROL_CHANGE:
       cout << "ctrl: " << msg.control << " value: " << msg.value << endl;
-      if(msg.control == 20 && msg.value > 1)
-        //tiles = msg.value;
-      return;
+
+      // Amount for all Cams simultaneously
+      if(msg.control == 0)
+        cams.setFxAmount(msg.value);
+
+      // Amount per cam
+      if(msg.control > 0 && msg.control < 20)
+        cams.setFxAmount(msg.control % 10, msg.value);
+
+      // set camera in slot
+      if(msg.control > 19 && msg.control < 30)
+        cams.setSlot(msg.control - 20, msg.control);
+
+      break;
     default:
-      return;
+      break;
   }
 }

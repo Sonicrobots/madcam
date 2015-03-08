@@ -4,9 +4,8 @@ void
 Camera::setup(int camWidth, int camHeight)
 {
   //ofEnableNormalizedTexCoords();
-
-  swapMode = 2;
-  thresh = 0.0;
+  amount = 0;
+  colorMode = 0;
   decay = 8;
 
   useTrigger = false;
@@ -15,12 +14,6 @@ Camera::setup(int camWidth, int camHeight)
   position = BUF_LEN - 1;
   initBuffer();
   blender.load("base.vert", "blender.frag");
-  fbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
-
-  // zero out the framebuffer contents
-  fbo.begin();
-  ofClear(0, 0, 0, 0); // black is black is black is black
-  fbo.end();
 
   grabber.setDeviceID(device);
   grabber.setDesiredFrameRate(fps);
@@ -53,8 +46,8 @@ Camera::draw(float x, float y, float z, float w, float h, float sx, float sy, fl
 
   blender.begin();
     blender.setUniformTexture("tex1", grabber.getTextureReference(), 0);
-    blender.setUniform1i("mode", swapMode);
-    blender.setUniform1f("threshold", thresh);
+    blender.setUniform1i("mode", colorMode);
+    blender.setUniform1i("amount", amount);
 
     if(useTrigger)
       blender.setUniform1f("amount", (curve[position] / 255.0f));
@@ -95,24 +88,13 @@ Camera::setTriggerMode(bool mode)
 }
 
 void
-Camera::setFXMode(bool mode)
+Camera::setFxAmount(int a)
 {
-  if(mode) {
-    cout << "FX on" << endl;
-    fx.load("base.vert", "swapchans.frag");
-  } else {
-    fx.unload();
-  }
+  amount = a;
 }
 
 void
-Camera::setThreshold(float t)
+Camera::setColorMode(int mode)
 {
-  thresh = t;
-}
-
-void
-Camera::setSwapMode(int mode)
-{
-  swapMode = mode;
+  colorMode = mode;
 }

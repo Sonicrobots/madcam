@@ -10,8 +10,6 @@ public:
   void setup();
   void update();
   void draw();
-  void setCamera(int num);
-  void setCamera(int slice, int num);
 
   void setViewMode(ViewMode mode);
   void setArrangement(Arrangement arr);
@@ -27,15 +25,18 @@ public:
   void toggleTrigger();
   void setTriggerMode(bool mode);
 
-  void toggleFX();
-  void setFXMode(bool mode);
-  void setSwapMode(int mode);
-
+  void setFxAmount(int amount);
+  void setFxAmount(int idx, int amount);
+  void setColorMode(int mode);
+  void setColorMode(int idx, int mode);
+  void setSlot(int idx, int cam);
   void setDimensions(int width, int height);
 
 protected:
 
 private:
+  vector<int> slots;
+
   Arrangement arrangement;
   ViewMode viewMode;
 
@@ -43,13 +44,6 @@ private:
   bool triggerMode;
 
   int numTiles;
-
-  int selected0;
-  int selected1;
-  int selected2;
-  int selected3;
-  int selected4;
-  int selected5;
 
   int camWidth;
   int camHeight;

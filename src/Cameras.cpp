@@ -9,13 +9,6 @@ Cameras::setup()
   fxMode = false;
   triggerMode = false;
 
-  selected0 = 0;
-  selected1 = 1;
-  selected2 = 2;
-  selected3 = 3;
-  selected4 = 4;
-  selected5 = 5;
-
   winWidth  = ofGetWidth();
   winHeight = ofGetHeight();
 
@@ -33,6 +26,7 @@ Cameras::setup()
     grabber.setFPS(30);
     grabber.setup(camWidth,camHeight);
     cameras.push_back(grabber);
+    slots.push_back(i);
   }
 }
 
@@ -99,37 +93,6 @@ Cameras::drawDebug()
     case CROP:
       ofDrawBitmapString("Crop",20,60);
       break;
-  }
-}
-
-
-void
-Cameras::setCamera(int num)
-{
-  selected0 = num;
-}
-
-void
-Cameras::setCamera(int slice, int num)
-{
-  switch(slice%6) {
-    case 5:
-      selected5 = num;
-      break;
-    case 4:
-      selected4 = num;
-      break;
-    case 3:
-      selected3 = num;
-      break;
-    case 2:
-      selected2 = num;
-      break;
-    case 1:
-      selected1 = num;
-      break;
-    default:
-      selected0 = num;
   }
 }
 
@@ -216,7 +179,7 @@ Cameras::calculateHeight()
 void
 Cameras::drawSingle()
 {
-  cameras.at(selected0)
+  cameras.at(slots.at(0))
       .draw(xOffset, yOffset, 0, scaledWidth, scaledHeight, 0, 0, camWidth, camHeight);
 }
 
@@ -226,11 +189,11 @@ Cameras::drawDual()
   int sliceWidth = int(winWidth * 0.5);
   int offset0 = (scaledWidth - sliceWidth) * 0.5;
 
-  cameras.at(selected0)
+  cameras.at(slots.at(0))
       .draw(-offset0, 0, 0, scaledWidth, scaledHeight, 0, 0, camWidth, camHeight);
   ofSetColor(0,0, 0);
   ofRect(sliceWidth, 0, 0, sliceWidth, winHeight);
-  cameras.at(selected1)
+  cameras.at(slots.at(1))
       .draw(sliceWidth, 0, 0, scaledWidth, scaledHeight, 80, 0, camWidth, camHeight);
 }
 
@@ -241,19 +204,19 @@ Cameras::drawTriple()
   int offset0 = (scaledWidth - sliceWidth) * 0.5;
   int origoff0 = (offset0 / (scaledWidth * 0.01f)) * (camWidth * 0.01f);
 
-  cameras.at(selected0)
+  cameras.at(slots.at(0))
       .draw(-offset0, 0, 0, scaledWidth, scaledHeight, 0, 0, camWidth, camHeight);
 
   ofSetColor(0,0, 0);
   ofRect(sliceWidth, 0, 0, sliceWidth, winHeight);
 
-  cameras.at(selected1)
+  cameras.at(slots.at(1))
       .draw(sliceWidth, 0, 0, scaledWidth, scaledHeight, origoff0, 0, 640, 480);
 
   ofSetColor(0,0, 0);
   ofRect(sliceWidth * 2, 0, 0, sliceWidth, winHeight);
 
-  cameras.at(selected2)
+  cameras.at(slots.at(2))
       .draw(sliceWidth * 2, 0, 0, scaledWidth, scaledHeight, origoff0, 0, 640, 480);
 }
 
@@ -279,10 +242,10 @@ Cameras::drawMonocle()
   int tilewidth = (tileheight / (camHeight * 0.01f)) * (camWidth * 0.01f);
   int xoff = (winWidth - (tilewidth * 3)) * 0.5;
 
-  cameras.at(selected0).draw(xoff,                 0, 0, tilewidth, tileheight, 0, 0, camWidth, camHeight);
-  cameras.at(selected1).draw(xoff + tilewidth,     0, 0, tilewidth, tileheight, 0, 0, camWidth, camHeight);
-  cameras.at(selected2).draw(xoff + tilewidth * 2, 0, 0, tilewidth, tileheight, 0, 0, camWidth, camHeight);
-  cameras.at(selected3).draw(xoff, tileheight, 0, tilewidth * 2, tileheight * 2, 0, 0, camWidth, camHeight);
+  cameras.at(slots.at(0)).draw(xoff,                 0, 0, tilewidth, tileheight, 0, 0, camWidth, camHeight);
+  cameras.at(slots.at(1)).draw(xoff + tilewidth,     0, 0, tilewidth, tileheight, 0, 0, camWidth, camHeight);
+  cameras.at(slots.at(2)).draw(xoff + tilewidth * 2, 0, 0, tilewidth, tileheight, 0, 0, camWidth, camHeight);
+  cameras.at(slots.at(3)).draw(xoff, tileheight, 0, tilewidth * 2, tileheight * 2, 0, 0, camWidth, camHeight);
 }
 
 void
@@ -302,13 +265,15 @@ Cameras::reset()
 void
 Cameras::trigger(int idx)
 {
-  cameras.at(idx).trigger();
+  if(idx > 0 && idx < cameras.size())
+    cameras.at(idx).trigger();
 }
 
 void
 Cameras::reset(int idx)
 {
-  cameras.at(idx).reset();
+  if(idx > 0 && idx < cameras.size())
+    cameras.at(idx).reset();
 }
 
 void
@@ -327,23 +292,37 @@ Cameras::toggleTrigger()
 }
 
 void
-Cameras::toggleFX()
+Cameras::setFxAmount(int idx, int amount)
 {
-  fxMode = !fxMode;
-  for(uint i=0; i < cameras.size(); i++)
-    cameras.at(i).setFXMode(fxMode);
+  if(idx > 0 && idx < cameras.size())
+    cameras.at(idx).setFxAmount(amount);
 }
 
 void
-Cameras::setFXMode(bool mode)
+Cameras::setFxAmount(int amount)
 {
   for(uint i=0; i < cameras.size(); i++)
-    cameras.at(i).setFXMode(mode);
+    cameras.at(i).setFxAmount(amount);
 }
 
 void
-Cameras::setSwapMode(int mode)
+Cameras::setColorMode(int idx, int mode)
+{
+  if(idx > 0 && idx < cameras.size())
+    cameras.at(idx).setColorMode(mode);
+}
+
+void
+Cameras::setColorMode(int mode)
 {
   for(uint i=0; i < cameras.size(); i++)
-    cameras.at(i).setSwapMode(mode);
+    cameras.at(i).setColorMode(mode);
+}
+
+void
+Cameras::setSlot(int idx, int cam)
+{
+  if((idx > 0 && idx < cameras.size()) &&
+     (cam >= 0 && cam < cameras.size()))
+    slots[idx] = cam;
 }
