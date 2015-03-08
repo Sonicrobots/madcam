@@ -50,35 +50,20 @@ void
 Camera::draw(float x, float y, float z, float w, float h, float sx, float sy, float sw, float sh)
 {
   ofSetHexColor(0xffffff);
-  ofEnableAlphaBlending();
 
-  // camera + fx to fbo
-  fbo.begin();
-  if(fx.isLoaded()) {
-    fx.begin();
-    fx.setUniformTexture("tex1", grabber.getTextureReference(), 1);
-    fx.setUniform1i("mode", swapMode);
-    fx.setUniform1f("threshold", thresh);
-  }
-  grabber.getTextureReference().drawSubsection(x, y, z, w, h, sx, sy, sw, sh);
-  if(fx.isLoaded()) fx.end();
-  fbo.end();
-
-  // then draw fbo on screen with blend applied
   blender.begin();
-    blender.setUniformTexture("tex1", fbo.getTextureReference(), 1);
+    blender.setUniformTexture("tex1", grabber.getTextureReference(), 0);
+    blender.setUniform1i("mode", swapMode);
+    blender.setUniform1f("threshold", thresh);
 
     if(useTrigger)
       blender.setUniform1f("amount", (curve[position] / 255.0f));
     else
       blender.setUniform1f("amount", 1.0f);
 
-    fbo.draw(0,0);
+    grabber.getTextureReference().drawSubsection(x, y, z, w, h, sx, sy, sw, sh);
   blender.end();
 
-  fbo.begin();
-  ofClear(0,0,0,0);
-  fbo.end();
   if(position < BUF_LEN -1) position += decay;
 }
 

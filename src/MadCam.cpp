@@ -85,6 +85,9 @@ void MadCam::keyPressed(int key){
     case 48:
       cams.setSwapMode(4);
       break;
+    case 45:
+      cams.setSwapMode(5);
+      break;
   }
 }
 
@@ -140,19 +143,25 @@ void MadCam::exit() {
 // MIDI
 void MadCam::setupMidi()
 {
-  midiIn.listPorts(); // via instance
+  midiIn.listPorts();
+
+  vector<string> portList = midiIn.getPortList();
+
+  for(int i = 0; i < portList.size(); i++) {
+    if(portList.at(i).compare(0, 9, "FastTrack") == 0) {
+      cout << "opening " << portList.at(i) << endl;
+      midiIn.openPort(portList.at(i));
+      midiIn.addListener(this);
+      midiIn.setVerbose(true);
+      return;
+    }
+  }
 
   //midiIn.openPort(1);
   //midiIn.openVirtualPort("ofxMidiIn Input"); // open a virtual port
-  midiIn.openPort("FastTrack Pro 40:0");
-
   // don't ignore sysex, timing, & active sense messages,
   // these are ignored by default
   //midiIn.ignoreTypes(false, false, false);
-
-  // add MadCam as a listener
-  midiIn.addListener(this);
-  midiIn.setVerbose(true);
 }
 
 void MadCam::newMidiMessage(ofxMidiMessage& msg)
@@ -164,6 +173,7 @@ void MadCam::newMidiMessage(ofxMidiMessage& msg)
       cout << "pitch: " << msg.pitch << endl;
       return;
     case MIDI_CONTROL_CHANGE:
+      cout << "ctrl: " << msg.control << " value: " << msg.value << endl;
       if(msg.control == 20 && msg.value > 1)
         //tiles = msg.value;
       return;
