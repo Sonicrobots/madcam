@@ -325,3 +325,10 @@ Cameras::setSlot(int idx, int cam)
      (cam >= 0 && cam < cameras.size()))
     slots[idx] = cam;
 }
+
+void
+Cameras::setDecay(int decay)
+{
+  for(uint i=0; i < cameras.size(); i++)
+    cameras.at(i).setDecay(decay);
+}

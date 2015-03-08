@@ -30,6 +30,7 @@ public:
   void setColorMode(int mode);
   void setColorMode(int idx, int mode);
   void setSlot(int idx, int cam);
+  void setDecay(int decay);
   void setDimensions(int width, int height);
 
 protected:

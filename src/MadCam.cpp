@@ -152,43 +152,10 @@ void MadCam::newMidiMessage(ofxMidiMessage& msg)
           cams.setArrangement(MONOCLE);
           break;
 
-        // TRIGGER MODE
-        case 5:
-          cams.setTriggerMode(true);
-          break;
-        case 6:
-          cams.setTriggerMode(false);
-          break;
-
-        // TrIGGER
-        case 49:
-          cams.trigger(0);
-          break;
-        case 50:
-          cams.trigger(1);
-          break;
-        case 51:
-          cams.trigger(2);
-          break;
-        case 52:
-          cams.trigger(3);
-          break;
-        case 53:
-          cams.trigger(4);
-          break;
-        case 54:
-          cams.trigger(5);
-          break;
-        case 55:
-          cams.trigger(6);
-          break;
-        case 56:
-          cams.trigger(7);
-          break;
-        case 57:
-          cams.trigger(8);
-          break;
       }
+
+      if(msg.pitch >= 49 && msg.pitch < 60)
+        cams.trigger(msg.pitch - 49);
 
       break;
     case MIDI_CONTROL_CHANGE:
@@ -204,7 +171,19 @@ void MadCam::newMidiMessage(ofxMidiMessage& msg)
 
       // set camera in slot
       if(msg.control > 19 && msg.control < 30)
-        cams.setSlot(msg.control - 20, msg.control);
+        cams.setSlot(msg.control - 20, msg.value);
+
+      // set decay
+      if(msg.control == 30)
+        cams.setDecay(msg.control);
+
+      // turn on trigger mode
+      if(msg.control == 31) {
+        if(msg.value < 64)
+          cams.setTriggerMode(true);
+        else
+          cams.setTriggerMode(false);
+      }
 
       break;
     default:

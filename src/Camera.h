@@ -19,7 +19,7 @@ public:
   void setTriggerMode(bool on);
   void setDeviceID(int id);
   void setFPS(int fps);
-  void setThreshold(float t);
+  void setDecay(int decay);
 protected:
 
 private:

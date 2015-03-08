@@ -98,3 +98,9 @@ Camera::setColorMode(int mode)
 {
   colorMode = mode;
 }
+
+void
+Camera::setDecay(int decay)
+{
+  decay = decay;
+}
