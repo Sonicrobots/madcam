@@ -42,10 +42,8 @@ Camera::draw(float x, float y, float z, float w, float h, float sx, float sy, fl
 {
   ofSetHexColor(0xffffff);
   ofEnableAlphaBlending();
-  
 
   if(fx.isLoaded()) {
-    grabber.getTextureReference().bind();
     fx.setUniformTexture("tex0", grabber.getTextureReference(), 1);
     fx.setUniform1f("threshold", thresh);
     fx.begin();
@@ -61,7 +59,6 @@ Camera::draw(float x, float y, float z, float w, float h, float sx, float sy, fl
 
   if(fx.isLoaded()) {
     fx.end();
-    grabber.getTextureReference().unbind();
   }
 
   if(position < BUF_LEN -1) position += decay;
