@@ -100,7 +100,7 @@ Camera::setColorMode(int mode)
 }
 
 void
-Camera::setDecay(int decay)
+Camera::setDecay(int dec)
 {
-  decay = decay;
+  decay = -dec + 127;
 }

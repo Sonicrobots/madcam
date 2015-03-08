@@ -23,8 +23,6 @@ void MadCam::draw(){
 void MadCam::keyPressed(int key){
   int baseKey = 49;
 
-  cout << "key: " << key << endl;
-
   if(key == 117)
     cams.toggleTrigger();
 
@@ -132,7 +130,7 @@ void MadCam::newMidiMessage(ofxMidiMessage& msg)
     case MIDI_NOTE_ON:
       //if(msg.pitch < grabbers.size())
         //selected = msg.pitch;
-      cout << "pitch: " << msg.pitch << endl;
+      // cout << "pitch: " << msg.pitch << endl;
 
       switch(msg.pitch) {
         // LAYOUT
@@ -159,7 +157,7 @@ void MadCam::newMidiMessage(ofxMidiMessage& msg)
 
       break;
     case MIDI_CONTROL_CHANGE:
-      cout << "ctrl: " << msg.control << " value: " << msg.value << endl;
+      //cout << "ctrl: " << msg.control << " value: " << msg.value << endl;
 
       // Amount for all Cams simultaneously
       if(msg.control == 0)
@@ -175,7 +173,7 @@ void MadCam::newMidiMessage(ofxMidiMessage& msg)
 
       // set decay
       if(msg.control == 30)
-        cams.setDecay(msg.control);
+        cams.setDecay(msg.value);
 
       // turn on trigger mode
       if(msg.control == 31) {
@@ -184,6 +182,10 @@ void MadCam::newMidiMessage(ofxMidiMessage& msg)
         else
           cams.setTriggerMode(false);
       }
+
+      // set camera in slot
+      if(msg.control > 31 && msg.control < 41)
+        cams.setColorMode(msg.control - 32, msg.value);
 
       break;
     default:
