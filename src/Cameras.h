@@ -29,6 +29,7 @@ public:
 
   void toggleFX();
   void setFXMode(bool mode);
+  void setSwapMode(int mode);
 
   void setDimensions(int width, int height);
 

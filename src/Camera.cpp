@@ -5,13 +5,22 @@ Camera::setup(int camWidth, int camHeight)
 {
   //ofEnableNormalizedTexCoords();
 
+  swapMode = 2;
   thresh = 0.0;
   decay = 8;
 
   useTrigger = false;
 
+  // fade-out effect
   position = BUF_LEN - 1;
   initBuffer();
+  blender.load("base.vert", "blender.frag");
+  fbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
+
+  // zero out the framebuffer contents
+  fbo.begin();
+  ofClear(0, 0, 0, 0); // black is black is black is black
+  fbo.end();
 
   grabber.setDeviceID(device);
   grabber.setDesiredFrameRate(fps);
@@ -43,24 +52,33 @@ Camera::draw(float x, float y, float z, float w, float h, float sx, float sy, fl
   ofSetHexColor(0xffffff);
   ofEnableAlphaBlending();
 
+  // camera + fx to fbo
+  fbo.begin();
   if(fx.isLoaded()) {
-    fx.setUniformTexture("tex0", grabber.getTextureReference(), 1);
-    fx.setUniform1f("threshold", thresh);
     fx.begin();
+    fx.setUniformTexture("tex1", grabber.getTextureReference(), 1);
+    fx.setUniform1i("mode", swapMode);
+    fx.setUniform1f("threshold", thresh);
   }
-
-  if(useTrigger) {
-    ofSetColor(255, 255, 255, curve[position]);
-  }
-
   grabber.getTextureReference().drawSubsection(x, y, z, w, h, sx, sy, sw, sh);
+  if(fx.isLoaded()) fx.end();
+  fbo.end();
 
-  ofSetColor(255, 255, 255, 255);
+  // then draw fbo on screen with blend applied
+  blender.begin();
+    blender.setUniformTexture("tex1", fbo.getTextureReference(), 1);
 
-  if(fx.isLoaded()) {
-    fx.end();
-  }
+    if(useTrigger)
+      blender.setUniform1f("amount", (curve[position] / 255.0f));
+    else
+      blender.setUniform1f("amount", 1.0f);
 
+    fbo.draw(0,0);
+  blender.end();
+
+  fbo.begin();
+  ofClear(0,0,0,0);
+  fbo.end();
   if(position < BUF_LEN -1) position += decay;
 }
 
@@ -95,7 +113,8 @@ void
 Camera::setFXMode(bool mode)
 {
   if(mode) {
-    fx.load("base.vert", "threshold.frag");
+    cout << "FX on" << endl;
+    fx.load("base.vert", "swapchans.frag");
   } else {
     fx.unload();
   }
@@ -105,4 +124,10 @@ void
 Camera::setThreshold(float t)
 {
   thresh = t;
+}
+
+void
+Camera::setSwapMode(int mode)
+{
+  swapMode = mode;
 }

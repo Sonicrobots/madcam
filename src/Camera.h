@@ -14,6 +14,7 @@ public:
   void trigger();
   void reset();
 
+  void setSwapMode(int mode);
   void setFXMode(bool on);
   void setTriggerMode(bool on);
   void setDeviceID(int id);
@@ -30,9 +31,13 @@ private:
   int fps;
   int decay;
   int position;
+
+  int swapMode;
   float thresh;
 
   ofShader fx;
+  ofShader blender;
+  ofFbo fbo;
   ofVideoGrabber grabber;
 
   void initBuffer();

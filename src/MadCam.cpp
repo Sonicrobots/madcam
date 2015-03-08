@@ -70,6 +70,21 @@ void MadCam::keyPressed(int key){
     case 115:
       cams.setViewMode((SCALE));
       break;
+    case 54:
+      cams.setSwapMode(0);
+      break;
+    case 55:
+      cams.setSwapMode(1);
+      break;
+    case 56:
+      cams.setSwapMode(2);
+      break;
+    case 57:
+      cams.setSwapMode(3);
+      break;
+    case 48:
+      cams.setSwapMode(4);
+      break;
   }
 }
 

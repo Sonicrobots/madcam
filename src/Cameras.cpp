@@ -340,3 +340,10 @@ Cameras::setFXMode(bool mode)
   for(uint i=0; i < cameras.size(); i++)
     cameras.at(i).setFXMode(mode);
 }
+
+void
+Cameras::setSwapMode(int mode)
+{
+  for(uint i=0; i < cameras.size(); i++)
+    cameras.at(i).setSwapMode(mode);
+}
