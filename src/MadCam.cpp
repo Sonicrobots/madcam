@@ -89,45 +89,10 @@ void MadCam::keyPressed(int key){
 }
 
 //--------------------------------------------------------------
-void MadCam::keyReleased(int key){
-
-}
-
-//--------------------------------------------------------------
-void MadCam::mouseMoved(int x, int y ){
-}
-
-//--------------------------------------------------------------
-void MadCam::mouseDragged(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void MadCam::mousePressed(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void MadCam::mouseReleased(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
 void
 MadCam::windowResized(int w, int h)
 {
   cams.setDimensions(w, h);
-}
-
-//--------------------------------------------------------------
-void
-MadCam::gotMessage(ofMessage msg)
-{
-}
-
-//--------------------------------------------------------------
-void MadCam::dragEvent(ofDragInfo dragInfo){
-
 }
 
 //--------------------------------------------------------------
@@ -246,3 +211,11 @@ void MadCam::newMidiMessage(ofxMidiMessage& msg)
       break;
   }
 }
+
+void MadCam::dragEvent(ofDragInfo dragInfo){}
+void MadCam::keyReleased(int key){}
+void MadCam::mouseMoved(int x, int y ){}
+void MadCam::mouseDragged(int x, int y, int button){}
+void MadCam::mousePressed(int x, int y, int button){}
+void MadCam::mouseReleased(int x, int y, int button){}
+void MadCam::gotMessage(ofMessage msg) {}

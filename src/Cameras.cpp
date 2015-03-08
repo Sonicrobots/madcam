@@ -33,10 +33,8 @@ Cameras::setup()
 void
 Cameras::update()
 {
-  //cameras.at(selected).update();
-  for(uint i = 0; i < cameras.size(); i++){
+  for(uint i = 0; i < cameras.size(); i++)
     cameras.at(i).update();
-  }
 }
 
 void
@@ -249,6 +247,14 @@ Cameras::drawMonocle()
 }
 
 void
+Cameras::reset()
+{
+  for(uint i=0; i < cameras.size(); i++)
+    cameras.at(i).reset();
+}
+
+
+void
 Cameras::trigger()
 {
   for(uint i=0; i < cameras.size(); i++)
@@ -256,16 +262,9 @@ Cameras::trigger()
 }
 
 void
-Cameras::reset()
-{
-  for(uint i=0; i < cameras.size(); i++)
-    cameras.at(i).reset();
-}
-
-void
 Cameras::trigger(int idx)
 {
-  if(idx > 0 && idx < cameras.size())
+  if(idx >= 0 && idx < cameras.size())
     cameras.at(idx).trigger();
 }
 
