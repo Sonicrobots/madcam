@@ -3,6 +3,7 @@
 
 #include "ofMain.h"
 #include "ofxMidi.h"
+#include "ofxOsc.h"
 
 #include "Utils.h"
 #include "Camera.h"
@@ -32,6 +33,7 @@ public:
 
   Cameras cams;
 
+  ofxOscReceiver receiver;
   ofxMidiIn midiIn;
 };
 #endif
