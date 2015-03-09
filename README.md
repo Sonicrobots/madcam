@@ -1,4 +1,11 @@
-MadCam
+MadCam -  Multicam
+======
+# Overview
+Madcam is an open frameworks (http://www.openframeworks.cc) project for using multiple webcams (PS3 Eye) simultaniously for displaying video. 
+Used for the robotics media project "Glitchrobot" by SonicRobots
+# Description
+The goal is to display the stream of multiple webcams on one screen, in different tilings. Tiling and FX can be controlled by Midi.
+The system uses the Open Frameworks project 
 ======
 
 ## TODO:
