@@ -1,21 +1,41 @@
 <MIDI>
   <INSTR>
-    <NOTE>12</NOTE>
-    <CAMERA>9</CAMERA>
+    <NOTE>48</NOTE>
+    <CAMERA>0</CAMERA>
   </INSTR>
 
   <INSTR>
-    <NOTE>22</NOTE>
-    <CAMERA>98</CAMERA>
+    <NOTE>60</NOTE>
+    <CAMERA>1</CAMERA>
   </INSTR>
 
   <INSTR>
-    <NOTE>8</NOTE>
-    <CAMERA>9</CAMERA>
+    <NOTE>63</NOTE>
+    <CAMERA>2</CAMERA>
   </INSTR>
 
   <INSTR>
-    <NOTE>4</NOTE>
-    <CAMERA>7</CAMERA>
+    <NOTE>64</NOTE>
+    <CAMERA>3</CAMERA>
+  </INSTR>
+
+  <INSTR>
+    <NOTE>72</NOTE>
+    <CAMERA>4</CAMERA>
+  </INSTR>
+
+  <INSTR>
+    <NOTE>76</NOTE>
+    <CAMERA>5</CAMERA>
+  </INSTR>
+
+  <INSTR>
+    <NOTE>80</NOTE>
+    <CAMERA>6</CAMERA>
+  </INSTR>
+
+  <INSTR>
+    <NOTE>81</NOTE>
+    <CAMERA>6</CAMERA>
   </INSTR>
 </MIDI>

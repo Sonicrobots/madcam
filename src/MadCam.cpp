@@ -236,12 +236,15 @@ void MadCam::setupMidi()
       midiIn.openPort(portList.at(i));
       midiIn.addListener(this);
       midiIn.setVerbose(true);
-      return;
+      break;
     }
   }
 
   if(XML.loadFile("settings.xml"))
     cout << "settings.xml loaded!" << endl;
+  else 
+    cout << "settings.xml NOT loaded!" << endl;
+
 
   XML.pushTag("MIDI",0);
 
@@ -267,42 +270,47 @@ void MadCam::setupMidi()
 
 void MadCam::newMidiMessage(ofxMidiMessage& msg)
 {
+  if(msg.channel == 2) {
+    switch(msg.status) {
+      case MIDI_NOTE_ON:
+        //if(msg.pitch < grabbers.size())
+          //selected = msg.pitch;
+        // cout << "pitch: " << msg.pitch << endl;
+
+        switch(msg.pitch) {
+          // LAYOUT
+          case 0:
+            cams.setArrangement(SINGLE);
+            break;
+          case 1:
+            cams.setArrangement(DUAL_HORIZ);
+            break;
+          case 2:
+            cams.setArrangement(TRIPLE_HORIZ);
+            break;
+          case 3:
+            cams.setArrangement(TILED);
+            break;
+          case 4:
+            cams.setArrangement(MONOCLE);
+            break;
+
+        }
+
+        for(int i = 0; i < noteMap.size(); i++) {
+          auto mapping = noteMap.at(i);
+          if(msg.pitch == get<0>(mapping) &&
+             get<1>(mapping) >= 0 && get<1>(mapping) < cams.getNumCameras())
+            cams.trigger(std::get<1>(noteMap.at(i)));
+        }
+
+        break;
+    }
+  }
+
   if(msg.channel != 9) return;
 
   switch(msg.status) {
-    case MIDI_NOTE_ON:
-      //if(msg.pitch < grabbers.size())
-        //selected = msg.pitch;
-      // cout << "pitch: " << msg.pitch << endl;
-
-      switch(msg.pitch) {
-        // LAYOUT
-        case 0:
-          cams.setArrangement(SINGLE);
-          break;
-        case 1:
-          cams.setArrangement(DUAL_HORIZ);
-          break;
-        case 2:
-          cams.setArrangement(TRIPLE_HORIZ);
-          break;
-        case 3:
-          cams.setArrangement(TILED);
-          break;
-        case 4:
-          cams.setArrangement(MONOCLE);
-          break;
-
-      }
-
-      for(int i = 0; i < noteMap.size(); i++) {
-        auto mapping = noteMap.at(i);
-        if(msg.pitch == get<0>(mapping) &&
-           get<1>(mapping) >= 0 && get<1>(mapping) < cams.getNumCameras())
-          cams.trigger(std::get<1>(noteMap.at(i)));
-      }
-
-      break;
     case MIDI_CONTROL_CHANGE:
       //cout << "ctrl: " << msg.control << " value: " << msg.value << endl;
 
