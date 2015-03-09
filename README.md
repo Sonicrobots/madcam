@@ -1,14 +1,25 @@
-MadCam -  Multicam
+MadCam
+An simultaneous multi webcam approach to open frameworks. 
 ======
 # Overview
-Madcam is an open frameworks (http://www.openframeworks.cc) project for using multiple webcams (PS3 Eye) simultaniously for displaying video. 
-Used for the robotics media project "Glitchrobot" by SonicRobots
+Madcam is an open frameworks (http://www.openframeworks.cc) project for using multiple web cams (PS3 Eye) simultaneously for displaying live video material provided by web cams. Its controllable by MIDI!
+We wrote it as a Live Vj extension for the robotics media art installation project "Glitchrobot" by SonicRobots.
 # Description
-The goal is to display the stream of multiple webcams on one screen, in different tilings. Tiling and FX can be controlled by Midi.
-The system uses the Open Frameworks project 
+The goal is set up an VJ setup which is based on webcam material. So far we used 9-10 Web cams, but the amount can probably extended. The webcam content is displayed  n one screen, in different tilings. Tiling and FX can be 
+controlled by Midi. The system uses the Open Frameworks project.
+# Features
+- Open Frameworks
+- OpenGL shaders for filters and FX
+- UVC Video Compatible (Linux Video driver) e.g. the very cheap and high frame rate USB Webcams "PS3 Eye"
+- Different tilings: One cam full screen, 2-9 Cams tiling. 
+- Decay Filter: Apply an OpenGL Shader to create an "fade out" effect on a single cam image, whenever a certain Midi Note is triggered
+- Midi Controls
+  - Control and switch the tilings with midi notes!
+  - Control the cam assignment with MIDI CC commands
+  - Control the Decay time
+- OSC
+ 
 ======
-
-## TODO:
 
 - Scaling modes
   - scale to fit
@@ -31,4 +42,3 @@ The system uses the Open Frameworks project
   - "Filters"     - https://www.shadertoy.com/view/XsX3z8
 
   
-
