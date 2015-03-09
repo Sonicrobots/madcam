@@ -126,6 +126,8 @@ void MadCam::setupMidi()
 
 void MadCam::newMidiMessage(ofxMidiMessage& msg)
 {
+  if(msg.channel != 9) return;
+
   switch(msg.status) {
     case MIDI_NOTE_ON:
       //if(msg.pitch < grabbers.size())
@@ -160,11 +162,11 @@ void MadCam::newMidiMessage(ofxMidiMessage& msg)
       //cout << "ctrl: " << msg.control << " value: " << msg.value << endl;
 
       // Amount for all Cams simultaneously
-      if(msg.control == 0)
+      if(msg.control == 1)
         cams.setFxAmount(msg.value);
 
       // Amount per cam
-      if(msg.control > 0 && msg.control < 20)
+      if(msg.control > 1 && msg.control < 20)
         cams.setFxAmount(msg.control % 10, msg.value);
 
       // set camera in slot
@@ -176,7 +178,7 @@ void MadCam::newMidiMessage(ofxMidiMessage& msg)
         cams.setDecay(msg.value);
 
       // turn on trigger mode
-      if(msg.control == 31) {
+      if(msg.control == 32) {
         if(msg.value < 64)
           cams.setTriggerMode(true);
         else

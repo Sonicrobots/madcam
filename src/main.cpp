@@ -7,8 +7,8 @@ int main(){
 	settings.width = 1920;
 	settings.height = 1080;
 
-  settings.glVersionMajor = 4;
-  settings.glVersionMinor = 4;
+        settings.glVersionMajor = 4;
+        settings.glVersionMinor = 4;
 
 	ofCreateWindow(settings);
 

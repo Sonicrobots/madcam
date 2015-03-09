@@ -28,6 +28,11 @@ Cameras::setup()
     cameras.push_back(grabber);
     slots.push_back(i);
   }
+  
+  cout << "---------------------- Cameras --------------------" << endl;
+  cout << "# devices: " << devices.size() << endl;
+  cout << "# grabbers: " << cameras.size() << endl;
+  cout << "# slots: " << slots.size() << endl; 
 }
 
 void
@@ -244,6 +249,8 @@ Cameras::drawMonocle()
   cameras.at(slots.at(1)).draw(xoff + tilewidth,     0, 0, tilewidth, tileheight, 0, 0, camWidth, camHeight);
   cameras.at(slots.at(2)).draw(xoff + tilewidth * 2, 0, 0, tilewidth, tileheight, 0, 0, camWidth, camHeight);
   cameras.at(slots.at(3)).draw(xoff, tileheight, 0, tilewidth * 2, tileheight * 2, 0, 0, camWidth, camHeight);
+  cameras.at(slots.at(4)).draw(xoff + tilewidth * 2, tileheight, 0, tilewidth, tileheight, 0, 0, camWidth, camHeight);
+  cameras.at(slots.at(5)).draw(xoff + tilewidth * 2, tileheight * 2, 0, tilewidth, tileheight, 0, 0, camWidth, camHeight);
 }
 
 void
