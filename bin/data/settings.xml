@@ -1,0 +1,21 @@
+<MIDI>
+  <INSTR>
+    <NOTE>12</NOTE>
+    <CAMERA>9</CAMERA>
+  </INSTR>
+
+  <INSTR>
+    <NOTE>22</NOTE>
+    <CAMERA>98</CAMERA>
+  </INSTR>
+
+  <INSTR>
+    <NOTE>8</NOTE>
+    <CAMERA>9</CAMERA>
+  </INSTR>
+
+  <INSTR>
+    <NOTE>4</NOTE>
+    <CAMERA>7</CAMERA>
+  </INSTR>
+</MIDI>

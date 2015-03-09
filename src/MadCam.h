@@ -4,6 +4,7 @@
 #include "ofMain.h"
 #include "ofxMidi.h"
 #include "ofxOsc.h"
+#include "ofxXmlSettings.h"
 
 #include "Utils.h"
 #include "Camera.h"
@@ -33,7 +34,10 @@ public:
 
   Cameras cams;
 
+  ofxXmlSettings XML;
   ofxOscReceiver receiver;
   ofxMidiIn midiIn;
+
+  vector<tuple<int, int>> noteMap;
 };
 #endif

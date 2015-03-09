@@ -240,6 +240,24 @@ void MadCam::setupMidi()
     }
   }
 
+  if(XML.loadFile("settings.xml"))
+    cout << "settings.xml loaded!" << endl;
+
+  XML.pushTag("MIDI",0);
+
+  int numInstrTags = XML.getNumTags("INSTR");
+
+  cout << "num: " << numInstrTags << endl;
+
+  if(numInstrTags > 0) {
+    for(int i = 0; i < numInstrTags; i++) {
+      int note = XML.getValue("INSTR:NOTE",0,i);
+      int cam = XML.getValue("INSTR:CAMERA",0,i);
+      cout << "note: " << note << " Camera: " << cam << endl;
+      noteMap.push_back(make_tuple(note, cam));
+     }
+  }
+
   //midiIn.openPort(1);
   //midiIn.openVirtualPort("ofxMidiIn Input"); // open a virtual port
   // don't ignore sysex, timing, & active sense messages,
@@ -277,8 +295,12 @@ void MadCam::newMidiMessage(ofxMidiMessage& msg)
 
       }
 
-      if(msg.pitch >= 49 && msg.pitch < 60)
-        cams.trigger(msg.pitch - 49);
+      for(int i = 0; i < noteMap.size(); i++) {
+        auto mapping = noteMap.at(i);
+        if(msg.pitch == get<0>(mapping) &&
+           get<1>(mapping) >= 0 && get<1>(mapping) < cams.getNumCameras())
+          cams.trigger(std::get<1>(noteMap.at(i)));
+      }
 
       break;
     case MIDI_CONTROL_CHANGE:
