@@ -298,17 +298,17 @@ Cameras::toggleTrigger()
 }
 
 void
-Cameras::setFxAmount(int idx, int amount)
+Cameras::setFxAmount(int idx, int xamount, int yamount)
 {
   if(idx >= 0 && idx < cameras.size())
-    cameras.at(idx).setFxAmount(amount);
+    cameras.at(idx).setFxAmount(xamount, yamount);
 }
 
 void
-Cameras::setFxAmount(int amount)
+Cameras::setFxAmount(int xamount, int yamount)
 {
   for(uint i=0; i < cameras.size(); i++)
-    cameras.at(i).setFxAmount(amount);
+    cameras.at(i).setFxAmount(xamount,yamount);
 }
 
 void
@@ -323,6 +323,15 @@ Cameras::setColorMode(int mode)
 {
   for(uint i=0; i < cameras.size(); i++)
     cameras.at(i).setColorMode(mode);
+}
+
+void
+Cameras::setSlot(int cam)
+{
+  if(cam >= 0 && cam < cameras.size()) {
+    for(uint i=0; i < cameras.size(); i++)
+      slots[i] = cam;
+  }
 }
 
 void

@@ -15,7 +15,7 @@ public:
   void reset();
 
   void setColorMode(int mode);
-  void setFxAmount(int amount);
+  void setFxAmount(int xamount, int yamount);
   void setTriggerMode(bool on);
   void setDeviceID(int id);
   void setFPS(int fps);

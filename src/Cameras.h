@@ -25,10 +25,11 @@ public:
   void toggleTrigger();
   void setTriggerMode(bool mode);
 
-  void setFxAmount(int amount);
-  void setFxAmount(int idx, int amount);
+  void setFxAmount(int xamount, int yamount);
+  void setFxAmount(int idx, int xamount, int yamount);
   void setColorMode(int mode);
   void setColorMode(int idx, int mode);
+  void setSlot(int cam);
   void setSlot(int idx, int cam);
   void setDecay(int decay);
   void setDimensions(int width, int height);

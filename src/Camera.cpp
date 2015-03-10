@@ -88,9 +88,9 @@ Camera::setTriggerMode(bool mode)
 }
 
 void
-Camera::setFxAmount(int a)
+Camera::setFxAmount(int x, int y)
 {
-  amount = a;
+  amount = x;
 }
 
 void

@@ -18,6 +18,8 @@ void MadCam::update(){
 
     string addr = m.getAddress();
 
+    cout << "Message for address: " << addr << endl;
+
     if(addr == "/trigger/state") {
       if(m.getArgAsInt32(0) % 2 == 0) {
         cams.setTriggerMode(false);
@@ -60,53 +62,58 @@ void MadCam::update(){
     }
 
     if(addr == "/fx/amount/global") {
-      cams.setFxAmount(m.getArgAsInt32(0));
+      cams.setFxAmount(m.getArgAsInt32(0), m.getArgAsInt32(1));
       cout << "global fx amount: " << m.getArgAsInt32(0) << endl;
     }
 
     if(addr == "/fx/amount/0") {
-      cams.setFxAmount(0 ,m.getArgAsInt32(0));
-      cout << "cam 0 fx amount: " << m.getArgAsInt32(0) << endl;
+      cams.setFxAmount(0 ,m.getArgAsInt32(0), m.getArgAsInt32(1));
+      cout << "cam 0 fx x: " << m.getArgAsInt32(0) <<  " y: " << m.getArgAsInt32(1) << endl;
     }
 
     if(addr == "/fx/amount/1") {
-      cams.setFxAmount(1 ,m.getArgAsInt32(0));
-      cout << "cam 1 fx amount: " << m.getArgAsInt32(0) << endl;
+      cams.setFxAmount(1 ,m.getArgAsInt32(0), m.getArgAsInt32(1));
+      cout << "cam 1 fx x: " << m.getArgAsInt32(0) <<  " y: " << m.getArgAsInt32(1) << endl;
     }
 
     if(addr == "/fx/amount/2") {
-      cams.setFxAmount(2 ,m.getArgAsInt32(0));
-      cout << "cam 2 fx amount: " << m.getArgAsInt32(0) << endl;
+      cams.setFxAmount(2 ,m.getArgAsInt32(0), m.getArgAsInt32(1));
+      cout << "cam 2 fx x: " << m.getArgAsInt32(0) <<  " y: " << m.getArgAsInt32(1) << endl;
     }
 
     if(addr == "/fx/amount/3") {
-      cams.setFxAmount(3 ,m.getArgAsInt32(0));
-      cout << "cam 3 fx amount: " << m.getArgAsInt32(0) << endl;
+      cams.setFxAmount(3 ,m.getArgAsInt32(0), m.getArgAsInt32(1));
+      cout << "cam 3 fx x: " << m.getArgAsInt32(0) <<  " y: " << m.getArgAsInt32(1) << endl;
     }
 
     if(addr == "/fx/amount/4") {
-      cams.setFxAmount(4 ,m.getArgAsInt32(0));
-      cout << "cam 4 fx amount: " << m.getArgAsInt32(0) << endl;
+      cams.setFxAmount(4 ,m.getArgAsInt32(0), m.getArgAsInt32(1));
+      cout << "cam 4 fx x: " << m.getArgAsInt32(0) <<  " y: " << m.getArgAsInt32(1) << endl;
     }
 
     if(addr == "/fx/amount/5") {
-      cams.setFxAmount(5 ,m.getArgAsInt32(0));
-      cout << "cam 5 fx amount: " << m.getArgAsInt32(0) << endl;
+      cams.setFxAmount(5 ,m.getArgAsInt32(0), m.getArgAsInt32(1));
+      cout << "cam 5 fx x: " << m.getArgAsInt32(0) <<  " y: " << m.getArgAsInt32(1) << endl;
     }
 
     if(addr == "/fx/amount/6") {
-      cams.setFxAmount(6 ,m.getArgAsInt32(0));
-      cout << "cam 6 fx amount: " << m.getArgAsInt32(0) << endl;
+      cams.setFxAmount(6 ,m.getArgAsInt32(0), m.getArgAsInt32(1));
+      cout << "cam 6 fx x: " << m.getArgAsInt32(0) <<  " y: " << m.getArgAsInt32(1) << endl;
     }
 
     if(addr == "/fx/amount/7") {
-      cams.setFxAmount(7 ,m.getArgAsInt32(0));
-      cout << "cam 7 fx amount: " << m.getArgAsInt32(0) << endl;
+      cams.setFxAmount(7 ,m.getArgAsInt32(0), m.getArgAsInt32(1));
+      cout << "cam 7 fx x: " << m.getArgAsInt32(0) <<  " y: " << m.getArgAsInt32(1) << endl;
     }
 
     if(addr == "/fx/amount/8") {
-      cams.setFxAmount(8 ,m.getArgAsInt32(0));
-      cout << "cam 8 fx amount: " << m.getArgAsInt32(0) << endl;
+      cams.setFxAmount(8 ,m.getArgAsInt32(0), m.getArgAsInt32(1));
+      cout << "cam 8 fx x: " << m.getArgAsInt32(0) <<  " y: " << m.getArgAsInt32(1) << endl;
+    }
+
+    if(addr == "/slot/global") {
+      cams.setSlot(m.getArgAsInt32(0));
+      cout << "cam globa; slot: " << m.getArgAsInt32(0) << endl;
     }
 
     if(addr == "/slot/0") {
@@ -152,6 +159,11 @@ void MadCam::update(){
     if(addr == "/slot/8") {
       cams.setSlot(8 ,m.getArgAsInt32(0));
       cout << "cam 8 slot: " << m.getArgAsInt32(0) << endl;
+    }
+
+    if(addr == "/color/global") {
+      cams.setColorMode(m.getArgAsInt32(0));
+      cout << "cam 0 color: " << m.getArgAsInt32(0) << endl;
     }
 
     if(addr == "/color/0") {
@@ -313,14 +325,6 @@ void MadCam::newMidiMessage(ofxMidiMessage& msg)
   switch(msg.status) {
     case MIDI_CONTROL_CHANGE:
       //cout << "ctrl: " << msg.control << " value: " << msg.value << endl;
-
-      // Amount for all Cams simultaneously
-      if(msg.control == 1)
-        cams.setFxAmount(msg.value);
-
-      // Amount per cam
-      if(msg.control > 1 && msg.control < 20)
-        cams.setFxAmount(msg.control % 10, msg.value);
 
       // set camera in slot
       if(msg.control > 19 && msg.control < 30)
