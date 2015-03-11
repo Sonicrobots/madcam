@@ -18,6 +18,6 @@ out vec2 varyingtexcoord;
 
 void main()
 {
-  varyingtexcoord = texcoord.xy;
+  varyingtexcoord = vec2(texcoord.x, 480.0 + (texcoord.y * -1.0));
   gl_Position = modelViewProjectionMatrix * position;
 }
