@@ -357,7 +357,7 @@ void MadCam::keyPressed(int key){
   int baseKey = 49;
 
   if(key == 117)
-    cams.toggleTrigger();
+    cams.reloadShaders();
 
   if(key == 257)
     cams.trigger(0);

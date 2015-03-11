@@ -348,3 +348,10 @@ Cameras::setDecay(int decay)
   for(uint i=0; i < cameras.size(); i++)
     cameras.at(i).setDecay(decay);
 }
+
+void
+Cameras::reloadShaders()
+{
+  for(uint i=0; i < cameras.size(); i++)
+    cameras.at(i).reloadShader();
+}

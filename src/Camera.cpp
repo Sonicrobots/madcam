@@ -4,7 +4,9 @@ void
 Camera::setup(int camWidth, int camHeight)
 {
   //ofEnableNormalizedTexCoords();
-  amount = 0;
+  amountX = 0;
+  amountY = 0;
+
   colorMode = 0;
   decay = 8;
 
@@ -47,12 +49,13 @@ Camera::draw(float x, float y, float z, float w, float h, float sx, float sy, fl
   blender.begin();
     blender.setUniformTexture("tex1", grabber.getTextureReference(), 0);
     blender.setUniform1i("mode", colorMode);
-    blender.setUniform1i("amount", amount);
+    blender.setUniform1i("amountX", amountX);
+    blender.setUniform1i("amountY", amountY);
 
     if(useTrigger)
-      blender.setUniform1f("amount", (curve[position] / 255.0f));
+      blender.setUniform1f("alpha", (curve[position] / 255.0f));
     else
-      blender.setUniform1f("amount", 1.0f);
+      blender.setUniform1f("alpha", 1.0f);
 
     grabber.getTextureReference().drawSubsection(x, y, z, w, h, sx, sy, sw, sh);
   blender.end();
@@ -90,7 +93,8 @@ Camera::setTriggerMode(bool mode)
 void
 Camera::setFxAmount(int x, int y)
 {
-  amount = x;
+  amountX = x;
+  amountY = y;
 }
 
 void
@@ -103,4 +107,12 @@ void
 Camera::setDecay(int dec)
 {
   decay = -dec + 127;
+}
+
+void
+Camera::reloadShader()
+{
+  cout << "reloading shader" << endl;
+  blender.unload();
+  blender.load("base.vert", "blender.frag");
 }

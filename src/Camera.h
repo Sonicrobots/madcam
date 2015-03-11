@@ -20,6 +20,7 @@ public:
   void setDeviceID(int id);
   void setFPS(int fps);
   void setDecay(int decay);
+  void reloadShader();
 protected:
 
 private:
@@ -33,7 +34,9 @@ private:
   int position;
 
   int colorMode;
-  int amount;
+
+  int amountX;
+  int amountY;
 
   ofShader blender;
   ofVideoGrabber grabber;

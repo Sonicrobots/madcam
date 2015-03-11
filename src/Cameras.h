@@ -25,6 +25,7 @@ public:
   void toggleTrigger();
   void setTriggerMode(bool mode);
 
+  void reloadShaders();
   void setFxAmount(int xamount, int yamount);
   void setFxAmount(int idx, int xamount, int yamount);
   void setColorMode(int mode);
