@@ -46,19 +46,21 @@ Camera::draw(float x, float y, float z, float w, float h, float sx, float sy, fl
 {
   ofSetHexColor(0xffffff);
 
+  // START
   blender.begin();
-    blender.setUniformTexture("tex1", grabber.getTextureReference(), 0);
-    blender.setUniform1i("mode", colorMode);
-    blender.setUniform1i("amountX", amountX);
-    blender.setUniform1i("amountY", amountY);
+  blender.setUniformTexture("tex1", grabber.getTextureReference(), 0);
+  blender.setUniform1i("mode", colorMode);
+  blender.setUniform1i("amountX", amountX);
+  blender.setUniform1i("amountY", amountY);
 
-    if(useTrigger)
-      blender.setUniform1f("alpha", (curve[position] / 255.0f));
-    else
-      blender.setUniform1f("alpha", 1.0f);
+  if(useTrigger)
+    blender.setUniform1f("alpha", (curve[position] / 255.0f));
+  else
+    blender.setUniform1f("alpha", 1.0f);
 
-    grabber.getTextureReference().drawSubsection(x, y, z, w, h, sx, sy, sw, sh);
+  grabber.getTextureReference().drawSubsection(x, y, z, w, h, sx, sy, sw, sh);
   blender.end();
+  // END
 
   if(position < BUF_LEN -1) position += decay;
 }

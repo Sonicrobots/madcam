@@ -12,7 +12,7 @@ public:
   void draw();
 
   void setViewMode(ViewMode mode);
-  void setArrangement(Arrangement arr);
+  void setLayout(Layout layout);
 
   int getNumCameras();
 
@@ -40,7 +40,7 @@ protected:
 private:
   vector<int> slots;
 
-  Arrangement arrangement;
+  Layout layout;
   ViewMode viewMode;
 
   bool fxMode;

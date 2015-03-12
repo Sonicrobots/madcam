@@ -38,19 +38,19 @@ void MadCam::update(){
     if(addr == "/layout") {
       switch(m.getArgAsInt32(0)) {
         case 0:
-          cams.setArrangement(SINGLE);
+          cams.setLayout(SINGLE);
           break;
         case 1:
-          cams.setArrangement(DUAL_HORIZ);
+          cams.setLayout(DUAL_HORIZ);
           break;
         case 2:
-          cams.setArrangement(TRIPLE_HORIZ);
+          cams.setLayout(TRIPLE_HORIZ);
           break;
         case 3:
-          cams.setArrangement(TILED);
+          cams.setLayout(TILED);
           break;
         case 4:
-          cams.setArrangement(MONOCLE);
+          cams.setLayout(MONOCLE);
           break;
       }
       cout << "layout: " << m.getArgAsInt32(0) << endl;
@@ -292,19 +292,19 @@ void MadCam::newMidiMessage(ofxMidiMessage& msg)
         switch(msg.pitch) {
           // LAYOUT
           case 0:
-            cams.setArrangement(SINGLE);
+            cams.setLayout(SINGLE);
             break;
           case 1:
-            cams.setArrangement(DUAL_HORIZ);
+            cams.setLayout(DUAL_HORIZ);
             break;
           case 2:
-            cams.setArrangement(TRIPLE_HORIZ);
+            cams.setLayout(TRIPLE_HORIZ);
             break;
           case 3:
-            cams.setArrangement(TILED);
+            cams.setLayout(TILED);
             break;
           case 4:
-            cams.setArrangement(MONOCLE);
+            cams.setLayout(MONOCLE);
             break;
 
         }
@@ -378,19 +378,19 @@ void MadCam::keyPressed(int key){
 
   switch(key) {
     case 113:
-      cams.setArrangement(SINGLE);
+      cams.setLayout(SINGLE);
       break;
     case 119:
-      cams.setArrangement(DUAL_HORIZ);
+      cams.setLayout(DUAL_HORIZ);
       break;
     case 101:
-      cams.setArrangement(TRIPLE_HORIZ);
+      cams.setLayout(TRIPLE_HORIZ);
       break;
     case 114:
-      cams.setArrangement(TILED);
+      cams.setLayout(TILED);
       break;
     case 116:
-      cams.setArrangement(MONOCLE);
+      cams.setLayout(MONOCLE);
       break;
     case 99:
       cams.setViewMode((CROP));

@@ -3,7 +3,7 @@
 void
 Cameras::setup()
 {
-  arrangement = SINGLE;
+  layout = SINGLE;
   viewMode = SCALE;
 
   fxMode = false;
@@ -47,7 +47,7 @@ Cameras::draw()
 {
   ofSetHexColor(0xffffff);
 
-  switch(arrangement) {
+  switch(layout) {
     case SINGLE:
       drawSingle();
       break;
@@ -71,7 +71,7 @@ Cameras::draw()
 void
 Cameras::drawDebug()
 {
-  switch(arrangement) {
+  switch(layout) {
     case SINGLE:
       ofDrawBitmapString("Single",20,40);
       break;
@@ -107,10 +107,10 @@ Cameras::setViewMode(ViewMode mode)
 }
 
 void
-Cameras::setArrangement(Arrangement a)
+Cameras::setLayout(Layout l)
 {
   reset();
-  arrangement = a;
+  layout = l;
   recalculate();
 }
 

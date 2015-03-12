@@ -107,7 +107,6 @@ void main()
     else if( amountX < 40 )
     {
       // scene 1
-
       uv.x += 100.55;
       uv *= 0.00005;
     }
@@ -127,7 +126,6 @@ void main()
       uv *= 0.000045;
     }
 
-
     float fft = texture2DRect( tex1, vec2(uv.x,0.25) ).x;
     float ftf = texture2DRect( tex1, vec2(uv.x,0.15) ).x;
     float fty = texture2DRect( tex1, vec2(uv.x,0.35) ).x;
@@ -136,8 +134,6 @@ void main()
     if( sin( fty ) < 0.5 )
       uv.x += sin( fty ) * sin( cos( float(amountX) ) + uv.y * 40005.0 ) ;
 
-    // mat2 m = mat2( cos( float(amountX) ), -sin( float(amountX) ), sin( float(amountX) ), cos( float(amountX) ) );
-    // uv = uv * m;
     uv *= sin( float(amountX) * 1709.0 );
 
     vec3 p;
