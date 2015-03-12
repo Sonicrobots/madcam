@@ -27,6 +27,7 @@ public:
   void windowResized(int w, int h);
   void dragEvent(ofDragInfo dragInfo);
   void gotMessage(ofMessage msg);
+  void setScene(int idx);
 
   // MIDI
   void newMidiMessage(ofxMidiMessage& newMsg);
@@ -38,6 +39,8 @@ public:
   ofxOscReceiver receiver;
   ofxMidiIn midiIn;
 
+  void parseConfig();
   vector<tuple<int, int>> noteMap;
+  vector<Scene> sceneMap;
 };
 #endif

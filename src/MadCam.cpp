@@ -3,6 +3,7 @@
 //--------------------------------------------------------------
 void MadCam::setup(){
   ofSetVerticalSync(true);
+  parseConfig();
   receiver.setup(8080);
   setupMidi();
   cams.setup();
@@ -210,9 +211,27 @@ void MadCam::update(){
       cams.setColorMode(8 ,m.getArgAsInt32(0));
       cout << "cam 8 color " << m.getArgAsInt32(0) << endl;
     }
+
+    if(addr == "/scene") {
+      int idx = m.getArgAsInt32(0);
+      if(idx >= 0 && idx < sceneMap.size()) setScene(idx);
+    }
   }
 
   cams.update();
+}
+
+void
+MadCam::setScene(int idx)
+{
+  cams.setLayout(sceneMap.at(idx).layout);
+  cams.setViewMode(sceneMap.at(idx).viewMode);
+  cams.setTriggerMode(sceneMap.at(idx).triggerMode);
+  cams.setColorMode(sceneMap.at(idx).fx);
+  cams.setFxAmount(sceneMap.at(idx).amountX, sceneMap.at(idx).amountY);
+  for (uint i = 0; i < sceneMap.at(idx).slots.size(); i++) {
+    cams.setSlot(i, sceneMap.at(idx).slots.at(i));
+  }
 }
 
 //--------------------------------------------------------------
@@ -250,27 +269,6 @@ void MadCam::setupMidi()
       midiIn.setVerbose(true);
       break;
     }
-  }
-
-  if(XML.loadFile("settings.xml"))
-    cout << "settings.xml loaded!" << endl;
-  else 
-    cout << "settings.xml NOT loaded!" << endl;
-
-
-  XML.pushTag("MIDI",0);
-
-  int numInstrTags = XML.getNumTags("INSTR");
-
-  cout << "num: " << numInstrTags << endl;
-
-  if(numInstrTags > 0) {
-    for(int i = 0; i < numInstrTags; i++) {
-      int note = XML.getValue("INSTR:NOTE",0,i);
-      int cam = XML.getValue("INSTR:CAMERA",0,i);
-      cout << "note: " << note << " Camera: " << cam << endl;
-      noteMap.push_back(make_tuple(note, cam));
-     }
   }
 
   //midiIn.openPort(1);
@@ -416,6 +414,74 @@ void MadCam::keyPressed(int key){
     case 45:
       cams.setColorMode(5);
       break;
+  }
+}
+
+void
+MadCam::parseConfig()
+{
+  if(XML.loadFile("settings.xml"))
+    cout << "settings.xml loaded!" << endl;
+  else
+    cout << "settings.xml NOT loaded!" << endl;
+
+  // MIDI SETUP
+  XML.pushTag("settings",0);
+  XML.pushTag("midi",0);
+
+  int numMappingTags = XML.getNumTags("mapping");
+
+  if(numMappingTags > 0) {
+    for(uint i = 0; i < numMappingTags; i++) {
+      int note = XML.getValue("mapping:note",0,i);
+      int cam  = XML.getValue("mapping:camera",0,i);
+      cout << "note: " << note << " Camera: " << cam << endl;
+      noteMap.push_back(make_tuple(note, cam));
+     }
+  }
+
+  XML.popTag();
+
+  // SCENES
+  XML.pushTag("scenes",0);
+
+  int numSceneTags = XML.getNumTags("scene");
+  if(numSceneTags > 0) {
+    for (uint i = 0; i < numSceneTags; i++) {
+      Layout layout = static_cast<Layout>(XML.getValue("scene:layout", 0, i));
+      ViewMode mode = static_cast<ViewMode>(XML.getValue("scene:view-mode", 0, i));
+      bool trigger  = static_cast<bool>(XML.getValue("scene:trigger-mode", 0, i));
+      int fx        = XML.getValue("scene:fx:type",     0, i);
+      int amountX   = XML.getValue("scene:fx:amount-x", 0, i);
+      int amountY   = XML.getValue("scene:fx:amount-y", 0, i);
+
+
+      XML.pushTag("scene", i);
+      int numSlotTags = XML.getNumTags("slot");
+      vector<int> slots;
+
+      cout << " num slots: " << numSlotTags << endl;
+
+      if(numSlotTags > 0) {
+        for (uint j = 0; j < numSlotTags; j++) {
+          slots.push_back(XML.getValue("slot", 0, j));
+          cout << "slot at " << j << " is " << slots.at(j) << endl;
+        }
+      }
+      XML.popTag();
+
+      sceneMap.push_back({ layout, mode, trigger, fx, amountX, amountY, slots });
+    }
+  }
+
+  for (uint i = 0; i < sceneMap.size(); i++) {
+    cout << "-------------" << endl;
+    cout << "layout: " << sceneMap.at(i).layout << endl;
+    cout << "view-mode: " << sceneMap.at(i).viewMode << endl;
+    cout << "trigger-mode" << sceneMap.at(i).triggerMode << endl;
+    cout << "fx" << sceneMap.at(i).fx << endl;
+    cout << "amountX " << sceneMap.at(i).amountX << endl;
+    cout << "amountY " << sceneMap.at(i).amountY << endl;
   }
 }
 

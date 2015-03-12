@@ -1,41 +1,83 @@
-<MIDI>
-  <INSTR>
-    <NOTE>48</NOTE>
-    <CAMERA>0</CAMERA>
-  </INSTR>
+<settings>
+  <midi>
+    <mapping>
+      <note>48</note>
+      <camera>0</camera>
+    </mapping>
 
-  <INSTR>
-    <NOTE>60</NOTE>
-    <CAMERA>1</CAMERA>
-  </INSTR>
+    <mapping>
+      <note>60</note>
+      <camera>1</camera>
+    </mapping>
 
-  <INSTR>
-    <NOTE>63</NOTE>
-    <CAMERA>2</CAMERA>
-  </INSTR>
+    <mapping>
+      <note>63</note>
+      <camera>2</camera>
+    </mapping>
 
-  <INSTR>
-    <NOTE>64</NOTE>
-    <CAMERA>3</CAMERA>
-  </INSTR>
+    <mapping>
+      <note>64</note>
+      <camera>3</camera>
+    </mapping>
 
-  <INSTR>
-    <NOTE>72</NOTE>
-    <CAMERA>4</CAMERA>
-  </INSTR>
+    <mapping>
+      <note>72</note>
+      <camera>4</camera>
+    </mapping>
 
-  <INSTR>
-    <NOTE>76</NOTE>
-    <CAMERA>5</CAMERA>
-  </INSTR>
+    <mapping>
+      <note>76</note>
+      <camera>5</camera>
+    </mapping>
 
-  <INSTR>
-    <NOTE>80</NOTE>
-    <CAMERA>6</CAMERA>
-  </INSTR>
+    <mapping>
+      <note>80</note>
+      <camera>6</camera>
+    </mapping>
 
-  <INSTR>
-    <NOTE>81</NOTE>
-    <CAMERA>6</CAMERA>
-  </INSTR>
-</MIDI>
+    <mapping>
+      <note>81</note>
+      <camera>6</camera>
+    </mapping>
+  </midi>
+
+  <scenes> 
+    <scene>
+      <layout>0</layout>
+      <view-mode>0</view-mode>
+      <trigger-mode>0</trigger-mode>
+      <fx>
+        <type>0</type>
+        <amount-x>8</amount-x>
+        <amount-y>2</amount-y>
+      </fx>
+      <slot>0</slot>
+      <slot>1</slot>
+      <slot>2</slot>
+      <slot>3</slot>
+      <slot>4</slot>
+      <slot>5</slot>
+      <slot>6</slot>
+      <slot>7</slot>
+    </scene>
+
+    <scene>
+      <layout>1</layout>
+      <view-mode>1</view-mode>
+      <trigger-mode>1</trigger-mode>
+      <fx>
+        <type>6</type>
+        <amount-x>80</amount-x>
+        <amount-y>23</amount-y>
+      </fx>
+      <slot>2</slot>
+      <slot>2</slot>
+      <slot>2</slot>
+      <slot>2</slot>
+      <slot>2</slot>
+      <slot>2</slot>
+      <slot>2</slot>
+      <slot>2</slot>
+    </scene>
+  </scenes>
+</settings>

@@ -16,9 +16,11 @@ enum ViewMode {
 struct Scene {
   enum Layout   layout;
   enum ViewMode viewMode;
-  int           colorFx;
+  bool          triggerMode;
+  int           fx;
   int           amountX;
   int           amountY;
+  vector<int>   slots;
 };
 
 #endif
