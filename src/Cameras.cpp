@@ -12,6 +12,8 @@ Cameras::setup()
   winWidth  = ofGetWidth();
   winHeight = ofGetHeight();
 
+  int camCount = 0;
+
   camWidth  = 640;
   camHeight = 480;
 
@@ -21,18 +23,22 @@ Cameras::setup()
   vector<ofVideoDevice> devices = initGrabber.listDevices();
 
   for(uint i = 0; i < devices.size(); i++){
-    Camera grabber;
-    grabber.setDeviceID(devices[i].id);
-    grabber.setFPS(30);
-    grabber.setup(camWidth,camHeight);
-    cameras.push_back(grabber);
-    slots.push_back(i);
+    // devices.at(i).hardwareName
+    if(devices.at(i).deviceName == "USB Camera-B4.09.24.1") {
+      Camera grabber;
+      grabber.setDeviceID(devices[i].id);
+      grabber.setFPS(30);
+      grabber.setup(camWidth,camHeight);
+      cameras.push_back(grabber);
+      slots.push_back(camCount);
+      camCount++;
+    }
   }
-  
+
   cout << "---------------------- Cameras --------------------" << endl;
   cout << "# devices: " << devices.size() << endl;
   cout << "# grabbers: " << cameras.size() << endl;
-  cout << "# slots: " << slots.size() << endl; 
+  cout << "# slots: " << slots.size() << endl;
 }
 
 void
