@@ -4,7 +4,6 @@
 #include "ofMain.h"
 #include "Utils.h"
 
-
 class Camera {
 public:
   void update();
