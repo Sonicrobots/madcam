@@ -213,8 +213,7 @@ void MadCam::update(){
     }
 
     if(addr == "/scene") {
-      int idx = m.getArgAsInt32(0);
-      if(idx >= 0 && idx < sceneMap.size()) setScene(idx);
+      setScene(m.getArgAsInt32(0));
     }
   }
 
@@ -224,14 +223,22 @@ void MadCam::update(){
 void
 MadCam::setScene(int idx)
 {
+  cout << "SET SCENE index: " << idx << " num scenes: " << sceneMap.size() << endl;
+  if(idx < 0 || idx >= sceneMap.size()) return;
+
+  cout << "SET SCENE layout: " << sceneMap.at(idx).layout << endl;
+  cout << "SET SCENE viewMode: " << sceneMap.at(idx).viewMode << endl;
+
   cams.setLayout(sceneMap.at(idx).layout);
   cams.setViewMode(sceneMap.at(idx).viewMode);
-  cams.setTriggerMode(sceneMap.at(idx).triggerMode);
-  cams.setColorMode(sceneMap.at(idx).fx);
-  cams.setFxAmount(sceneMap.at(idx).amountX, sceneMap.at(idx).amountY);
-  for (uint i = 0; i < sceneMap.at(idx).slots.size(); i++) {
-    cams.setSlot(i, sceneMap.at(idx).slots.at(i));
-  }
+
+  // cams.setTriggerMode(sceneMap.at(idx).triggerMode);
+  // cams.setColorMode(sceneMap.at(idx).fx);
+  // cams.setFxAmount(sceneMap.at(idx).amountX, sceneMap.at(idx).amountY);
+
+  // for (uint i = 0; i < sceneMap.at(idx).slots.size(); i++) {
+  //   cams.setSlot(i, sceneMap.at(idx).slots.at(i));
+  // }
 }
 
 //--------------------------------------------------------------
