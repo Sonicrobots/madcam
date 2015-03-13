@@ -1,5 +1,6 @@
 A multi USB webcam projection approach with open frameworks.
 =====
+![](http://i.imgur.com/XDPpcQx.jpg)
 #Overview
 'Madcam' is an open frameworks (http://www.openframeworks.cc) project for using multiple USB web cams (e.g. PS3 Eye) simultaneously for displaying live video material. Its controllable by MIDI and OSC! We wrote it as a Live VJ extension for the robotics media art installation project "Glitchrobot" by SonicRobots.
 #Description
