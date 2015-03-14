@@ -23,4 +23,9 @@ struct Scene {
   vector<int>   slots;
 };
 
+struct Config {
+  vector<tuple<int,int>> noteMap;
+  vector<Scene> sceneMap;
+};
+
 #endif
