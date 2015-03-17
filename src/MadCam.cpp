@@ -19,11 +19,7 @@ void MadCam::update(){
 void
 MadCam::setScene(int idx)
 {
-  cout << "SET SCENE index: " << idx << " num scenes: " << config.sceneMap.size() << endl;
   if(idx < 0 || idx >= config.sceneMap.size()) return;
-
-  cout << "SET SCENE layout: " << config.sceneMap.at(idx).layout << endl;
-  cout << "SET SCENE viewMode: " << config.sceneMap.at(idx).viewMode << endl;
 
   cameras.setLayout(config.sceneMap.at(idx).layout);
   cameras.setViewMode(config.sceneMap.at(idx).viewMode);
@@ -40,7 +36,6 @@ MadCam::setScene(int idx)
 //--------------------------------------------------------------
 void MadCam::draw(){
   cameras.draw();
-  // ofDrawBitmapString(ofGetFrameRate(),20,20);
 }
 
 //--------------------------------------------------------------
@@ -52,7 +47,6 @@ MadCam::windowResized(int w, int h)
 
 //--------------------------------------------------------------
 void MadCam::exit() {
-  // clean up
   midiHandler.close();
 }
 
