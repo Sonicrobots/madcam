@@ -10,7 +10,7 @@ MidiHandler::registerHost(MadCam* app)
 
   vector<string> portList = midiIn.getPortList();
 
-  for(int i = 0; i < portList.size(); i++) {
+  for(uint i = 0; i < portList.size(); i++) {
     if(portList.at(i).compare(0, 9, "FastTrack") == 0) {
       cout << "opening " << portList.at(i) << endl;
       midiIn.openPort(portList.at(i));
@@ -65,14 +65,49 @@ MidiHandler::newMidiMessage(ofxMidiMessage& msg)
         }
 
         // respond to mappings in notemap
-        for(int i = 0; i < application->config.noteMap.size(); i++) {
+        for(uint i = 0; i < application->config.noteMap.size(); i++) {
           auto mapping = application->config.noteMap.at(i);
           if(msg.pitch == get<0>(mapping) &&
              get<1>(mapping) >= 0 && get<1>(mapping) < application->cameras.getNumCameras())
             application->cameras.trigger(std::get<1>(application->config.noteMap.at(i)));
         }
-
         break;
+    case MIDI_NOTE_OFF:
+      break;
+    case MIDI_PROGRAM_CHANGE:
+      break;
+    case MIDI_PITCH_BEND:
+      break;
+    case MIDI_AFTERTOUCH:
+      break;
+    case MIDI_POLY_AFTERTOUCH:
+      break;
+    case MIDI_SYSEX:
+      break;
+    case MIDI_TIME_CODE:
+      break;
+    case MIDI_SONG_POS_POINTER:
+      break;
+    case MIDI_SONG_SELECT:
+      break;
+    case MIDI_TUNE_REQUEST:
+      break;
+    case MIDI_SYSEX_END:
+      break;
+    case MIDI_TIME_CLOCK:
+      break;
+    case MIDI_START:
+      break;
+    case MIDI_CONTINUE:
+      break;
+    case MIDI_STOP:
+      break;
+    case MIDI_ACTIVE_SENSING:
+      break;
+    case MIDI_SYSTEM_RESET:
+      break;
+    default:
+      break;
     }
   }
 

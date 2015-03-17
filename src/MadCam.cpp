@@ -19,7 +19,7 @@ void MadCam::update(){
 void
 MadCam::setScene(int idx)
 {
-  if(idx < 0 || idx >= config.sceneMap.size()) return;
+  if(idx < 0 || idx >= (int)config.sceneMap.size()) return;
 
   cameras.setLayout(config.sceneMap.at(idx).layout);
   cameras.setViewMode(config.sceneMap.at(idx).viewMode);

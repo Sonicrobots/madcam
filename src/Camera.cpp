@@ -48,7 +48,7 @@ Camera::draw(float x, float y, float z, float w, float h, float sx, float sy, fl
 
   // START
   blender.begin();
-  blender.setUniformTexture("tex1", grabber.getTextureReference(), 0);
+  blender.setUniformTexture("tex1", grabber.getTexture(), 0);
   blender.setUniform1i("mode", colorMode);
   blender.setUniform1i("amountX", amountX);
   blender.setUniform1i("amountY", amountY);
@@ -58,7 +58,7 @@ Camera::draw(float x, float y, float z, float w, float h, float sx, float sy, fl
   else
     blender.setUniform1f("alpha", 1.0f);
 
-  grabber.getTextureReference().drawSubsection(x, y, z, w, h, sx, sy, sw, sh);
+  grabber.getTexture().drawSubsection(x, y, z, w, h, sx, sy, sw, sh);
   blender.end();
   // END
 
