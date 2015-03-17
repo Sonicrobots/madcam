@@ -52,7 +52,6 @@ void
 Cameras::draw()
 {
   ofSetHexColor(0xffffff);
-
   switch(layout) {
     case SINGLE:
       drawSingle();
@@ -70,8 +69,6 @@ Cameras::draw()
       drawMonocle();
       break;
   }
-
-  drawDebug();
 }
 
 void
@@ -238,7 +235,7 @@ Cameras::drawTiled()
   int xoff = (winWidth - (tilewidth * 3)) * 0.5;
 
   for(uint i = 0; i < cameras.size(); i++) {
-    cameras.at(i).draw(xoff + tilewidth * (i % 3), yoff, 0, tilewidth, tileheight, 0, 0, camWidth, camHeight);
+    cameras.at(slots.at(i)).draw(xoff + tilewidth * (i % 3), yoff, 0, tilewidth, tileheight, 0, 0, camWidth, camHeight);
     if(i % 3 == 2) yoff += tileheight;
   }
 }

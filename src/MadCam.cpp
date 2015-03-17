@@ -28,13 +28,13 @@ MadCam::setScene(int idx)
   cameras.setLayout(config.sceneMap.at(idx).layout);
   cameras.setViewMode(config.sceneMap.at(idx).viewMode);
 
-  // cameras.setTriggerMode(config.sceneMap.at(idx).triggerMode);
-  // cameras.setColorMode(config.sceneMap.at(idx).fx);
-  // cameras.setFxAmount(config.sceneMap.at(idx).amountX, config.sceneMap.at(idx).amountY);
+  cameras.setTriggerMode(config.sceneMap.at(idx).triggerMode);
+  cameras.setColorMode(config.sceneMap.at(idx).fx);
+  cameras.setFxAmount(config.sceneMap.at(idx).amountX, config.sceneMap.at(idx).amountY);
 
-  // for (uint i = 0; i < config.sceneMap.at(idx).slots.size(); i++) {
-  //   cameras.setSlot(i, config.sceneMap.at(idx).slots.at(i));
-  // }
+  for (uint i = 0; i < config.sceneMap.at(idx).slots.size(); i++) {
+    cameras.setSlot(i, config.sceneMap.at(idx).slots.at(i));
+  }
 }
 
 //--------------------------------------------------------------
@@ -191,3 +191,4 @@ void MadCam::mouseDragged(int x, int y, int button){}
 void MadCam::mousePressed(int x, int y, int button){}
 void MadCam::mouseReleased(int x, int y, int button){}
 void MadCam::gotMessage(ofMessage msg) {}
+

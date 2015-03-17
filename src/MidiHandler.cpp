@@ -36,6 +36,8 @@ MidiHandler::close()
 void
 MidiHandler::newMidiMessage(ofxMidiMessage& msg)
 {
+  //cout << "channel: " << msg.channel << " note: " << msg.pitch << endl;
+
   if(msg.channel == 2) {
     switch(msg.status) {
       case MIDI_NOTE_ON:
