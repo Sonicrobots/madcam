@@ -3,14 +3,15 @@
 
 #include "ofMain.h"
 #include "ofxMidi.h"
-#include "ofxOsc.h"
 #include "ofxXmlSettings.h"
 
+#include "MidiHandler.h"
+#include "OscHandler.h"
 #include "Utils.h"
 #include "Camera.h"
 #include "Cameras.h"
 
-class MadCam : public ofBaseApp, public ofxMidiListener {
+class MadCam : public ofBaseApp {
 
 public:
   void setup();
@@ -29,18 +30,12 @@ public:
   void gotMessage(ofMessage msg);
   void setScene(int idx);
 
-  // MIDI
-  void newMidiMessage(ofxMidiMessage& newMsg);
-  void setupMidi();
-
-  Cameras cams;
-
   ofxXmlSettings XML;
-  ofxOscReceiver receiver;
-  ofxMidiIn midiIn;
-
   void parseConfig();
-  vector<tuple<int, int>> noteMap;
-  vector<Scene> sceneMap;
+
+  MidiHandler midiHandler;
+  OscHandler oscHandler;
+  Cameras cameras;
+  Config config;
 };
 #endif

@@ -1,5 +1,6 @@
 // fragment shader
 #version 150
+#extension GL_ARB_texture_rectangle : enable
 
 // this is how we receive the texture
 uniform sampler2DRect tex1;
@@ -62,10 +63,9 @@ float noise( vec3 p )
 void main()
 {
   vec4 texel = texture(tex1, varyingtexcoord);
-  //outputColor = vec4(texel.r, texel.g, texel.b, alpha);
 
   if(mode == 0) {
-    outputColor = texel;
+    outputColor = vec4(texel.r, texel.g, texel.b, alpha);
   }
   else if(mode == 1) {
     outputColor = vec4(float(amountY / 4) * texel.r, float(amountX / 4) * texel.b, float(amountY / 4) * texel.g, alpha);
