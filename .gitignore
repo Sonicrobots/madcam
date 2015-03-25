@@ -29,3 +29,7 @@
 /bin/madCam
 /obj/
 /.dir-locals.el
+/GPATH
+/GRTAGS
+/GTAGS
+/bin/multicam
