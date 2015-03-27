@@ -3,12 +3,14 @@
 
 int main(){
   ofGLFWWindowSettings settings;
-  
+
   settings.width = 1920;
   settings.height = 1080;
-  
+
   settings.glVersionMajor = 4;
   settings.glVersionMinor = 4;
+
+  settings.decorated = false;
 
   ofCreateWindow(settings);
 
