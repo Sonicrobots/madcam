@@ -3,6 +3,9 @@
 //--------------------------------------------------------------
 void MadCam::setup(){
   ofSetVerticalSync(true);
+
+  currentCam = 0;
+
   parseConfig();
   midiHandler.registerHost(this);
   oscHandler.registerHost(this);
@@ -19,11 +22,7 @@ void MadCam::update(){
 void
 MadCam::setScene(int idx)
 {
-  cout << "SET SCENE index: " << idx << " num scenes: " << config.sceneMap.size() << endl;
   if(idx < 0 || idx >= config.sceneMap.size()) return;
-
-  cout << "SET SCENE layout: " << config.sceneMap.at(idx).layout << endl;
-  cout << "SET SCENE viewMode: " << config.sceneMap.at(idx).viewMode << endl;
 
   cameras.setLayout(config.sceneMap.at(idx).layout);
   cameras.setViewMode(config.sceneMap.at(idx).viewMode);
@@ -32,9 +31,8 @@ MadCam::setScene(int idx)
   cameras.setColorMode(config.sceneMap.at(idx).fx);
   cameras.setFxAmount(config.sceneMap.at(idx).amountX, config.sceneMap.at(idx).amountY);
 
-  for (uint i = 0; i < config.sceneMap.at(idx).slots.size(); i++) {
+  for (uint i = 0; i < config.sceneMap.at(idx).slots.size(); i++)
     cameras.setSlot(i, config.sceneMap.at(idx).slots.at(i));
-  }
 }
 
 //--------------------------------------------------------------
@@ -59,6 +57,16 @@ void MadCam::exit() {
 
 //--------------------------------------------------------------
 void MadCam::keyPressed(int key){
+  if(key == 358) {
+    currentCam++;
+    cameras.setSlot(0, currentCam);
+  }
+
+  if(key == 358) {
+    currentCam = currentCam >= 0 ? currentCam - 1 : 0;
+    cameras.setSlot(0, currentCam);
+  }
+
   if(key == 117)
     cameras.reloadShaders();
 
@@ -141,8 +149,8 @@ MadCam::parseConfig()
 
   if(numMappingTags > 0) {
     for(uint i = 0; i < numMappingTags; i++) {
-      int note = XML.getValue("mapping:note",0,i);
-      int cam  = XML.getValue("mapping:camera",0,i);
+      int note = XML.getValue("mapping:note",    0,i);
+      int cam  = XML.getValue("mapping:position",0,i);
       noteMap.push_back(make_tuple(note, cam));
      }
   }

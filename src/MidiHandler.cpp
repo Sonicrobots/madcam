@@ -11,6 +11,7 @@ MidiHandler::registerHost(MadCam* app)
   vector<string> portList = midiIn.getPortList();
 
   for(int i = 0; i < portList.size(); i++) {
+    //if(portList.at(i).compare(0, 9, "USB Uno MIDI Interface") == 0) {
     if(portList.at(i).compare(0, 9, "FastTrack") == 0) {
       cout << "opening " << portList.at(i) << endl;
       midiIn.openPort(portList.at(i));
@@ -36,8 +37,7 @@ MidiHandler::close()
 void
 MidiHandler::newMidiMessage(ofxMidiMessage& msg)
 {
-  //cout << "channel: " << msg.channel << " note: " << msg.pitch << endl;
-
+  cout << msg.pitch << endl;
   if(msg.channel == 2) {
     switch(msg.status) {
       case MIDI_NOTE_ON:
@@ -67,11 +67,15 @@ MidiHandler::newMidiMessage(ofxMidiMessage& msg)
         // respond to mappings in notemap
         for(int i = 0; i < application->config.noteMap.size(); i++) {
           auto mapping = application->config.noteMap.at(i);
-          if(msg.pitch == get<0>(mapping) &&
-             get<1>(mapping) >= 0 && get<1>(mapping) < application->cameras.getNumCameras())
-            application->cameras.trigger(std::get<1>(application->config.noteMap.at(i)));
+          if(get<0>(mapping) == msg.pitch &&
+             get<1>(mapping) >= 0         && 
+	     get<1>(mapping) <  application->cameras.getNumCameras())
+	  {
+	    cout << "triggering cam: " << std::get<1>(mapping) << " with note: " << std::get<0>(mapping) << endl;
+            application->cameras.trigger(std::get<1>(mapping));
+            break;
+          }
         }
-
         break;
     }
   }
