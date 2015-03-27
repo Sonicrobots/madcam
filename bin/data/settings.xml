@@ -1,43 +1,147 @@
 <settings>
   <midi>
     <mapping>
-      <note>48</note>
+      <note>77</note>
       <camera>0</camera>
+      <position>4</position>
+    </mapping>
+
+    <mapping>
+      <note>80</note>
+      <camera>0</camera>
+      <position>4</position>
+    </mapping>
+
+    <mapping>
+      <note>78</note>
+      <camera>1</camera>
+      <position>3</position>
+    </mapping>
+
+    <mapping>
+      <note>82</note>
+      <camera>1</camera>
+      <position>3</position>
+    </mapping>
+
+    <mapping>
+      <note>59</note>
+      <camera>2</camera>
+      <position>7</position>
     </mapping>
 
     <mapping>
       <note>60</note>
-      <camera>1</camera>
+      <camera>2</camera>
+      <position>7</position>
+    </mapping>
+
+    <mapping>
+      <note>48</note>
+      <camera>3</camera>
+      <position>2</position>
+    </mapping>
+
+    <mapping>
+      <note>49</note>
+      <camera>3</camera>
+      <position>2</position>
+    </mapping>
+
+    <mapping>
+      <note>50</note>
+      <camera>3</camera>
+      <position>2</position>
     </mapping>
 
     <mapping>
       <note>63</note>
-      <camera>2</camera>
-    </mapping>
-
-    <mapping>
-      <note>64</note>
-      <camera>3</camera>
+      <camera>4</camera>
+      <position>1</position>
     </mapping>
 
     <mapping>
       <note>72</note>
       <camera>4</camera>
+      <position>1</position>
+    </mapping>
+
+    <mapping>
+      <note>73</note>
+      <camera>4</camera>
+      <position>1</position>
+    </mapping>
+
+    <mapping>
+      <note>74</note>
+      <camera>4</camera>
+      <position>1</position>
+    </mapping>
+
+    <mapping>
+      <note>61</note>
+      <camera>5</camera>
+      <position>6</position>
+    </mapping>
+
+    <mapping>
+      <note>61</note>
+      <camera>5</camera>
+      <position>6</position>
+    </mapping>
+
+    <mapping>
+      <note>52</note>
+      <camera>6</camera>
+      <position>5</position>
+    </mapping>
+
+    <mapping>
+      <note>53</note>
+      <camera>6</camera>
+      <position>5</position>
+    </mapping>
+
+    <mapping>
+      <note>54</note>
+      <camera>6</camera>
+      <position>5</position>
+    </mapping>
+
+    <mapping>
+      <note>55</note>
+      <camera>6</camera>
+      <position>5</position>
+    </mapping>
+
+    <mapping>
+      <note>56</note>
+      <camera>6</camera>
+      <position>5</position>
+    </mapping>
+
+    <mapping>
+      <note>57</note>
+      <camera>6</camera>
+      <position>5</position>
+    </mapping>
+
+    <mapping>
+      <note>58</note>
+      <camera>6</camera>
+      <position>5</position>
     </mapping>
 
     <mapping>
       <note>76</note>
-      <camera>5</camera>
+      <camera>7</camera>
+      <position>8</position>
     </mapping>
 
     <mapping>
-      <note>80</note>
-      <camera>6</camera>
-    </mapping>
-
-    <mapping>
-      <note>81</note>
-      <camera>6</camera>
+      <note>64</note>
+      <camera>8</camera>
+      <position>0</position>
     </mapping>
   </midi>
 

@@ -12,6 +12,7 @@
 #include "Cameras.h"
 
 class MadCam : public ofBaseApp {
+  int currentCam;
 
 public:
   void setup();
