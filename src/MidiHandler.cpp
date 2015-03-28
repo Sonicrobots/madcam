@@ -37,7 +37,6 @@ MidiHandler::close()
 void
 MidiHandler::newMidiMessage(ofxMidiMessage& msg)
 {
-  cout << msg.pitch << endl;
   if(msg.channel == 2) {
     switch(msg.status) {
       case MIDI_NOTE_ON:
@@ -71,7 +70,6 @@ MidiHandler::newMidiMessage(ofxMidiMessage& msg)
              get<1>(mapping) >= 0         && 
 	     get<1>(mapping) <  application->cameras.getNumCameras())
 	  {
-	    cout << "triggering cam: " << std::get<1>(mapping) << " with note: " << std::get<0>(mapping) << endl;
             application->cameras.trigger(std::get<1>(mapping));
             break;
           }
@@ -120,7 +118,6 @@ MidiHandler::newMidiMessage(ofxMidiMessage& msg)
 
   switch(msg.status) {
     case MIDI_CONTROL_CHANGE:
-      //cout << "ctrl: " << msg.control << " value: " << msg.value << endl;
 
       // set camera in slot
       if(msg.control > 19 && msg.control < 30)

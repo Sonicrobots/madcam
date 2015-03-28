@@ -173,12 +173,9 @@ MadCam::parseConfig()
       uint numSlotTags = XML.getNumTags("slot");
       vector<int> slots;
 
-      // cout << " num slots: " << numSlotTags << endl;
-
       if(numSlotTags > 0) {
         for (uint j = 0; j < numSlotTags; j++) {
           slots.push_back(XML.getValue("slot", 0, j));
-          // cout << "slot at " << j << " is " << slots.at(j) << endl;
         }
       }
       XML.popTag();
