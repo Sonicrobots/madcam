@@ -229,14 +229,17 @@ Cameras::drawTriple()
 void
 Cameras::drawTiled()
 {
-  int tileheight = winHeight / 3;
+  int count = 3;
+  int yspacing = 4;
+  int xspacing = 4;
+  int tileheight = (winHeight / count) - yspacing;
   int tilewidth = (tileheight / (camHeight * 0.01f)) * (camWidth * 0.01f);
-  int yoff = 0;
+  int yoff = yspacing * 0.5;
   int xoff = (winWidth - (tilewidth * 3)) * 0.5;
 
   for(uint i = 0; i < cameras.size(); i++) {
-    cameras.at(slots.at(i)).draw(xoff + tilewidth * (i % 3), yoff, 0, tilewidth, tileheight, 0, 0, camWidth, camHeight);
-    if(i % 3 == 2) yoff += tileheight;
+    cameras.at(slots.at(i)).draw((xoff + tilewidth * (i % 3)) + (xspacing * (i % 3)), yoff, 0, tilewidth, tileheight, 0, 0, camWidth, camHeight);
+    if(i % 3 == 2) yoff += (tileheight + yspacing);
   }
 }
 
