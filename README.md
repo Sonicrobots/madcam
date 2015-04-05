@@ -2,8 +2,6 @@ A multi USB webcam projection approach with open frameworks.
 =====
 ![http://sonicrobots.com/2015/04/01/a-multi-usb-webcam-approach-with-open-frameworks/](http://i.imgur.com/XDPpcQx.jpg)
 #
-Karsten Gebbert https://github.com/krgn
-
 [https://youtu.be/nk4oQDKUXEw] (Video Link Test)
 
 [https://youtu.be/kqoPPkRODSE] (Video Link Performance)
