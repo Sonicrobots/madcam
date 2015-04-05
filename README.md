@@ -6,6 +6,8 @@ Video Test https://youtu.be/nk4oQDKUXEw
 
 Video of Performance https://youtu.be/kqoPPkRODSE
 
+Programmed by https://github.com/krgn
+
 #Overview
 ‘Madcam‘ is an open frameworks (C++) based project for mixing USB Web Cameras (e.g. the 10$ cheap USB - PS3-Eye Webcam) im realtime. Why this is awesome? Its usually hard and/or expensive to mix many video signals in realtime and display them side by side. We found a way to make it cheap, quick and reliable!
 The project is a visual extension for another  project called “Glitchrobot” where robots are used to make electronic music, but thats another issue. Lets start!
