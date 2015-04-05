@@ -38,7 +38,8 @@ The setup we build consists of the following parts, but may be build from differ
 - USB: One MIDI Host controller (USB chain) can take data from 2 Webcams (PS 3Eye) running at 480x600 resolution at 30FPS. PCI can process less data then PCIExpress, so it is best to build your system on PCIe cards. 
 - We added PCIe USB cards so that one USB Host controller is in charge of 2 webcams. There are also expensice USB-PCI cards out there which have one Hostcontroller for every USB-chain
 - We used Xubuntu as a base system and a WRT Router for the OSC Network
-#LINKS
+
+# LINKS
 - Project Homepage (http://sonicrobots.com/2015/04/01/a-multi-usb-webcam-approach-with-open-frameworks/)
 - Glitch Robot Installation (http://sonicrobots.com/glitch-robot/)
 - Open Frameworks (http://openframeworks.cc)
