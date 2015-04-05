@@ -2,9 +2,9 @@ Many web cams mixed in realtime - on the cheap!
 =====
 ![http://sonicrobots.com/2015/04/01/a-multi-usb-webcam-approach-with-open-frameworks/](http://i.imgur.com/XDPpcQx.jpg)
 #
-[] (https://youtu.be/nk4oQDKUXEw)
+![https://youtu.be/nk4oQDKUXEw] (https://youtu.be/nk4oQDKUXEw)
 
-[https://youtu.be/kqoPPkRODSE] (Video Link Performance)
+![https://youtu.be/kqoPPkRODSE] (Video Link Performance)
 
 #Overview
 ‘Madcam‘ is an open frameworks (C++) based project for mixing USB Web Cameras (e.g. the 10$ cheap USB - PS3-Eye Webcam) im realtime. Why this is awesome? Its usually hard and/or expensive to mix many video signals in realtime and display them side by side. We found a way to make it cheap, quick and reliable!
