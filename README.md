@@ -1,4 +1,4 @@
-A multi USB webcam projection approach with open frameworks.
+Many web cams mixed in realtime - on the cheap!
 =====
 ![http://sonicrobots.com/2015/04/01/a-multi-usb-webcam-approach-with-open-frameworks/](http://i.imgur.com/XDPpcQx.jpg)
 #
