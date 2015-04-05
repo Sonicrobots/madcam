@@ -13,6 +13,7 @@ The project is a visual extension for another  project called “Glitchrobot” 
 The goal is set up an VJ setup which is based on live webcam material. One webcam? – Boring! 10 Webcams? – “Unlimited” fun!
 
 So far we use 10 web cams, but the amount can probably be extended. The webcam content is mixed onto one screen, in different tilings and with Video-FX, all in realtime. Tiling and FX can be controlled by Midi and OSC. The system uses Open Frameworks. The allover costs were under 400€ (500$), with the main part being the computer.
+(http://sonicrobots.com/wp-content/uploads/2015/03/IMG_3450-1024x576.jpg)
 #HARDWARE
 The main problem is to get a constant stream of video data into the computer. The bottleneck here is the USB Host controller. One USB Host can theoretically take up to 127 client, but we found out only 1-2 Cameras per host controller (PCI / PICe card) work without glitches and missing frames.
 In the current setup, one host controller can take data from 2 Webcams running at 480×600 resolution at 30FPS. PCI can process less data then PCIExpress, so it is best to build your system on PCIe cards.
