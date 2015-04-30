@@ -232,22 +232,51 @@
    <scene>
       <layout>0</layout>
       <view-mode>1</view-mode>
-      <trigger-mode>0</trigger-mode>
+      <trigger-mode>1</trigger-mode>
       <fx>
-        <type>5</type>
-        <amount-x>100</amount-x>
-        <amount-y>100</amount-y>
+        <type>0</type>
+        <amount-x>0</amount-x>
+        <amount-y>0</amount-y>
       </fx>
+      <slot>0</slot>
+      <slot>1</slot>
+      <slot>2</slot>
+      <slot>3</slot>
+      <slot>4</slot>
+      <slot>5</slot>
+      <slot>6</slot>
+      <slot>7</slot>
+      <slot>8</slot>
       <slot>9</slot>
-      <slot>9</slot>
-      <slot>9</slot>
-      <slot>9</slot>
-      <slot>9</slot>
-      <slot>9</slot>
-      <slot>9</slot>
-      <slot>9</slot>
-      <slot>9</slot>
+      <slot>10</slot>
     </scene>
+
+   <scene>
+      <layout>0</layout>
+      <view-mode>1</view-mode>
+      <trigger-mode>1</trigger-mode>
+      <fx>
+        <type>0</type>
+        <amount-x>0</amount-x>
+        <amount-y>0</amount-y>
+      </fx>
+      <slot>0</slot>
+      <slot>1</slot>
+      <slot>2</slot>
+      <slot>3</slot>
+      <slot>4</slot>
+      <slot>5</slot>
+      <slot>6</slot>
+      <slot>7</slot>
+      <slot>8</slot>
+      <slot>9</slot>
+      <slot>10</slot>
+      <feedback-mode>1</feedback-mode>
+      <alpha>240</alpha>
+      <iterations>9</iterations>
+      <xoffset>43<xoffset>
+      <yoffset>5<yoffset>
+   </scene>
 
    <scene>
       <layout>0</layout>

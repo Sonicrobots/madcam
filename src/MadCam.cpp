@@ -4,6 +4,7 @@
 void MadCam::setup(){
   ofSetVerticalSync(true);
 
+  feedback = false;
   currentCam = 0;
 
   parseConfig();
@@ -34,6 +35,12 @@ MadCam::setScene(int idx)
 
   for (uint i = 0; i < config.sceneMap.at(idx).slots.size(); i++)
     cameras.setSlot(i, config.sceneMap.at(idx).slots.at(i));
+
+  setFeedback(config.sceneMap.at(idx).feedbackMode);
+  setAlpha(config.sceneMap.at(idx).alpha);
+  setIterations(config.sceneMap.at(idx).iterations);
+  setXOffset(config.sceneMap.at(idx).xoffset);
+  setYOffset(config.sceneMap.at(idx).yoffset);
 }
 
 void 
@@ -64,26 +71,42 @@ MadCam::setYOffset(int off)
     yoffset = off;
 }
 
+void 
+MadCam::setFeedback(bool mode)
+{
+  if(mode) {
+    fbo.begin();
+    ofClear(255,255,255,0);
+    fbo.end();
+  }
+  feedback = mode;
+}
+
 //--------------------------------------------------------------
 void MadCam::draw(){
-  fbo.begin();
-  cameras.draw();
-  fbo.end();
-  for(int i = 0; i < iterations; i++) {
-     fbo.begin();
-     ofEnableAlphaBlending();
-     ofSetColor(255,255,255,alpha);
-     fbo.draw(ofRandom(-xoffset,xoffset),ofRandom(-yoffset,yoffset));
-     ofDisableAlphaBlending();
-     fbo.end();
+  if(feedback) {
+    fbo.begin();
+    cameras.draw();
+    fbo.end();
+    for(int i = 0; i < iterations; i++) {
+       fbo.begin();
+       ofEnableAlphaBlending();
+       ofSetColor(255,255,255,alpha);
+       fbo.draw(ofRandom(-xoffset,xoffset),ofRandom(-yoffset,yoffset));
+       ofDisableAlphaBlending();
+       fbo.end();
+    }
+    fbo.draw(0,0);
+  } else {
+    cameras.draw();
   }
-  fbo.draw(0,0);
 }
 
 //--------------------------------------------------------------
 void
 MadCam::windowResized(int w, int h)
 {
+  fbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
   cameras.setDimensions(w, h);
 }
 
@@ -208,6 +231,12 @@ MadCam::parseConfig()
       int amountX   = XML.getValue("scene:fx:amount-x", 0, i);
       int amountY   = XML.getValue("scene:fx:amount-y", 0, i);
 
+      bool feedback = static_cast<bool>(XML.getValue("scene:feedback-mode", 0, i));
+      int alpha     = XML.getValue("scene:alpha", 0, i);
+      int iter      = XML.getValue("scene:iterations", 0, i);
+      int xoffset   = XML.getValue("scene:xoffset", 0, i);
+      int yoffset   = XML.getValue("scene:yoffset", 0, i);
+
       XML.pushTag("scene", i);
 
       uint numSlotTags = XML.getNumTags("slot");
@@ -220,7 +249,20 @@ MadCam::parseConfig()
       }
       XML.popTag();
 
-      sceneMap.push_back({ layout, mode, trigger, fx, amountX, amountY, slots });
+      sceneMap.push_back({ 
+	layout, 
+	mode, 
+	trigger, 
+	fx, 
+	amountX, 
+	amountY, 
+	slots,
+	feedback,
+	alpha,
+	xoffset,
+	yoffset,
+	iter
+      });
     }
   }
 

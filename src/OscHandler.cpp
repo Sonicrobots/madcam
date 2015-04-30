@@ -54,6 +54,13 @@ OscHandler::process()
     if(addr == "/decay")
       application->cameras.setDecay(m.getArgAsInt32(0));
 
+    if(addr == "/fbo") {
+      if(m.getArgAsInt32(0) == 0)
+        application->setFeedback(false);
+      else
+        application->setFeedback(true);
+    }
+
     if(addr == "/iterations")
       application->setIterations(m.getArgAsInt32(0));
 

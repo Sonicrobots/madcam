@@ -21,6 +21,11 @@ struct Scene {
   int           amountX;
   int           amountY;
   vector<int>   slots;
+  bool          feedbackMode;
+  int           alpha;
+  int           xoffset;
+  int           yoffset;
+  int           iterations;
 };
 
 struct Config {

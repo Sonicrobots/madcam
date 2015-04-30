@@ -17,6 +17,7 @@ class MadCam : public ofBaseApp {
   int xoffset;
   int yoffset;
   int alpha;
+  bool feedback;
 
 public:
   void setup();
@@ -35,6 +36,7 @@ public:
   void gotMessage(ofMessage msg);
   void setScene(int idx);
   
+  void setFeedback(bool mode);
   void setIterations(int iter);
   void setAlpha(int alpha);
   void setXOffset(int offs);
