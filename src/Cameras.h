@@ -46,6 +46,10 @@ private:
   bool fxMode;
   bool triggerMode;
 
+  tuple<int,uint> lastTrigger; 
+  uint frameCount;
+  uint triggerTimeout;
+
   int numTiles;
 
   int camWidth;
@@ -59,6 +63,7 @@ private:
 
   int yOffset;
   int xOffset;
+
 
   vector<Camera> cameras;
 

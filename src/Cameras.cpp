@@ -3,11 +3,16 @@
 void
 Cameras::setup()
 {
+  frameCount = 0;
+
   layout = SINGLE;
   viewMode = SCALE;
 
   fxMode = false;
   triggerMode = false;
+
+  lastTrigger = make_tuple(0, frameCount);
+  triggerTimeout = 20;
 
   winWidth  = ofGetWidth();
   winHeight = ofGetHeight();
@@ -69,6 +74,7 @@ Cameras::draw()
       drawMonocle();
       break;
   }
+  frameCount++;
 }
 
 void
@@ -185,7 +191,14 @@ Cameras::calculateHeight()
 void
 Cameras::drawSingle()
 {
-  cameras.at(slots.at(0))
+  int idx;
+
+  if(triggerMode)
+    idx = slots.at(get<0>(lastTrigger));
+  else
+    idx = slots.at(0);
+
+  cameras.at(idx)
       .draw(xOffset, yOffset, 0, scaledWidth, scaledHeight, 0, 0, camWidth, camHeight);
 }
 
@@ -277,6 +290,19 @@ Cameras::trigger()
 void
 Cameras::trigger(int idx)
 {
+  // if the last trigger was triggerTimeout frames in the past
+  uint offset = (frameCount - get<1>(lastTrigger));
+  if(offset >= triggerTimeout) 
+  {
+    // and if last triggered is different, switch
+    if((idx != get<0>(lastTrigger)) && 
+       (idx >= 0 && idx < (int)cameras.size()))
+    {
+      lastTrigger = make_tuple(idx, frameCount);
+      cout << "setting to idx: " << idx << " frame: " << frameCount << endl;
+    }
+  }
+
   if(idx >= 0 && idx < (int)cameras.size())
     cameras.at(idx).trigger();
 }
@@ -291,8 +317,9 @@ Cameras::reset(int idx)
 void
 Cameras::setTriggerMode(bool mode)
 {
+  triggerMode = mode;
   for(uint i=0; i < cameras.size(); i++)
-    cameras.at(i).setTriggerMode(mode);
+    cameras.at(i).setTriggerMode(triggerMode);
 }
 
 void
@@ -351,6 +378,7 @@ Cameras::setSlot(int idx, int cam)
 void
 Cameras::setDecay(int decay)
 {
+  triggerTimeout = decay;
   for(uint i=0; i < cameras.size(); i++)
     cameras.at(i).setDecay(decay);
 }

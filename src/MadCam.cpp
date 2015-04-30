@@ -10,6 +10,7 @@ void MadCam::setup(){
   midiHandler.registerHost(this);
   oscHandler.registerHost(this);
   cameras.setup();
+  fbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
 }
 
 //--------------------------------------------------------------
@@ -35,9 +36,48 @@ MadCam::setScene(int idx)
     cameras.setSlot(i, config.sceneMap.at(idx).slots.at(i));
 }
 
+void 
+MadCam::setIterations(int iter)
+{
+  if(iter >= 0 && iter <= 30)
+    iterations = iter;
+}
+
+void
+MadCam::setAlpha(int al)
+{
+  if(al >= 0 && al <= 255)
+    alpha = al;
+}
+
+void
+MadCam::setXOffset(int off)
+{
+  if(off >= 0 && off <= ofGetWidth())
+    xoffset = off;
+}
+
+void
+MadCam::setYOffset(int off)
+{
+  if(off >= 0 && off <= ofGetWidth())
+    yoffset = off;
+}
+
 //--------------------------------------------------------------
 void MadCam::draw(){
+  fbo.begin();
   cameras.draw();
+  fbo.end();
+  for(int i = 0; i < iterations; i++) {
+     fbo.begin();
+     ofEnableAlphaBlending();
+     ofSetColor(255,255,255,alpha);
+     fbo.draw(ofRandom(-xoffset,xoffset),ofRandom(-yoffset,yoffset));
+     ofDisableAlphaBlending();
+     fbo.end();
+  }
+  fbo.draw(0,0);
 }
 
 //--------------------------------------------------------------

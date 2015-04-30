@@ -10,7 +10,7 @@ MidiHandler::registerHost(MadCam* app)
 
   vector<string> portList = midiIn.getPortList();
 
-  for(int i = 0; i < portList.size(); i++) {
+  for(uint i = 0; i < portList.size(); i++) {
     //if(portList.at(i).compare(0, 9, "USB Uno MIDI Interface") == 0) {
     if(portList.at(i).compare(0, 9, "FastTrack") == 0) {
       cout << "opening " << portList.at(i) << endl;

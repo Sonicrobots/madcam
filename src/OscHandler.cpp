@@ -54,6 +54,18 @@ OscHandler::process()
     if(addr == "/decay")
       application->cameras.setDecay(m.getArgAsInt32(0));
 
+    if(addr == "/iterations")
+      application->setIterations(m.getArgAsInt32(0));
+
+    if(addr == "/alpha")
+      application->setAlpha(m.getArgAsInt32(0));
+
+    if(addr == "/xoffset")
+      application->setXOffset(m.getArgAsInt32(0));
+
+    if(addr == "/yoffset")
+      application->setYOffset(m.getArgAsInt32(0));
+
     if(addr == "/fx/amount/global")
       application->cameras.setFxAmount(m.getArgAsInt32(0), m.getArgAsInt32(1));
 

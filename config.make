@@ -76,7 +76,8 @@ PROJECT_ROOT = .
 # add a runtime path to search for those shared libraries, since they aren't
 # incorporated directly into the final executable application binary.
 ################################################################################
-PROJECT_LDFLAGS=-Wl,-rpath=./libs -pg
+# PROJECT_LDFLAGS=-Wl,-rpath=./libs -pg
+PROJECT_LDFLAGS=-Wl,-rpath=./libs
 
 ################################################################################
 # PROJECT DEFINES
@@ -104,7 +105,7 @@ PROJECT_LDFLAGS=-Wl,-rpath=./libs -pg
 #
 #   Note: Leave a leading space when adding list items with the += operator
 ################################################################################
-PROJECT_CFLAGS = -pg -g
+# PROJECT_CFLAGS = -pg -g
 
 ################################################################################
 # PROJECT OPTIMIZATION CFLAGS
@@ -128,7 +129,7 @@ PROJECT_CFLAGS = -pg -g
 #   Note: Leave a leading space when adding list items with the += operator
 ################################################################################
 PROJECT_OPTIMIZATION_CFLAGS_RELEASE = -O3
-# PROJECT_OPTIMIZATION_CFLAGS_DEBUG =
+# PROJECT_OPTIMIZATION_CFLAGS_DEBUG   =    
 
 ################################################################################
 # PROJECT COMPILERS

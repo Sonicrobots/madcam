@@ -13,6 +13,10 @@
 
 class MadCam : public ofBaseApp {
   int currentCam;
+  int iterations;
+  int xoffset;
+  int yoffset;
+  int alpha;
 
 public:
   void setup();
@@ -30,9 +34,16 @@ public:
   void dragEvent(ofDragInfo dragInfo);
   void gotMessage(ofMessage msg);
   void setScene(int idx);
+  
+  void setIterations(int iter);
+  void setAlpha(int alpha);
+  void setXOffset(int offs);
+  void setYOffset(int offs);
 
   ofxXmlSettings XML;
   void parseConfig();
+
+  ofFbo fbo;
 
   MidiHandler midiHandler;
   OscHandler oscHandler;
