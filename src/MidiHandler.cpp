@@ -11,8 +11,7 @@ MidiHandler::registerHost(MadCam* app)
   vector<string> portList = midiIn.getPortList();
 
   for(uint i = 0; i < portList.size(); i++) {
-    //if(portList.at(i).compare(0, 9, "USB Uno MIDI Interface") == 0) {
-    if(portList.at(i).compare(0, 9, "FastTrack") == 0) {
+    if(portList.at(i).compare(0, 22, "USB Uno MIDI Interface") == 0) {
       cout << "opening " << portList.at(i) << endl;
       midiIn.openPort(portList.at(i));
       midiIn.addListener(this);
@@ -20,6 +19,7 @@ MidiHandler::registerHost(MadCam* app)
       break;
     }
   }
+
   //midiIn.openPort(1);
   //midiIn.openVirtualPort("ofxMidiIn Input"); // open a virtual port
   // don't ignore sysex, timing, & active sense messages,
@@ -37,7 +37,7 @@ MidiHandler::close()
 void
 MidiHandler::newMidiMessage(ofxMidiMessage& msg)
 {
-  if(msg.channel == 2) {
+  if(msg.channel == 11) {
     switch(msg.status) {
       case MIDI_NOTE_ON:
         //if(msg.pitch < grabbers.size())
@@ -135,9 +135,157 @@ MidiHandler::newMidiMessage(ofxMidiMessage& msg)
           application->cameras.setTriggerMode(false);
       }
 
+      if(msg.control == 33) {
+        if(msg.value < 64)
+          application->setFeedback(false);
+        else
+          application->setFeedback(true);
+      }
+
+      if(msg.control == 34) {
+        application->setIterations(msg.value);
+      }
+
+      if(msg.control == 35) {
+        application->setAlpha(msg.value);
+      }
+
+      if(msg.control == 36) {
+        application->setXOffset(msg.value);
+      }
+
+      if(msg.control == 37)
+        application->setYOffset(msg.value);
+
       // set camera in slot
-      if(msg.control > 31 && msg.control < 41)
+      if(msg.control >= 40 && msg.control < 50)
         application->cameras.setColorMode(msg.control - 32, msg.value);
+
+      if(msg.control == 50) 
+        application->cameras.setXFxAmount(msg.value);
+
+      if(msg.control == 51)
+        application->cameras.setYFxAmount(msg.value);
+
+      if(msg.control == 52)
+        application->cameras.setXFxAmount(0, msg.value);
+
+      if(msg.control == 53)
+        application->cameras.setYFxAmount(0, msg.value);
+
+      if(msg.control == 54)
+        application->cameras.setXFxAmount(1, msg.value);
+
+      if(msg.control == 55)
+        application->cameras.setYFxAmount(1, msg.value);
+
+      if(msg.control == 56)
+        application->cameras.setXFxAmount(2, msg.value);
+
+      if(msg.control == 57)
+        application->cameras.setYFxAmount(2, msg.value);
+
+      if(msg.control == 58)
+        application->cameras.setXFxAmount(3, msg.value);
+
+      if(msg.control == 59)
+        application->cameras.setYFxAmount(3, msg.value);
+
+      if(msg.control == 60)
+        application->cameras.setXFxAmount(4, msg.value);
+
+      if(msg.control == 61)
+        application->cameras.setYFxAmount(4, msg.value);
+
+      if(msg.control == 62)
+        application->cameras.setXFxAmount(5, msg.value);
+
+      if(msg.control == 63)
+        application->cameras.setYFxAmount(5, msg.value);
+
+      if(msg.control == 64)
+        application->cameras.setXFxAmount(6, msg.value);
+
+      if(msg.control == 65)
+        application->cameras.setYFxAmount(6, msg.value);
+
+      if(msg.control == 66)
+        application->cameras.setXFxAmount(7, msg.value);
+
+      if(msg.control == 67)
+        application->cameras.setYFxAmount(7, msg.value);
+
+      if(msg.control == 68)
+        application->cameras.setXFxAmount(8, msg.value);
+
+      if(msg.control == 69)
+        application->cameras.setYFxAmount(8, msg.value);
+
+      if(msg.control == 70)
+        application->cameras.setSlot(msg.value);
+
+      if(msg.control == 71)
+        application->cameras.setSlot(0, msg.value);
+
+      if(msg.control == 72)
+        application->cameras.setSlot(1, msg.value);
+
+      if(msg.control == 73)
+        application->cameras.setSlot(2, msg.value);
+
+      if(msg.control == 74)
+        application->cameras.setSlot(3, msg.value);
+
+      if(msg.control == 75)
+        application->cameras.setSlot(4, msg.value);
+
+      if(msg.control == 76)
+        application->cameras.setSlot(5, msg.value);
+
+      if(msg.control == 77)
+        application->cameras.setSlot(6, msg.value);
+
+      if(msg.control == 78)
+        application->cameras.setSlot(7, msg.value);
+
+      if(msg.control == 79)
+        application->cameras.setSlot(8, msg.value);
+
+      if(msg.control == 80)
+        application->cameras.setColorMode(msg.value);
+
+      if(msg.control == 80)
+        application->cameras.setColorMode(msg.value);
+
+      if(msg.control == 81)
+        application->cameras.setColorMode(0, msg.value);
+
+      if(msg.control == 82)
+        application->cameras.setColorMode(1, msg.value);
+
+      if(msg.control == 83)
+        application->cameras.setColorMode(2, msg.value);
+
+      if(msg.control == 84)
+        application->cameras.setColorMode(3, msg.value);
+
+      if(msg.control == 85)
+        application->cameras.setColorMode(4, msg.value);
+
+      if(msg.control == 86)
+        application->cameras.setColorMode(5, msg.value);
+
+      if(msg.control == 87)
+        application->cameras.setColorMode(6, msg.value);
+
+      if(msg.control == 88)
+        application->cameras.setColorMode(7, msg.value);
+
+      if(msg.control == 89)
+        application->cameras.setColorMode(8, msg.value);
+
+      if(msg.control == 90)
+        application->setScene(msg.value);
 
     case MIDI_NOTE_OFF:
       break;

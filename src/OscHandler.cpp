@@ -77,61 +77,61 @@ OscHandler::process()
       application->cameras.setFxAmount(m.getArgAsInt32(0), m.getArgAsInt32(1));
 
     if(addr == "/fx/amount/0")
-      application->cameras.setFxAmount(0 ,m.getArgAsInt32(0), m.getArgAsInt32(1));
-
-    if(addr == "/fx/amount/1")
-      application->cameras.setFxAmount(1 ,m.getArgAsInt32(0), m.getArgAsInt32(1));
-
-    if(addr == "/fx/amount/2")
-      application->cameras.setFxAmount(2 ,m.getArgAsInt32(0), m.getArgAsInt32(1));
-
-    if(addr == "/fx/amount/3")
-      application->cameras.setFxAmount(3 ,m.getArgAsInt32(0), m.getArgAsInt32(1));
-
-    if(addr == "/fx/amount/4")
-      application->cameras.setFxAmount(4 ,m.getArgAsInt32(0), m.getArgAsInt32(1));
-
-    if(addr == "/fx/amount/5")
-      application->cameras.setFxAmount(5 ,m.getArgAsInt32(0), m.getArgAsInt32(1));
-
-    if(addr == "/fx/amount/6")
-      application->cameras.setFxAmount(6 ,m.getArgAsInt32(0), m.getArgAsInt32(1));
-
-    if(addr == "/fx/amount/7")
-      application->cameras.setFxAmount(7 ,m.getArgAsInt32(0), m.getArgAsInt32(1));
-
-    if(addr == "/fx/amount/8")
-      application->cameras.setFxAmount(8 ,m.getArgAsInt32(0), m.getArgAsInt32(1));
+      application->cameras.setFxAmount(0, m.getArgAsInt32(0), m.getArgAsInt32(1));
+                                          
+    if(addr == "/fx/amount/1")            
+      application->cameras.setFxAmount(1, m.getArgAsInt32(0), m.getArgAsInt32(1));
+                                          
+    if(addr == "/fx/amount/2")            
+      application->cameras.setFxAmount(2, m.getArgAsInt32(0), m.getArgAsInt32(1));
+                                          
+    if(addr == "/fx/amount/3")            
+      application->cameras.setFxAmount(3, m.getArgAsInt32(0), m.getArgAsInt32(1));
+                                          
+    if(addr == "/fx/amount/4")            
+      application->cameras.setFxAmount(4, m.getArgAsInt32(0), m.getArgAsInt32(1));
+                                          
+    if(addr == "/fx/amount/5")            
+      application->cameras.setFxAmount(5, m.getArgAsInt32(0), m.getArgAsInt32(1));
+                                          
+    if(addr == "/fx/amount/6")            
+      application->cameras.setFxAmount(6, m.getArgAsInt32(0), m.getArgAsInt32(1));
+                                          
+    if(addr == "/fx/amount/7")            
+      application->cameras.setFxAmount(7, m.getArgAsInt32(0), m.getArgAsInt32(1));
+                                          
+    if(addr == "/fx/amount/8")            
+      application->cameras.setFxAmount(8, m.getArgAsInt32(0), m.getArgAsInt32(1));
 
     if(addr == "/slot/global")
       application->cameras.setSlot(m.getArgAsInt32(0));
 
     if(addr == "/slot/0")
-      application->cameras.setSlot(0 ,m.getArgAsInt32(0));
-
-    if(addr == "/slot/1")
-      application->cameras.setSlot(1 ,m.getArgAsInt32(0));
-
-    if(addr == "/slot/2")
-      application->cameras.setSlot(2 ,m.getArgAsInt32(0));
-
-    if(addr == "/slot/3")
-      application->cameras.setSlot(3 ,m.getArgAsInt32(0));
-
-    if(addr == "/slot/4")
-      application->cameras.setSlot(4 ,m.getArgAsInt32(0));
-
-    if(addr == "/slot/5")
-      application->cameras.setSlot(5 ,m.getArgAsInt32(0));
-
-    if(addr == "/slot/6")
-      application->cameras.setSlot(6 ,m.getArgAsInt32(0));
-
-    if(addr == "/slot/7")
-      application->cameras.setSlot(7 ,m.getArgAsInt32(0));
-
-    if(addr == "/slot/8")
-      application->cameras.setSlot(8 ,m.getArgAsInt32(0));
+      application->cameras.setSlot(0, m.getArgAsInt32(0));
+                                      
+    if(addr == "/slot/1")             
+      application->cameras.setSlot(1, m.getArgAsInt32(0));
+                                      
+    if(addr == "/slot/2")             
+      application->cameras.setSlot(2, m.getArgAsInt32(0));
+                                      
+    if(addr == "/slot/3")             
+      application->cameras.setSlot(3, m.getArgAsInt32(0));
+                                      
+    if(addr == "/slot/4")             
+      application->cameras.setSlot(4, m.getArgAsInt32(0));
+                                      
+    if(addr == "/slot/5")             
+      application->cameras.setSlot(5, m.getArgAsInt32(0));
+                                      
+    if(addr == "/slot/6")             
+      application->cameras.setSlot(6, m.getArgAsInt32(0));
+                                      
+    if(addr == "/slot/7")             
+      application->cameras.setSlot(7, m.getArgAsInt32(0));
+                                      
+    if(addr == "/slot/8")             
+      application->cameras.setSlot(8, m.getArgAsInt32(0));
 
     if(addr == "/color/global")
       application->cameras.setColorMode(m.getArgAsInt32(0));

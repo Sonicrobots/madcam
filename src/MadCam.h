@@ -18,6 +18,7 @@ class MadCam : public ofBaseApp {
   int yoffset;
   int alpha;
   bool feedback;
+  uint frameCount;
 
 public:
   void setup();
@@ -35,6 +36,8 @@ public:
   void dragEvent(ofDragInfo dragInfo);
   void gotMessage(ofMessage msg);
   void setScene(int idx);
+
+  void dumpSettings();
   
   void setFeedback(bool mode);
   void setIterations(int iter);

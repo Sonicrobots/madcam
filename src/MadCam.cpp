@@ -4,6 +4,7 @@
 void MadCam::setup(){
   ofSetVerticalSync(true);
 
+  frameCount = 0;
   feedback = false;
   currentCam = 0;
 
@@ -74,11 +75,14 @@ MadCam::setYOffset(int off)
 void 
 MadCam::setFeedback(bool mode)
 {
-  if(mode) {
-    fbo.begin();
-    ofClear(255,255,255,0);
-    fbo.end();
-  }
+  if(mode && feedback) return;
+
+  // if(mode) {
+  //    fbo.begin();
+  //    ofClear(255,255,255,0);
+  //    fbo.end();
+  // }
+
   feedback = mode;
 }
 
@@ -86,6 +90,7 @@ MadCam::setFeedback(bool mode)
 void MadCam::draw(){
   if(feedback) {
     fbo.begin();
+    ofClear(255,255,255,0);
     cameras.draw();
     fbo.end();
     for(int i = 0; i < iterations; i++) {
@@ -98,8 +103,12 @@ void MadCam::draw(){
     }
     fbo.draw(0,0);
   } else {
+    fbo.begin();
+    ofClear(255,255,255,0);
+    fbo.end();
     cameras.draw();
   }
+  frameCount++;
 }
 
 //--------------------------------------------------------------
@@ -269,11 +278,29 @@ MadCam::parseConfig()
   config = { noteMap, sceneMap };
 }
 
+void
+MadCam::dumpSettings()
+{
+  cerr << "<snip>" << endl;
+
+  cerr << "<feedback-mode>" << (feedback ? "1" : "0") << "</feedback-mode>" << endl;
+  cerr << "<iterations>" << iterations << "</iterations>" << endl;
+  cerr << "<alpha>" << alpha << "</alpha>" << endl;
+  cerr << "<xoffset>" << xoffset << "</xoffset>" << endl;
+  cerr << "<yoffset>" << yoffset << "</yoffset>" << endl;
+  
+  cerr << "</snip>" << endl;
+}
+
+void MadCam::mousePressed(int x, int y, int button) 
+{ 
+  dumpSettings();
+}
+
 void MadCam::dragEvent(ofDragInfo dragInfo){}
 void MadCam::keyReleased(int key){}
 void MadCam::mouseMoved(int x, int y ){}
 void MadCam::mouseDragged(int x, int y, int button){}
-void MadCam::mousePressed(int x, int y, int button){}
 void MadCam::mouseReleased(int x, int y, int button){}
 void MadCam::gotMessage(ofMessage msg) {}
 

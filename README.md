@@ -32,4 +32,26 @@ The setup we build the system upon consists of the following parts, but may be b
   - "VHS Style"   - https://www.shadertoy.com/view/4ss3RX
   - "Filters"     - https://www.shadertoy.com/view/XsX3z8
   
+## Midi Commands
+
+### NoteOn
+
+* Ch. 11, Note 0 - 4 setLayout
+* Ch. 11, All notes in `settings.xml` trigger resp. Camera
+* Ch. 9, CC 20 - 29, set slot to Camera
+* Ch. 9, CC 30, set decay
+* Ch. 9, CC 32, value < 64 trigger mode off, value > 64 trigger mode on
+* Ch. 9, CC 33, value < 64 fbo mode off, value > 64 fbo mode on
+* Ch. 9, CC 34, set iterations (feedback mode) 
+* Ch. 9, CC 35, set alpha (feedback mode)
+* Ch. 9, CC 36, set x-offset (feedback mode)
+* Ch. 9, CC 37, set y-offset (feedback mode)
+* Ch. 9, CC 40 - 49, set color mode for slot to value
+* Ch. 9, CC 50, set global fx amount for X axis
+* Ch. 9, CC 51, set global fx amount for Y axis
+* Ch. 9, CC 52 - 69, set fx amount for x/y on camera
+* Ch. 9, CC 70, set camera on all slots
+* Ch. 9, CC 71 -79, set camera to slot
+* Ch. 9, CC 80, set global color mode  
+* Ch. 9, CC 81 - 89, set global for slot/camera
 

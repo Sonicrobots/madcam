@@ -100,6 +100,18 @@ Camera::setFxAmount(int x, int y)
 }
 
 void
+Camera::setXFxAmount(int x)
+{
+  amountX = x;
+}
+
+void
+Camera::setYFxAmount(int y)
+{
+  amountY = y;
+}
+
+void
 Camera::setColorMode(int mode)
 {
   colorMode = mode;

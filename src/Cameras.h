@@ -27,7 +27,11 @@ public:
 
   void reloadShaders();
   void setFxAmount(int xamount, int yamount);
+  void setXFxAmount(int xamount);
+  void setYFxAmount(int yamount);
   void setFxAmount(int idx, int xamount, int yamount);
+  void setXFxAmount(int idx, int xamount);
+  void setYFxAmount(int idx, int yamount);
   void setColorMode(int mode);
   void setColorMode(int idx, int mode);
   void setSlot(int cam);

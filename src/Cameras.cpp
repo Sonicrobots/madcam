@@ -299,7 +299,7 @@ Cameras::trigger(int idx)
        (idx >= 0 && idx < (int)cameras.size()))
     {
       lastTrigger = make_tuple(idx, frameCount);
-      cout << "setting to idx: " << idx << " frame: " << frameCount << endl;
+      // cout << "setting to idx: " << idx << " frame: " << frameCount << endl;
     }
   }
 
@@ -335,6 +335,34 @@ Cameras::setFxAmount(int idx, int xamount, int yamount)
 {
   if(idx >= 0 && idx < (int)cameras.size())
     cameras.at(idx).setFxAmount(xamount, yamount);
+}
+
+void
+Cameras::setXFxAmount(int xamount)
+{
+  for(uint i=0; i < cameras.size(); i++)
+    cameras.at(i).setXFxAmount(xamount);
+}
+
+void
+Cameras::setYFxAmount(int yamount)
+{
+  for(uint i=0; i < cameras.size(); i++)
+    cameras.at(i).setYFxAmount(yamount);
+}
+
+void
+Cameras::setXFxAmount(int idx, int xamount)
+{
+  if(idx >= 0 && idx < (int)cameras.size())
+    cameras.at(idx).setXFxAmount(xamount);
+}
+
+void
+Cameras::setYFxAmount(int idx, int yamount)
+{
+  if(idx >= 0 && idx < (int)cameras.size())
+    cameras.at(idx).setYFxAmount(yamount);
 }
 
 void
