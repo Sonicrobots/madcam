@@ -207,7 +207,7 @@
       <slot>7</slot>
       <slot>8</slot>
       <slot>9</slot>
-    </scene>
+   </scene>
 
    <scene>
       <layout>0</layout>
@@ -249,7 +249,7 @@
       <slot>8</slot>
       <slot>9</slot>
       <slot>10</slot>
-    </scene>
+   </scene>
 
    <scene>
       <layout>0</layout>
@@ -274,8 +274,8 @@
       <feedback-mode>1</feedback-mode>
       <alpha>240</alpha>
       <iterations>9</iterations>
-      <xoffset>43<xoffset>
-      <yoffset>5<yoffset>
+      <xoffset>43</xoffset>
+      <yoffset>5</yoffset>
    </scene>
 
    <scene>
