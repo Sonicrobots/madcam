@@ -36,8 +36,8 @@ The setup we build the system upon consists of the following parts, but may be b
 
 ### NoteOn
 
-* Ch. 11, Note 0 - 4 setLayout
-* Ch. 11, All notes in `settings.xml` trigger resp. Camera
+* Ch. 9, Note 0 - 4 setLayout
+* Ch. 9, All notes in `settings.xml` trigger resp. Camera
 * Ch. 9, CC 20 - 29, set slot to Camera
 * Ch. 9, CC 30, set decay
 * Ch. 9, CC 32, value < 64 trigger mode off, value > 64 trigger mode on

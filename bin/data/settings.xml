@@ -23,47 +23,61 @@
       <camera>1</camera>
       <position>3</position>
     </mapping>
-
+<!-- FP 2 -->
     <mapping>
       <note>59</note>
-      <camera>2</camera>
-      <position>7</position>
+      <camera>3</camera>
+      <position>2</position>
     </mapping>
 
     <mapping>
       <note>60</note>
-      <camera>2</camera>
-      <position>7</position>
-    </mapping>
-
-    <mapping>
-      <note>48</note>
       <camera>3</camera>
       <position>2</position>
+    </mapping>
+
+<!-- FP 1 -->
+    <mapping>
+      <note>61</note>
+      <camera>8</camera>
+      <position>8</position>
+    </mapping>
+
+<!-- RELAIS -->
+    <mapping>
+      <note>48</note>
+      <camera>4</camera>
+      <position>1</position>
     </mapping>
 
     <mapping>
       <note>49</note>
-      <camera>3</camera>
-      <position>2</position>
+      <camera>4</camera>
+      <position>1</position>
     </mapping>
 
     <mapping>
       <note>50</note>
-      <camera>3</camera>
-      <position>2</position>
+      <camera>4</camera>
+      <position>1</position>
     </mapping>
 
     <mapping>
-      <note>63</note>
+      <note>51</note>
       <camera>4</camera>
       <position>1</position>
+    </mapping>
+<!-- BD 2: -->
+    <mapping>
+      <note>63</note>
+      <camera>5</camera>
+      <position>6</position>
     </mapping>
 
     <mapping>
       <note>72</note>
-      <camera>4</camera>
-      <position>1</position>
+      <camera>5</camera>
+      <position>6</position>
     </mapping>
 
     <mapping>
@@ -74,20 +88,14 @@
 
     <mapping>
       <note>74</note>
-      <camera>4</camera>
-      <position>1</position>
-    </mapping>
-
-    <mapping>
-      <note>61</note>
       <camera>5</camera>
       <position>6</position>
     </mapping>
 
     <mapping>
       <note>61</note>
-      <camera>5</camera>
-      <position>6</position>
+      <camera>6</camera>
+      <position>5</position>
     </mapping>
 
     <mapping>
@@ -134,14 +142,14 @@
 
     <mapping>
       <note>76</note>
-      <camera>7</camera>
-      <position>8</position>
+      <camera>8</camera>
+      <position>0</position>
     </mapping>
 
     <mapping>
       <note>64</note>
-      <camera>8</camera>
-      <position>0</position>
+      <camera>2</camera>
+      <position>7</position>
     </mapping>
   </midi>
 
