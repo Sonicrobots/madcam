@@ -52,7 +52,7 @@ Cameras::setup(vector<tuple<string,int>> camMap)
       for(uint n = 0; n < camMap.size(); n++) {
         auto mapping = camMap.at(n);
         auto cfg = get<0>(mapping);
-        if(cfg.compare(0, path.size(), path.c_str(), cfg.size())) 
+        if(cfg.compare(0, path.size(), path.c_str(), cfg.size()) == 0) 
         {
 	      Camera grabber;
 	      grabber.setDeviceID(devices[i].id);
