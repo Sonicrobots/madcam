@@ -10,7 +10,7 @@ The goal is set up an VJ setup which is based on webcam material. So far we used
 - OpenGL shaders for filters and FX
 - UVC Video Compatible (Linux Video driver) e.g. the very cheap and high frame rate USB Webcams "PS3 Eye"
 - Different tilings: One cam full screen, 2-9 Cams tiling.
-- Decay Filter: Apply an OpenGL Shader to create an "fade out" effect on a single cam image, whenever a certain Midi Note is triggered
+- Decay Filter: Apply Aan OpenGL Shader to create an "fade out" effect on a single cam image, whenever a certain Midi Note is triggered
 - Midi and OSC Controls
   - Control and switch the tilings with midi notes!
   - Control the cam assignment with MIDI CC commands
