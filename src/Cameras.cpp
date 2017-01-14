@@ -28,7 +28,7 @@ Cameras::setup()
   vector<ofVideoDevice> devices = initGrabber.listDevices();
 
   for(uint i = 0; i < devices.size(); i++){
-    // devices.at(i).hardwareName
+    cout << devices.at(i).hardwareName << endl;
     if(devices.at(i).deviceName == "USB Camera-B4.09.24.1") {
       Camera grabber;
       grabber.setDeviceID(devices[i].id);

@@ -11,7 +11,8 @@ MidiHandler::registerHost(MadCam* app)
   vector<string> portList = midiIn.getPortList();
 
   for(uint i = 0; i < portList.size(); i++) {
-    if(portList.at(i).compare(0, 22, "USB Uno MIDI Interface") == 0) {
+    //if(portList.at(i).compare(0, 22, "USB Uno MIDI Interface") == 0) {
+    if(portList.at(i).compare(0, 24, "USB MS1x1 MIDI Interface") == 0) {
       cout << "opening " << portList.at(i) << endl;
       midiIn.openPort(portList.at(i));
       midiIn.addListener(this);
@@ -37,7 +38,7 @@ MidiHandler::close()
 void
 MidiHandler::newMidiMessage(ofxMidiMessage& msg)
 {
-  if(msg.channel == 11) {
+  if(msg.channel == 9) {
     switch(msg.status) {
       case MIDI_NOTE_ON:
         //if(msg.pitch < grabbers.size())
@@ -129,14 +130,14 @@ MidiHandler::newMidiMessage(ofxMidiMessage& msg)
 
       // turn on trigger mode
       if(msg.control == 32) {
-        if(msg.value < 64)
+        if(msg.value > 1)
           application->cameras.setTriggerMode(true);
         else
           application->cameras.setTriggerMode(false);
       }
 
       if(msg.control == 33) {
-        if(msg.value < 64)
+        if(msg.value < 2)
           application->setFeedback(false);
         else
           application->setFeedback(true);
