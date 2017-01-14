@@ -29,6 +29,7 @@ struct Scene {
 };
 
 struct Config {
+  vector<tuple<string,int>> camMap;
   vector<tuple<int,int>> noteMap;
   vector<Scene> sceneMap;
 };

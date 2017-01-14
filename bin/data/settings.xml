@@ -1,4 +1,14 @@
 <settings>
+  <cameras>
+    <mapping>
+      <id>pci-0000_00_13_2-usb-0_2_1_0</id>
+      <index>0</index>
+    </mapping>
+    <mapping>
+      <id>pci-0000_04_00_0-usb-0_1_1_0</id>
+      <index>1</index>
+    </mapping>
+  </cameras>
   <midi>
     <mapping>
       <note>77</note>

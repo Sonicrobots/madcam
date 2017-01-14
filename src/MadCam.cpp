@@ -11,7 +11,7 @@ void MadCam::setup(){
   parseConfig();
   midiHandler.registerHost(this);
   oscHandler.registerHost(this);
-  cameras.setup();
+  cameras.setup(config.camMap);
   fbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
 }
 
@@ -208,19 +208,36 @@ MadCam::parseConfig()
   else
     cout << "settings.xml NOT loaded!" << endl;
 
+  vector<tuple<string,int>> camMap;
   vector<tuple<int,int>> noteMap;
   vector<Scene> sceneMap;
 
-  // MIDI SETUP
   XML.pushTag("settings",0);
-  XML.pushTag("midi",0);
+  
+  // CAMERA SETUP
+  XML.pushTag("cameras",0);
 
   uint numMappingTags = XML.getNumTags("mapping");
 
   if(numMappingTags > 0) {
     for(uint i = 0; i < numMappingTags; i++) {
-      int note = XML.getValue("mapping:note",    0,i);
-      int cam  = XML.getValue("mapping:position",0,i);
+      string path = XML.getValue("mapping:id","",i);
+      int index = XML.getValue("mapping:index",0,i);
+      camMap.push_back(make_tuple(path,index));
+    }
+  }
+
+  XML.popTag();
+
+  // MIDI SETUP
+  XML.pushTag("midi",0);
+
+  numMappingTags = XML.getNumTags("mapping");
+
+  if(numMappingTags > 0) {
+    for(uint i = 0; i < numMappingTags; i++) {
+      int note = XML.getValue("mapping:note",0,i);
+      int cam = XML.getValue("mapping:camera",0,i);
       noteMap.push_back(make_tuple(note, cam));
      }
   }
@@ -275,7 +292,7 @@ MadCam::parseConfig()
     }
   }
 
-  config = { noteMap, sceneMap };
+  config = { camMap, noteMap, sceneMap };
 }
 
 void

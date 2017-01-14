@@ -1,7 +1,22 @@
 #include "Cameras.h"
 
+string 
+Cameras::getPhysicalPath(string device)
+{
+    std::string cmd = "udevadm info " + device + " | grep ID_PATH_TAG | cut -d\= -f 2"; 
+    std::array<char, 128> buffer;
+    std::string result;
+    std::shared_ptr<FILE> pipe(popen(cmd.c_str(), "r"), pclose);
+    if (!pipe) throw std::runtime_error("popen() failed!");
+    while (!feof(pipe.get())) {
+        if (fgets(buffer.data(), 128, pipe.get()) != NULL)
+            result += buffer.data();
+    }
+    return result;
+}
+
 void
-Cameras::setup()
+Cameras::setup(vector<tuple<string,int>> camMap)
 {
   frameCount = 0;
 
@@ -27,16 +42,28 @@ Cameras::setup()
   ofVideoGrabber initGrabber;
   vector<ofVideoDevice> devices = initGrabber.listDevices();
 
+  cameras.reserve(camMap.size());
+
   for(uint i = 0; i < devices.size(); i++){
-    cout << devices.at(i).hardwareName << endl;
     if(devices.at(i).deviceName == "USB Camera-B4.09.24.1") {
-      Camera grabber;
-      grabber.setDeviceID(devices[i].id);
-      grabber.setFPS(30);
-      grabber.setup(camWidth,camHeight);
-      cameras.push_back(grabber);
-      slots.push_back(camCount);
-      camCount++;
+      string path = getPhysicalPath(devices.at(i).hardwareName);
+      cout << "ID_PATH_TAG of device " << devices.at(i).hardwareName << " is " << path << endl;
+      
+      for(uint n = 0; n < camMap.size(); n++) {
+        auto mapping = camMap.at(n);
+        auto cfg = get<0>(mapping);
+        if(cfg.compare(0, path.size(), path.c_str(), cfg.size())) 
+        {
+	      Camera grabber;
+	      grabber.setDeviceID(devices[i].id);
+	      grabber.setFPS(30);
+	      grabber.setup(camWidth,camHeight);
+              auto it = cameras.begin();
+	      cameras.insert(it + get<1>(mapping), grabber);
+	      slots.push_back(camCount);
+	      camCount++;
+        }
+      }
     }
   }
 
@@ -122,7 +149,6 @@ Cameras::setLayout(Layout l)
   layout = l;
   recalculate();
 }
-
 
 void
 Cameras::setDimensions(int width, int height)
@@ -304,7 +330,7 @@ Cameras::trigger(int idx)
   }
 
   if(idx >= 0 && idx < (int)cameras.size())
-    cameras.at(idx).trigger();
+    cameras.at(idx).trigger();    
 }
 
 void

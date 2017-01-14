@@ -7,9 +7,11 @@
 
 class Cameras {
 public:
-  void setup();
+  void setup(vector<tuple<string,int>> camMap);
   void update();
   void draw();
+
+  string getPhysicalPath(string device); 
 
   void setViewMode(ViewMode mode);
   void setLayout(Layout layout);
