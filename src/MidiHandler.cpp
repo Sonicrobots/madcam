@@ -6,12 +6,12 @@ MidiHandler::registerHost(MadCam* app)
 {
   application = app;
 
-  midiIn.listPorts();
+  midiIn.listInPorts();
 
-  vector<string> portList = midiIn.getPortList();
+  vector<string> portList = midiIn.getInPortList();
 
   for(uint i = 0; i < portList.size(); i++) {
-    //if(portList.at(i).compare(0, 22, "USB Uno MIDI Interface") == 0) {
+   // if(portList.at(i).compare(0, 22, "USB Uno MIDI Interface") == 0) {
     if(portList.at(i).compare(0, 24, "USB MS1x1 MIDI Interface") == 0) {
       cout << "opening " << portList.at(i) << endl;
       midiIn.openPort(portList.at(i));

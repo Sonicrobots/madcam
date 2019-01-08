@@ -20,7 +20,7 @@ struct Scene {
   int           fx;
   int           amountX;
   int           amountY;
-  vector<int>   slots;
+  std::vector<int>   slots;
   bool          feedbackMode;
   int           alpha;
   int           xoffset;
@@ -29,9 +29,9 @@ struct Scene {
 };
 
 struct Config {
-  vector<tuple<string,int>> camMap;
-  vector<tuple<int,int>> noteMap;
-  vector<Scene> sceneMap;
+	std::vector<std::tuple<std::string,int>> camMap;
+  	std::vector<std::tuple<int,int>> noteMap;
+  	std::vector<Scene> sceneMap;
 };
 
 #endif
